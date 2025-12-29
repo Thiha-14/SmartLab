@@ -1,6 +1,7 @@
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { UsersRound, Plus, MoreVertical, Search, CheckCircle2, X, Check, ArrowRight } from 'lucide-react';
+import { UsersRound, Plus, X, Check, ArrowRight } from 'lucide-react';
 import { Group, User } from '../types';
 
 const GroupManagement: React.FC = () => {
@@ -21,7 +22,7 @@ const GroupManagement: React.FC = () => {
   };
 
   const toggleUser = (id: string) => {
-    setSelectedUsers(prev => 
+    setSelectedUsers(prev =>
       prev.includes(id) ? prev.filter(uid => uid !== id) : [...prev, id]
     );
   };
@@ -52,7 +53,7 @@ const GroupManagement: React.FC = () => {
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">Teams & Clusters</h2>
           <p className="text-sm text-slate-500 font-medium">Managing bulk permissions for {groups.length} collaborative units.</p>
         </div>
-        <button onClick={() => setModalOpen(true)} className="bg-blue-600 text-white px-8 py-4 rounded-[24px] font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-2">
+        <button onClick={() => setModalOpen(true)} className="bg-blue-600 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-2">
           <Plus size={20} /> Form Cluster
         </button>
       </div>
@@ -68,7 +69,7 @@ const GroupManagement: React.FC = () => {
                 <X size={20} />
               </button>
             </div>
-            
+
             <h3 className="text-2xl font-black text-slate-900 mb-2 leading-tight">{group.name}</h3>
             <p className="text-sm text-slate-400 font-bold uppercase tracking-widest mb-8">{group.userIds.length} Registered Nodes</p>
 
@@ -89,34 +90,34 @@ const GroupManagement: React.FC = () => {
                 )}
               </div>
               <button className="flex items-center gap-1.5 text-sm font-black text-blue-600 hover:translate-x-1 transition-transform">
-                Configure <ArrowRight size={16}/>
+                Configure <ArrowRight size={16} />
               </button>
             </div>
           </div>
         ))}
         {groups.length === 0 && (
-           <div className="col-span-full py-20 text-center border-4 border-dashed border-slate-50 rounded-[48px]">
-              <p className="text-slate-300 font-black text-xl uppercase tracking-[0.2em]">No Research Teams Defined</p>
-           </div>
+          <div className="col-span-full py-20 text-center border-4 border-dashed border-slate-50 rounded-[48px]">
+            <p className="text-slate-300 font-black text-xl uppercase tracking-[0.2em]">No Research Teams Defined</p>
+          </div>
         )}
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
           <div className="bg-white w-full max-w-2xl rounded-[48px] shadow-2xl overflow-hidden p-10 animate-in zoom-in-95 duration-300">
             <div className="flex justify-between items-center mb-10">
               <h2 className="text-3xl font-black text-slate-900">Cluster Forge</h2>
-              <button onClick={() => setModalOpen(false)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24}/></button>
+              <button onClick={() => setModalOpen(false)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24} /></button>
             </div>
-            
+
             <div className="space-y-8">
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Team Designation</label>
-                <input 
-                  value={newGroupName} 
+                <input
+                  value={newGroupName}
                   onChange={e => setNewGroupName(e.target.value)}
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-[28px] outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white transition-all font-bold text-lg" 
-                  placeholder="e.g. Sub-Zero Simulation Unit" 
+                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-[28px] outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white transition-all font-bold text-lg"
+                  placeholder="e.g. Sub-Zero Simulation Unit"
                 />
               </div>
 
@@ -125,15 +126,15 @@ const GroupManagement: React.FC = () => {
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Enlist Researchers</label>
                   <span className="text-[10px] font-black text-blue-600 uppercase tracking-widest">{selectedUsers.length} Selected</span>
                 </div>
-                <div className="max-h-64 overflow-y-auto border border-slate-50 rounded-[32px] bg-slate-50/30 p-2 divide-y divide-slate-50">
+                <div className="max-h-64 overflow-y-auto border border-slate-50 rounded-4xl bg-slate-50/30 p-2 divide-y divide-slate-50">
                   {users.map((user) => (
                     <label key={user.id} className="flex items-center gap-4 p-4 hover:bg-white rounded-2xl cursor-pointer transition-all group">
                       <div className={`w-6 h-6 rounded-lg border-2 flex items-center justify-center transition-all ${selectedUsers.includes(user.id) ? 'bg-blue-600 border-blue-600' : 'bg-white border-slate-200'}`}>
                         {selectedUsers.includes(user.id) && <Check size={14} className="text-white" />}
                       </div>
-                      <input 
-                        type="checkbox" 
-                        className="hidden" 
+                      <input
+                        type="checkbox"
+                        className="hidden"
                         checked={selectedUsers.includes(user.id)}
                         onChange={() => toggleUser(user.id)}
                       />
@@ -148,9 +149,9 @@ const GroupManagement: React.FC = () => {
             </div>
 
             <div className="flex gap-4 mt-12">
-              <button onClick={() => setModalOpen(false)} className="flex-1 py-5 font-black text-slate-500 hover:bg-slate-50 rounded-[32px] transition-colors">Discard</button>
-              <button onClick={handleCreateGroup} className="flex-1 py-5 bg-blue-600 text-white rounded-[32px] font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
-                Establish Team <Check size={20}/>
+              <button onClick={() => setModalOpen(false)} className="flex-1 py-5 font-black text-slate-500 hover:bg-slate-50 rounded-4xl transition-colors">Discard</button>
+              <button onClick={handleCreateGroup} className="flex-1 py-5 bg-blue-600 text-white rounded-4xl font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center gap-3">
+                Establish Team <Check size={20} />
               </button>
             </div>
           </div>

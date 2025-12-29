@@ -1,6 +1,5 @@
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ForgotPassword from './pages/ForgotPassword';
@@ -24,10 +23,10 @@ const initStorage = () => {
       description: 'A dedicated space for studying modern particles and physics experiments.',
       location: 'Building A, Room 101',
       features: ['Vacuum Chamber', 'Cryogenics'],
-      media: [{ 
-        id: 'm1', 
-        url: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800', 
-        type: 'image', 
+      media: [{
+        id: 'm1',
+        url: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&q=80&w=800',
+        type: 'image',
         name: 'Quantum Lab',
         // Fix: Added required uploadProgress property
         uploadProgress: 100
@@ -39,10 +38,10 @@ const initStorage = () => {
       description: 'A lab focused on DNA testing and general biology research.',
       location: 'Building B, Room 202',
       features: ['Centrifuge', 'Microscopes'],
-      media: [{ 
-        id: 'm2', 
-        url: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800', 
-        type: 'image', 
+      media: [{
+        id: 'm2',
+        url: 'https://images.unsplash.com/photo-1576086213369-97a306d36557?auto=format&fit=crop&q=80&w=800',
+        type: 'image',
         name: 'Biology Lab',
         // Fix: Added required uploadProgress property
         uploadProgress: 100
@@ -56,7 +55,7 @@ const initStorage = () => {
     // Check if the current lab 1 image is the old broken one and fix it
     const existingLabs = JSON.parse(localStorage.getItem('sl_labs') || '[]');
     if (existingLabs.length > 0 && existingLabs[0].media[0].url.includes('photo-1581093458791')) {
-       localStorage.setItem('sl_labs', JSON.stringify(defaultLabs));
+      localStorage.setItem('sl_labs', JSON.stringify(defaultLabs));
     }
   }
 
@@ -159,26 +158,43 @@ const App: React.FC = () => {
     );
   }
 
+  const renderContent = () => {
+    if (!user) return <Login onLogin={handleLogin} />;
+
+    switch (true) {
+      case window.location.hash === '#/language':
+        return <LanguageSelection />;
+      case window.location.hash === '#/login':
+        return <Login onLogin={handleLogin} />;
+      case window.location.hash === '#/signup':
+        return <Signup />;
+      case window.location.hash === '#/forgot-password':
+        return <ForgotPassword />;
+      case window.location.hash === '#/':
+        return <Layout user={user} onLogout={handleLogout}><Dashboard /></Layout>;
+      case window.location.hash === '#/labs':
+        return <Layout user={user} onLogout={handleLogout}><LabManagement role={user.role || UserRole.USER} /></Layout>;
+      case window.location.hash === '#/scheduling':
+        return <Layout user={user} onLogout={handleLogout}><Scheduling /></Layout>;
+      case window.location.hash === '#/users':
+        return <Layout user={user} onLogout={handleLogout}><UserManagement /></Layout>;
+      case window.location.hash === '#/off-days':
+        return <Layout user={user} onLogout={handleLogout}><OffDays /></Layout>;
+      case window.location.hash === '#/groups':
+        return <Layout user={user} onLogout={handleLogout}><GroupManagement /></Layout>;
+      default:
+        return user ? <Layout user={user} onLogout={handleLogout}><Dashboard /></Layout> : <Login onLogin={handleLogin} />;
+    }
+  };
+
   return (
-    <HashRouter>
-      <Routes>
-        <Route path="/language" element={<LanguageSelection />} />
-        <Route path="/login" element={!user ? <Login onLogin={handleLogin} /> : <Navigate to="/" />} />
-        <Route path="/signup" element={!user ? <Signup /> : <Navigate to="/" />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-
-        <Route element={user ? <Layout user={user} onLogout={handleLogout} /> : <Navigate to="/login" />}>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/labs" element={<LabManagement role={user?.role || UserRole.USER} />} />
-          <Route path="/scheduling" element={<Scheduling />} />
-          <Route path="/users" element={<UserManagement />} />
-          <Route path="/off-days" element={<OffDays />} />
-          <Route path="/groups" element={<GroupManagement />} />
-        </Route>
-
-        <Route path="*" element={<Navigate to={user ? "/" : "/login"} />} />
-      </Routes>
-    </HashRouter>
+    <div>
+      {window.location.hash === '#/language' && <LanguageSelection />}
+      {!window.location.hash.startsWith('#/language') && !window.location.hash.startsWith('#/login') && !window.location.hash.startsWith('#/signup') && !window.location.hash.startsWith('#/forgot-password') && renderContent()}
+      {(window.location.hash.startsWith('#/login') || window.location.hash === '') && !user && <Login onLogin={handleLogin} />}
+      {window.location.hash.startsWith('#/signup') && !user && <Signup />}
+      {window.location.hash.startsWith('#/forgot-password') && <ForgotPassword />}
+    </div>
   );
 };
 

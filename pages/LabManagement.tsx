@@ -1,22 +1,28 @@
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Plus, Search, Trash2, X, MapPin, FlaskConical, Cpu, ShieldCheck, ChevronRight, Check
+import {
+  Plus, Search, Trash2, X, MapPin, FlaskConical, Cpu, ShieldCheck
 } from 'lucide-react';
-import { Lab, UserRole, Equipment, Allowance } from '../types';
+import { Lab, UserRole, Equipment } from '../types';
+import { useLanguage } from '@/app/LanguageContext';
+import { getTranslation, LanguageCode } from '@/translations';
 
 interface LabManagementProps {
   role: UserRole;
 }
 
 const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
+  const { currentLanguage } = useLanguage();
+  const t = getTranslation(currentLanguage.code as LanguageCode);
+
   const [activeTab, setActiveTab] = useState<'details' | 'equipment' | 'allowances'>('details');
   const [isModalOpen, setModalOpen] = useState(false);
   const [isEqModalOpen, setEqModalOpen] = useState(false);
   const [labs, setLabs] = useState<Lab[]>([]);
   const [equipment, setEquipment] = useState<Equipment[]>([]);
-  
-  const [newLab, setNewLab] = useState({ name: '', description: '', location: '' });
+
+  const [newLab, setNewLab] = useState({ name: '', description: '', location: '', photoUrl: '' });
   const [newEq, setNewEq] = useState({ name: '', manufacturer: '', model: '', serialNumber: '', nextCalibrationDate: '' });
 
   useEffect(() => {
@@ -41,16 +47,16 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
       description: newLab.description || 'Standard lab facility.',
       location: newLab.location || 'Main Building',
       features: ['Basic Equipment'],
-      media: [{ 
-        id: 'm-new', 
-        url: 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800', 
-        type: 'image', 
+      media: [{
+        id: 'm-new',
+        url: newLab.photoUrl || 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800',
+        type: 'image',
         name: 'New Lab',
         uploadProgress: 100
       }]
     };
     saveLabs([...labs, item]);
-    setNewLab({ name: '', description: '', location: '' });
+    setNewLab({ name: '', description: '', location: '', photoUrl: '' });
     setModalOpen(false);
   };
 
@@ -93,11 +99,10 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`flex items-center gap-2 pb-4 text-xs md:text-sm font-bold transition-all relative whitespace-nowrap ${
-              activeTab === tab.id ? 'text-blue-600' : 'text-slate-400'
-            }`}
+            className={`flex items-center gap-2 pb-4 text-xs md:text-sm font-bold transition-all relative whitespace-nowrap ${activeTab === tab.id ? 'text-blue-600' : 'text-slate-400'
+              }`}
           >
-            <tab.icon size={16} className="md:w-[18px] md:h-[18px]" />
+            <tab.icon size={16} className="md:w-4.5 md:h-4.5" />
             {tab.label}
             {activeTab === tab.id && <div className="absolute bottom-0 left-0 right-0 h-0.5 md:h-1 bg-blue-600 rounded-full"></div>}
           </button>
@@ -120,7 +125,7 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {labs.map(lab => (
-              <div key={lab.id} className="bg-white rounded-[28px] md:rounded-[32px] border border-slate-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
+              <div key={lab.id} className="bg-white rounded-[28px] md:rounded-4xl border border-slate-100 shadow-sm overflow-hidden group hover:shadow-lg transition-all duration-300">
                 <div className="h-44 md:h-52 bg-slate-50 relative overflow-hidden">
                   {lab.media[0] ? (
                     <img src={lab.media[0].url} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt={lab.name} />
@@ -128,7 +133,7 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
                     <div className="w-full h-full flex items-center justify-center text-slate-200"><FlaskConical size={48} /></div>
                   )}
                   <div className="absolute top-4 right-4 flex gap-2 sm:opacity-0 group-hover:opacity-100 transition-all">
-                    <button onClick={() => deleteLab(lab.id)} className="p-2 md:p-3 bg-white/90 text-rose-600 rounded-xl shadow-md"><Trash2 size={16}/></button>
+                    <button onClick={() => deleteLab(lab.id)} className="p-2 md:p-3 bg-white/90 text-rose-600 rounded-xl shadow-md"><Trash2 size={16} /></button>
                   </div>
                 </div>
                 <div className="p-5 md:p-6">
@@ -148,7 +153,7 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
       )}
 
       {activeTab === 'equipment' && (
-        <div className="bg-white rounded-[28px] md:rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-[28px] md:rounded-4xl border border-slate-100 shadow-sm overflow-hidden">
           <div className="p-6 md:p-8 border-b border-slate-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div>
               <h3 className="text-lg md:text-xl font-bold text-slate-900">Equipment List</h3>
@@ -159,7 +164,7 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
             </button>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full text-left min-w-[600px]">
+            <table className="w-full text-left min-w-150">
               <thead>
                 <tr className="bg-slate-50 text-[10px] font-bold text-slate-400 uppercase border-b border-slate-100">
                   <th className="px-6 md:px-8 py-4 md:py-5 tracking-widest">Name</th>
@@ -184,10 +189,10 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
                       <span className="font-mono text-[10px] md:text-xs font-bold text-blue-600 bg-blue-50 px-2 md:px-3 py-1 rounded-full">{item.serialNumber}</span>
                     </td>
                     <td className="px-6 md:px-8 py-4 md:py-6">
-                       <span className="text-xs md:text-sm font-bold text-slate-700">{item.nextCalibrationDate}</span>
+                      <span className="text-xs md:text-sm font-bold text-slate-700">{item.nextCalibrationDate}</span>
                     </td>
                     <td className="px-6 md:px-8 py-4 md:py-6 text-right">
-                      <button onClick={() => deleteEq(item.id)} className="p-2 text-slate-300 hover:text-rose-600 transition-all"><Trash2 size={16}/></button>
+                      <button onClick={() => deleteEq(item.id)} className="p-2 text-slate-300 hover:text-rose-600 transition-all"><Trash2 size={16} /></button>
                     </td>
                   </tr>
                 ))}
@@ -199,25 +204,60 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
 
       {/* Add Lab Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-lg rounded-[28px] md:rounded-[32px] shadow-2xl overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white w-full max-w-lg rounded-[28px] md:rounded-4xl shadow-2xl overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
             <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add New Lab Room</h2>
-              <button onClick={() => setModalOpen(false)} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20}/></button>
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900">{t.labManagement.addNewLab}</h2>
+              <button onClick={() => setModalOpen(false)} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20} /></button>
             </div>
             <div className="space-y-4 md:space-y-6">
               <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Lab Name</label>
-                <input type="text" value={newLab.name} onChange={(e) => setNewLab({...newLab, name: e.target.value})} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="e.g. Physics Lab 1" />
+                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">{t.labManagement.labName}</label>
+                <input type="text" value={newLab.name} onChange={(e) => setNewLab({ ...newLab, name: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder={t.labManagement.labNamePlaceholder} />
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">About the Lab</label>
-                <textarea value={newLab.description} onChange={(e) => setNewLab({...newLab, description: e.target.value})} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold min-h-[80px] md:min-h-[100px] focus:border-blue-400 text-sm" placeholder="Enter details..." />
+                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">{t.labManagement.aboutLab}</label>
+                <textarea value={newLab.description} onChange={(e) => setNewLab({ ...newLab, description: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold min-h-20 md:min-h-25 focus:border-blue-400 text-sm" placeholder={t.labManagement.aboutLabPlaceholder} />
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">{t.labManagement.labPhoto}</label>
+                <div className="flex flex-col gap-3">
+                  {newLab.photoUrl && (
+                    <div className="relative w-full h-40 rounded-2xl overflow-hidden border border-slate-100">
+                      <img src={newLab.photoUrl} alt="Lab preview" className="w-full h-full object-cover" />
+                      <button
+                        onClick={() => setNewLab({ ...newLab, photoUrl: '' })}
+                        className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
+                  )}
+                  <input
+                    type="text"
+                    value={newLab.photoUrl}
+                    onChange={(e) => setNewLab({ ...newLab, photoUrl: e.target.value })}
+                    className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm"
+                    placeholder={t.labManagement.photoUrlPlaceholder}
+                  />
+                </div>
+              </div>
+              <div className="space-y-2">
+                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest flex items-center gap-1">
+                  <MapPin size={12} /> {t.labManagement.labLocation}
+                </label>
+                <input
+                  type="text"
+                  value={newLab.location}
+                  onChange={(e) => setNewLab({ ...newLab, location: e.target.value })}
+                  className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm"
+                  placeholder={t.labManagement.locationPlaceholder}
+                />
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-10">
-              <button onClick={() => setModalOpen(false)} className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-bold text-slate-500 rounded-2xl hover:bg-slate-50 transition-all uppercase text-[10px] md:text-xs tracking-widest">Cancel</button>
-              <button onClick={handleAddLab} className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all uppercase text-[10px] md:text-xs tracking-widest">Save Lab</button>
+              <button onClick={() => { setNewLab({ name: '', description: '', location: '', photoUrl: '' }); setModalOpen(false); }} className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-bold text-slate-500 rounded-2xl hover:bg-slate-50 transition-all uppercase text-[10px] md:text-xs tracking-widest">{t.labManagement.cancel}</button>
+              <button onClick={handleAddLab} className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all uppercase text-[10px] md:text-xs tracking-widest">{t.labManagement.saveLab}</button>
             </div>
           </div>
         </div>
@@ -225,32 +265,32 @@ const LabManagement: React.FC<LabManagementProps> = ({ role }) => {
 
       {/* Add Equipment Modal */}
       {isEqModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
-           <div className="bg-white w-full max-w-lg rounded-[28px] md:rounded-[32px] shadow-2xl overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
-              <div className="flex justify-between items-center mb-6 md:mb-10">
-                <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add Equipment</h2>
-                <button onClick={() => setEqModalOpen(false)} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20}/></button>
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-sm animate-in fade-in duration-300">
+          <div className="bg-white w-full max-w-lg rounded-[28px] md:rounded-4xl shadow-2xl overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
+            <div className="flex justify-between items-center mb-6 md:mb-10">
+              <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add Equipment</h2>
+              <button onClick={() => setEqModalOpen(false)} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20} /></button>
+            </div>
+            <div className="space-y-4 md:space-y-5">
+              <div className="space-y-1">
+                <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Name</label>
+                <input value={newEq.name} onChange={e => setNewEq({ ...newEq, name: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="e.g. Microscope A1" />
               </div>
-              <div className="space-y-4 md:space-y-5">
-                 <div className="space-y-1">
-                    <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Name</label>
-                    <input value={newEq.name} onChange={e => setNewEq({...newEq, name: e.target.value})} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="e.g. Microscope A1"/>
-                 </div>
-                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1">
-                      <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Serial</label>
-                      <input value={newEq.serialNumber} onChange={e => setNewEq({...newEq, serialNumber: e.target.value})} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="SN-XXXX"/>
-                    </div>
-                    <div className="space-y-1">
-                      <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Calibration Date</label>
-                      <input type="date" value={newEq.nextCalibrationDate} onChange={e => setNewEq({...newEq, nextCalibrationDate: e.target.value})} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm"/>
-                    </div>
-                 </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1">
+                  <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Serial</label>
+                  <input value={newEq.serialNumber} onChange={e => setNewEq({ ...newEq, serialNumber: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="SN-XXXX" />
+                </div>
+                <div className="space-y-1">
+                  <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Calibration Date</label>
+                  <input type="date" value={newEq.nextCalibrationDate} onChange={e => setNewEq({ ...newEq, nextCalibrationDate: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" />
+                </div>
               </div>
-              <button onClick={handleAddEquipment} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-zinc-950 text-white rounded-2xl font-bold shadow-lg hover:bg-zinc-800 transition-all uppercase text-[10px] md:text-xs tracking-widest">
-                 Add to Inventory
-              </button>
-           </div>
+            </div>
+            <button onClick={handleAddEquipment} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-zinc-950 text-white rounded-2xl font-bold shadow-lg hover:bg-zinc-800 transition-all uppercase text-[10px] md:text-xs tracking-widest">
+              Add to Inventory
+            </button>
+          </div>
         </div>
       )}
     </div>

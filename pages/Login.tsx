@@ -1,5 +1,8 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Mail, Lock, Eye, EyeOff, CheckCircle2 } from 'lucide-react';
 import { User, UserRole, UserStatus } from '../types';
 
@@ -12,7 +15,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +42,10 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
     };
 
     onLogin(mockUser);
-    navigate('/');
+    // Wait a moment for state update then navigate
+    setTimeout(() => {
+      router.push('/');
+    }, 100);
   };
 
   return (
@@ -65,8 +71,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               <label className="text-sm font-semibold text-slate-700">Email Address</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@smartlab.com"
@@ -78,18 +84,18 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
             <div className="space-y-1">
               <div className="flex justify-between items-center">
                 <label className="text-sm font-semibold text-slate-700">Password</label>
-                <Link to="/forgot-password" title="Forgot Password" className="text-sm font-bold text-blue-600 hover:underline">Forgot?</Link>
+                <Link href="/forgot-password" title="Forgot Password" className="text-sm font-bold text-blue-600 hover:underline">Forgot?</Link>
               </div>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-                <input 
+                <input
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   className="w-full pl-10 pr-12 py-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
                 />
-                <button 
+                <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 p-1"
@@ -104,8 +110,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
               <label htmlFor="remember" className="text-sm text-slate-600 font-medium">Remember me for 30 days</label>
             </div>
 
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               className="w-full py-3.5 bg-blue-600 text-white rounded-xl font-bold shadow-lg shadow-blue-200 hover:bg-blue-700 hover:-translate-y-0.5 active:translate-y-0 transition-all"
             >
               Sign In
@@ -114,7 +120,7 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
           <div className="text-center">
             <p className="text-slate-500 text-sm">
-              Don't have an account? <Link to="/signup" className="text-blue-600 font-bold hover:underline">Create an account</Link>
+              Don't have an account? <Link href="/signup" className="text-blue-600 font-bold hover:underline">Create an account</Link>
             </p>
           </div>
         </div>
@@ -124,12 +130,12 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
       <div className="hidden lg:flex flex-col justify-center p-12 bg-slate-900 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-600/20 rounded-full blur-[120px] -mr-48 -mt-48"></div>
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-slate-800/50 rounded-full blur-[80px] -ml-24 -mb-24"></div>
-        
+
         <div className="relative z-10 max-w-lg">
           <div className="mb-12">
             <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-widest mb-6">Version 2.4 Enterprise</span>
-            <h2 className="text-5xl font-extrabold leading-tight mb-6">Digital Ecosystem for Laboratory Excellence</h2>
-            <p className="text-lg text-slate-400 leading-relaxed">
+            <h2 className="text-5xl font-extrabold leading-tight mb-6 text-white" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.8), 0 4px 16px rgba(0,0,0,0.6)' }}>Digital Ecosystem for Laboratory Excellence</h2>
+            <p className="text-lg text-slate-200 leading-relaxed">
               SmartLab empowers institutions to manage complex resources, schedules, and compliance in one unified interface. Built for performance, designed for people.
             </p>
           </div>
@@ -148,8 +154,8 @@ const Login: React.FC<LoginProps> = ({ onLogin }) => {
 
         <div className="absolute bottom-12 left-12 flex items-center gap-4">
           <div className="flex -space-x-3">
-            {[1,2,3,4].map(i => (
-              <img key={i} src={`https://i.pravatar.cc/100?u=${i+10}`} className="w-10 h-10 rounded-full border-2 border-slate-900" alt="User" />
+            {[1, 2, 3, 4].map(i => (
+              <img key={i} src={`https://i.pravatar.cc/100?u=${i + 10}`} className="w-10 h-10 rounded-full border-2 border-slate-900" alt="User" />
             ))}
           </div>
           <p className="text-sm text-slate-500 font-medium italic">Trusted by 200+ global research centers</p>

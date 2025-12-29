@@ -1,27 +1,28 @@
+'use client';
+
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { User, Mail, Lock, Phone, Hash, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { User, Mail, Lock, Hash, ArrowRight } from 'lucide-react';
 
 const Signup: React.FC = () => {
-  const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+  const [step] = useState(1);
 
   return (
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
       <div className="w-full max-w-xl bg-white rounded-[40px] shadow-2xl border border-white overflow-hidden flex flex-col md:flex-row">
         {/* Left Visual Area */}
         <div className="hidden md:flex md:w-1/3 bg-blue-600 p-8 flex-col justify-between text-white relative">
-           <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-           <div className="relative z-10">
-             <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center font-bold text-xl backdrop-blur-md mb-8">SL</div>
-             <h2 className="text-3xl font-bold leading-tight mb-4">Join the Lab Network.</h2>
-             <p className="text-blue-100 text-sm opacity-80">Access state-of-the-art facilities and equipment with a single unified account.</p>
-           </div>
-           <div className="relative z-10 flex gap-1">
-             {[1,2,3].map(i => (
-               <div key={i} className={`h-1 rounded-full transition-all ${step === i ? 'w-8 bg-white' : 'w-2 bg-white/30'}`}></div>
-             ))}
-           </div>
+          <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+          <div className="relative z-10">
+            <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center font-bold text-xl backdrop-blur-md mb-8">SL</div>
+            <h2 className="text-3xl font-bold leading-tight mb-4">Join the Lab Network.</h2>
+            <p className="text-blue-100 text-sm opacity-80">Access state-of-the-art facilities and equipment with a single unified account.</p>
+          </div>
+          <div className="relative z-10 flex gap-1">
+            {[1, 2, 3].map(i => (
+              <div key={i} className={`h-1 rounded-full transition-all ${step === i ? 'w-8 bg-white' : 'w-2 bg-white/30'}`}></div>
+            ))}
+          </div>
         </div>
 
         {/* Right Form Area */}
@@ -78,7 +79,7 @@ const Signup: React.FC = () => {
 
           <div className="mt-8 text-center">
             <p className="text-slate-400 text-sm font-medium">
-              Already a member? <Link to="/login" className="text-blue-600 font-bold hover:underline">Sign In here</Link>
+              Already a member? <Link href="/login" className="text-blue-600 font-bold hover:underline">Sign In here</Link>
             </p>
           </div>
         </div>

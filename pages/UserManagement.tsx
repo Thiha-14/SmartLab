@@ -1,7 +1,8 @@
+'use client';
 
 import React, { useState, useEffect } from 'react';
-import { 
-  Search, Filter, MoreHorizontal, UserPlus, Calendar, ShieldCheck, Activity, User as UserIcon, X, Check, Mail, Phone, Hash
+import {
+  Search, Filter, UserPlus, ShieldCheck, X, Check
 } from 'lucide-react';
 import { User, UserStatus, UserRole } from '../types';
 
@@ -52,7 +53,7 @@ const UserManagement: React.FC = () => {
           <h2 className="text-3xl font-black text-slate-900 tracking-tight">Institutional Registry</h2>
           <p className="text-sm text-slate-500 font-medium">Managing access for {users.length} active research accounts.</p>
         </div>
-        <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-[24px] font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all">
+        <button onClick={() => setShowAdd(true)} className="flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 hover:-translate-y-1 transition-all">
           <UserPlus size={20} /> Deploy Account
         </button>
       </div>
@@ -61,9 +62,9 @@ const UserManagement: React.FC = () => {
         <div className="p-8 border-b border-slate-50 flex flex-col lg:flex-row items-center justify-between gap-6">
           <div className="relative flex-1 w-full max-w-xl">
             <Search className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-300" size={20} />
-            <input type="text" placeholder="Search by identity string..." className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 rounded-[24px] outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white transition-all font-medium" />
+            <input type="text" placeholder="Search by identity string..." className="w-full pl-14 pr-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:ring-4 focus:ring-blue-500/10 focus:bg-white transition-all font-medium" />
           </div>
-          <button className="flex items-center gap-2 px-6 py-4 border border-slate-100 rounded-[24px] text-sm font-black text-slate-500 hover:bg-slate-50 transition-all uppercase tracking-widest">
+          <button className="flex items-center gap-2 px-6 py-4 border border-slate-100 rounded-3xl text-sm font-black text-slate-500 hover:bg-slate-50 transition-all uppercase tracking-widest">
             <Filter size={18} /> Filters
           </button>
         </div>
@@ -117,38 +118,38 @@ const UserManagement: React.FC = () => {
       </div>
 
       {showAdd && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-100 flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
           <div className="bg-white w-full max-w-xl rounded-[48px] shadow-2xl overflow-hidden p-10 animate-in zoom-in-95 duration-300">
             <div className="flex justify-between items-center mb-10">
               <h2 className="text-2xl font-black text-slate-900">Provision Account</h2>
-              <button onClick={() => setShowAdd(false)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24}/></button>
+              <button onClick={() => setShowAdd(false)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24} /></button>
             </div>
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">First Name</label>
-                    <input value={newUser.firstName} onChange={e => setNewUser({...newUser, firstName: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="Usman"/>
-                 </div>
-                 <div className="space-y-2">
-                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Last Name</label>
-                    <input value={newUser.lastName} onChange={e => setNewUser({...newUser, lastName: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="Ali"/>
-                 </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">First Name</label>
+                  <input value={newUser.firstName} onChange={e => setNewUser({ ...newUser, firstName: e.target.value })} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="Usman" />
+                </div>
+                <div className="space-y-2">
+                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Last Name</label>
+                  <input value={newUser.lastName} onChange={e => setNewUser({ ...newUser, lastName: e.target.value })} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="Ali" />
+                </div>
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
-                <input value={newUser.email} onChange={e => setNewUser({...newUser, email: e.target.value})} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="usman@smartlab.com"/>
+                <input value={newUser.email} onChange={e => setNewUser({ ...newUser, email: e.target.value })} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold" placeholder="usman@smartlab.com" />
               </div>
               <div className="space-y-2">
                 <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Account Role</label>
-                <select value={newUser.role} onChange={e => setNewUser({...newUser, role: e.target.value as UserRole})} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold">
-                   <option value={UserRole.USER}>Research Student (User)</option>
-                   <option value={UserRole.CONFIGURATOR}>Lab Technician (Configurator)</option>
-                   <option value={UserRole.MASTER}>Administrator (Master)</option>
+                <select value={newUser.role} onChange={e => setNewUser({ ...newUser, role: e.target.value as UserRole })} className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold">
+                  <option value={UserRole.USER}>Research Student (User)</option>
+                  <option value={UserRole.CONFIGURATOR}>Lab Technician (Configurator)</option>
+                  <option value={UserRole.MASTER}>Administrator (Master)</option>
                 </select>
               </div>
             </div>
-            <button onClick={handleCreateUser} className="w-full mt-10 py-5 bg-slate-900 text-white rounded-[32px] font-black shadow-2xl hover:bg-black transition-all flex items-center justify-center gap-3">
-              Deploy Credentials <Check size={20}/>
+            <button onClick={handleCreateUser} className="w-full mt-10 py-5 bg-slate-900 text-white rounded-4xl font-black shadow-2xl hover:bg-black transition-all flex items-center justify-center gap-3">
+              Deploy Credentials <Check size={20} />
             </button>
           </div>
         </div>
@@ -157,8 +158,8 @@ const UserManagement: React.FC = () => {
   );
 };
 
-const Trash2: React.FC<{size?: number}> = ({size = 24}) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 9h4m-4-4h4"/></svg>
+const Trash2: React.FC<{ size?: number }> = ({ size = 24 }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 6h18m-2 0v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6m3 0V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2m-6 9h4m-4-4h4" /></svg>
 );
 
 export default UserManagement;

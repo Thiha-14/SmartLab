@@ -1,6 +1,7 @@
+'use client';
 
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Mail, ArrowLeft, CheckCircle2 } from 'lucide-react';
 
 const ForgotPassword: React.FC = () => {
@@ -10,7 +11,7 @@ const ForgotPassword: React.FC = () => {
     <div className="min-h-screen bg-slate-50 flex items-center justify-center p-6">
       <div className="w-full max-w-md bg-white p-10 rounded-[40px] shadow-2xl border border-white">
         <div className="mb-8">
-          <Link to="/login" className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-600 font-bold text-sm transition-colors mb-8">
+          <Link href="/login" className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-600 font-bold text-sm transition-colors mb-8">
             <ArrowLeft size={16} />
             Back to Login
           </Link>
@@ -20,12 +21,12 @@ const ForgotPassword: React.FC = () => {
 
         {isSent ? (
           <div className="text-center space-y-6 py-4 animate-in zoom-in-95 duration-300">
-             <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
-               <CheckCircle2 size={40} />
-             </div>
-             <h3 className="text-xl font-bold text-slate-900">Email Sent!</h3>
-             <p className="text-slate-500">We've sent a password reset link to <span className="text-slate-900 font-bold">your-email@edu.com</span></p>
-             <button onClick={() => setIsSent(false)} className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all">Try again</button>
+            <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle2 size={40} />
+            </div>
+            <h3 className="text-xl font-bold text-slate-900">Email Sent!</h3>
+            <p className="text-slate-500">We've sent a password reset link to <span className="text-slate-900 font-bold">your-email@edu.com</span></p>
+            <button onClick={() => setIsSent(false)} className="w-full py-4 bg-slate-900 text-white rounded-2xl font-bold hover:bg-slate-800 transition-all">Try again</button>
           </div>
         ) : (
           <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setIsSent(true); }}>
