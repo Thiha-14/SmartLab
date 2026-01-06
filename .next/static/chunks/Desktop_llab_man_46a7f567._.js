@@ -41,7 +41,8 @@ const LabManagement = (param)=>{
         name: '',
         description: '',
         location: '',
-        photoUrl: ''
+        photoUrl: '',
+        photoFile: null
     });
     const [newEq, setNewEq] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         name: '',
@@ -64,37 +65,101 @@ const LabManagement = (param)=>{
         setEquipment(updated);
         localStorage.setItem('sl_equipment', JSON.stringify(updated));
     };
-    const handleAddLab = ()=>{
+    const handleAddLab = async ()=>{
         if (!newLab.name) return;
-        const item = {
-            id: 'l' + Date.now(),
-            name: newLab.name,
-            description: newLab.description || 'Standard lab facility.',
-            location: newLab.location || 'Main Building',
-            features: [
-                'Basic Equipment'
-            ],
-            media: [
-                {
-                    id: 'm-new',
-                    url: newLab.photoUrl || 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800',
-                    type: 'image',
-                    name: 'New Lab',
-                    uploadProgress: 100
-                }
-            ]
-        };
-        saveLabs([
-            ...labs,
-            item
-        ]);
-        setNewLab({
-            name: '',
-            description: '',
-            location: '',
-            photoUrl: ''
-        });
-        setModalOpen(false);
+        let photoUrl = 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800';
+        // If a photo file was selected, convert to base64
+        if (newLab.photoFile) {
+            const reader = new FileReader();
+            reader.onload = (e)=>{
+                var _e_target;
+                const base64 = (_e_target = e.target) === null || _e_target === void 0 ? void 0 : _e_target.result;
+                const item = {
+                    id: 'l' + Date.now(),
+                    name: newLab.name,
+                    description: newLab.description || 'Standard lab facility.',
+                    location: newLab.location || 'Main Building',
+                    features: [
+                        'Basic Equipment'
+                    ],
+                    media: [
+                        {
+                            id: 'm-new',
+                            url: base64,
+                            type: 'image',
+                            name: 'New Lab',
+                            uploadProgress: 100
+                        }
+                    ]
+                };
+                saveLabs([
+                    ...labs,
+                    item
+                ]);
+                setNewLab({
+                    name: '',
+                    description: '',
+                    location: '',
+                    photoUrl: '',
+                    photoFile: null
+                });
+                setModalOpen(false);
+            };
+            reader.readAsDataURL(newLab.photoFile);
+        } else {
+            const item = {
+                id: 'l' + Date.now(),
+                name: newLab.name,
+                description: newLab.description || 'Standard lab facility.',
+                location: newLab.location || 'Main Building',
+                features: [
+                    'Basic Equipment'
+                ],
+                media: [
+                    {
+                        id: 'm-new',
+                        url: photoUrl,
+                        type: 'image',
+                        name: 'New Lab',
+                        uploadProgress: 100
+                    }
+                ]
+            };
+            saveLabs([
+                ...labs,
+                item
+            ]);
+            setNewLab({
+                name: '',
+                description: '',
+                location: '',
+                photoUrl: '',
+                photoFile: null
+            });
+            setModalOpen(false);
+        }
+    };
+    const handlePhotoUpload = (e)=>{
+        var _e_target_files;
+        const file = (_e_target_files = e.target.files) === null || _e_target_files === void 0 ? void 0 : _e_target_files[0];
+        if (file) {
+            setNewLab({
+                ...newLab,
+                photoFile: file
+            });
+            // Generate preview
+            const reader = new FileReader();
+            reader.onload = (event)=>{
+                setNewLab((prev)=>{
+                    var _event_target;
+                    return {
+                        ...prev,
+                        photoUrl: (_event_target = event.target) === null || _event_target === void 0 ? void 0 : _event_target.result
+                    };
+                });
+            };
+            reader.readAsDataURL(file);
+        }
     };
     const handleAddEquipment = ()=>{
         if (!newEq.name) return;
@@ -159,7 +224,7 @@ const LabManagement = (param)=>{
                                 className: "md:w-4.5 md:h-4.5"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 104,
+                                lineNumber: 146,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             tab.label,
@@ -167,18 +232,18 @@ const LabManagement = (param)=>{
                                 className: "absolute bottom-0 left-0 right-0 h-0.5 md:h-1 bg-blue-600 rounded-full"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 106,
+                                lineNumber: 148,
                                 columnNumber: 38
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, tab.id, true, {
                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                        lineNumber: 98,
+                        lineNumber: 140,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)))
             }, void 0, false, {
                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                lineNumber: 92,
+                lineNumber: 134,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             activeTab === 'details' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -195,7 +260,7 @@ const LabManagement = (param)=>{
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 157,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -204,13 +269,13 @@ const LabManagement = (param)=>{
                                         className: "w-full pl-12 pr-4 py-2.5 md:py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:border-blue-400 font-bold text-sm"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 116,
+                                        lineNumber: 158,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 114,
+                                lineNumber: 156,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             role !== __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["UserRole"].USER && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -221,20 +286,20 @@ const LabManagement = (param)=>{
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 120,
+                                        lineNumber: 162,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Add Lab"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 119,
+                                lineNumber: 161,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                        lineNumber: 113,
+                        lineNumber: 155,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -251,7 +316,7 @@ const LabManagement = (param)=>{
                                                 alt: lab.name
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 130,
+                                                lineNumber: 172,
                                                 columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-full h-full flex items-center justify-center text-slate-200",
@@ -259,12 +324,12 @@ const LabManagement = (param)=>{
                                                     size: 48
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 174,
                                                     columnNumber: 100
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 132,
+                                                lineNumber: 174,
                                                 columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -276,23 +341,23 @@ const LabManagement = (param)=>{
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 135,
+                                                        lineNumber: 177,
                                                         columnNumber: 133
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 135,
+                                                    lineNumber: 177,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 134,
+                                                lineNumber: 176,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 128,
+                                        lineNumber: 170,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -303,7 +368,7 @@ const LabManagement = (param)=>{
                                                 children: lab.name
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 139,
+                                                lineNumber: 181,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -311,7 +376,7 @@ const LabManagement = (param)=>{
                                                 children: lab.description
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 140,
+                                                lineNumber: 182,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -322,7 +387,7 @@ const LabManagement = (param)=>{
                                                         className: "text-blue-600 shrink-0"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 142,
+                                                        lineNumber: 184,
                                                         columnNumber: 21
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     " ",
@@ -330,7 +395,7 @@ const LabManagement = (param)=>{
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 141,
+                                                lineNumber: 183,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -338,30 +403,30 @@ const LabManagement = (param)=>{
                                                 children: "View Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 144,
+                                                lineNumber: 186,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 138,
+                                        lineNumber: 180,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, lab.id, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 127,
+                                lineNumber: 169,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0)))
                     }, void 0, false, {
                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                        lineNumber: 125,
+                        lineNumber: 167,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                lineNumber: 112,
+                lineNumber: 154,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             activeTab === 'equipment' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -377,7 +442,7 @@ const LabManagement = (param)=>{
                                         children: "Equipment List"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 158,
+                                        lineNumber: 200,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -388,13 +453,13 @@ const LabManagement = (param)=>{
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 201,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 157,
+                                lineNumber: 199,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -405,20 +470,20 @@ const LabManagement = (param)=>{
                                         size: 16
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 204,
                                         columnNumber: 15
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Add Equipment"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                lineNumber: 161,
+                                lineNumber: 203,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                        lineNumber: 156,
+                        lineNumber: 198,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -435,7 +500,7 @@ const LabManagement = (param)=>{
                                                 children: "Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 169,
+                                                lineNumber: 211,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -443,7 +508,7 @@ const LabManagement = (param)=>{
                                                 children: "Serial"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 212,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -451,7 +516,7 @@ const LabManagement = (param)=>{
                                                 children: "Calibration"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 171,
+                                                lineNumber: 213,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -459,18 +524,18 @@ const LabManagement = (param)=>{
                                                 children: "Actions"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                lineNumber: 172,
+                                                lineNumber: 214,
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 168,
+                                        lineNumber: 210,
                                         columnNumber: 17
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 167,
+                                    lineNumber: 209,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -488,7 +553,7 @@ const LabManagement = (param)=>{
                                                                 children: item.name[0]
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                                lineNumber: 180,
+                                                                lineNumber: 222,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -498,7 +563,7 @@ const LabManagement = (param)=>{
                                                                         children: item.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                                        lineNumber: 182,
+                                                                        lineNumber: 224,
                                                                         columnNumber: 27
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -506,24 +571,24 @@ const LabManagement = (param)=>{
                                                                         children: item.manufacturer
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                                        lineNumber: 183,
+                                                                        lineNumber: 225,
                                                                         columnNumber: 27
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                                lineNumber: 181,
+                                                                lineNumber: 223,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 179,
+                                                        lineNumber: 221,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 178,
+                                                    lineNumber: 220,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -533,12 +598,12 @@ const LabManagement = (param)=>{
                                                         children: item.serialNumber
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 188,
+                                                        lineNumber: 230,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 229,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -548,12 +613,12 @@ const LabManagement = (param)=>{
                                                         children: item.nextCalibrationDate
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 191,
+                                                        lineNumber: 233,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 232,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -565,45 +630,45 @@ const LabManagement = (param)=>{
                                                             size: 16
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                            lineNumber: 194,
+                                                            lineNumber: 236,
                                                             columnNumber: 131
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                        lineNumber: 194,
+                                                        lineNumber: 236,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 193,
+                                                    lineNumber: 235,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, item.id, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 177,
+                                            lineNumber: 219,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 217,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 166,
+                            lineNumber: 208,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                        lineNumber: 165,
+                        lineNumber: 207,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                lineNumber: 155,
+                lineNumber: 197,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -619,7 +684,7 @@ const LabManagement = (param)=>{
                                     children: t.labManagement.addNewLab
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 209,
+                                    lineNumber: 251,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -629,18 +694,18 @@ const LabManagement = (param)=>{
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 210,
+                                        lineNumber: 252,
                                         columnNumber: 149
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 210,
+                                    lineNumber: 252,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 208,
+                            lineNumber: 250,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -654,7 +719,7 @@ const LabManagement = (param)=>{
                                             children: t.labManagement.labName
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 214,
+                                            lineNumber: 256,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -668,13 +733,13 @@ const LabManagement = (param)=>{
                                             placeholder: t.labManagement.labNamePlaceholder
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 215,
+                                            lineNumber: 257,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 213,
+                                    lineNumber: 255,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -685,7 +750,7 @@ const LabManagement = (param)=>{
                                             children: t.labManagement.aboutLab
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 218,
+                                            lineNumber: 260,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -698,13 +763,13 @@ const LabManagement = (param)=>{
                                             placeholder: t.labManagement.aboutLabPlaceholder
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 219,
+                                            lineNumber: 261,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 217,
+                                    lineNumber: 259,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -715,7 +780,7 @@ const LabManagement = (param)=>{
                                             children: t.labManagement.labPhoto
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 222,
+                                            lineNumber: 264,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -730,57 +795,64 @@ const LabManagement = (param)=>{
                                                             className: "w-full h-full object-cover"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                            lineNumber: 226,
+                                                            lineNumber: 268,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>setNewLab({
                                                                     ...newLab,
-                                                                    photoUrl: ''
+                                                                    photoUrl: '',
+                                                                    photoFile: null
                                                                 }),
                                                             className: "absolute top-2 right-2 p-1.5 bg-white/90 rounded-lg hover:bg-rose-500 hover:text-white transition-all",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                                                 size: 16
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                                lineNumber: 231,
+                                                                lineNumber: 273,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                            lineNumber: 227,
+                                                            lineNumber: 269,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 225,
+                                                    lineNumber: 267,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                    type: "text",
-                                                    value: newLab.photoUrl,
-                                                    onChange: (e)=>setNewLab({
-                                                            ...newLab,
-                                                            photoUrl: e.target.value
-                                                        }),
-                                                    className: "w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm",
-                                                    placeholder: t.labManagement.photoUrlPlaceholder
-                                                }, void 0, false, {
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: "w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 border-dashed rounded-2xl outline-none font-bold text-sm text-slate-600 cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all text-center",
+                                                    children: [
+                                                        newLab.photoFile ? "📷 ".concat(newLab.photoFile.name) : '📷 Click to upload or select image',
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "file",
+                                                            accept: "image/*",
+                                                            onChange: handlePhotoUpload,
+                                                            className: "hidden"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
+                                                            lineNumber: 279,
+                                                            columnNumber: 21
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 235,
+                                                    lineNumber: 277,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 223,
+                                            lineNumber: 265,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 221,
+                                    lineNumber: 263,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -793,7 +865,7 @@ const LabManagement = (param)=>{
                                                     size: 12
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 246,
+                                                    lineNumber: 290,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " ",
@@ -801,7 +873,7 @@ const LabManagement = (param)=>{
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 245,
+                                            lineNumber: 289,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -815,19 +887,19 @@ const LabManagement = (param)=>{
                                             placeholder: t.labManagement.locationPlaceholder
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 248,
+                                            lineNumber: 292,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 288,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 212,
+                            lineNumber: 254,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -839,7 +911,8 @@ const LabManagement = (param)=>{
                                             name: '',
                                             description: '',
                                             location: '',
-                                            photoUrl: ''
+                                            photoUrl: '',
+                                            photoFile: null
                                         });
                                         setModalOpen(false);
                                     },
@@ -847,7 +920,7 @@ const LabManagement = (param)=>{
                                     children: t.labManagement.cancel
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 258,
+                                    lineNumber: 302,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -856,24 +929,24 @@ const LabManagement = (param)=>{
                                     children: t.labManagement.saveLab
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 303,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 257,
+                            lineNumber: 301,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                    lineNumber: 207,
+                    lineNumber: 249,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                lineNumber: 206,
+                lineNumber: 248,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             isEqModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -889,7 +962,7 @@ const LabManagement = (param)=>{
                                     children: "Add Equipment"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 270,
+                                    lineNumber: 314,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -899,18 +972,18 @@ const LabManagement = (param)=>{
                                         size: 20
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                        lineNumber: 271,
+                                        lineNumber: 315,
                                         columnNumber: 151
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 271,
+                                    lineNumber: 315,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 269,
+                            lineNumber: 313,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -924,7 +997,7 @@ const LabManagement = (param)=>{
                                             children: "Name"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 275,
+                                            lineNumber: 319,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -937,13 +1010,13 @@ const LabManagement = (param)=>{
                                             placeholder: "e.g. Microscope A1"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 320,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 274,
+                                    lineNumber: 318,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -957,7 +1030,7 @@ const LabManagement = (param)=>{
                                                     children: "Serial"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 280,
+                                                    lineNumber: 324,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -970,13 +1043,13 @@ const LabManagement = (param)=>{
                                                     placeholder: "SN-XXXX"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 281,
+                                                    lineNumber: 325,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 279,
+                                            lineNumber: 323,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -987,7 +1060,7 @@ const LabManagement = (param)=>{
                                                     children: "Calibration Date"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 284,
+                                                    lineNumber: 328,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1000,25 +1073,25 @@ const LabManagement = (param)=>{
                                                     className: "w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                                    lineNumber: 285,
+                                                    lineNumber: 329,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                            lineNumber: 283,
+                                            lineNumber: 327,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                                    lineNumber: 278,
+                                    lineNumber: 322,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 273,
+                            lineNumber: 317,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1027,28 +1100,28 @@ const LabManagement = (param)=>{
                             children: "Add to Inventory"
                         }, void 0, false, {
                             fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                            lineNumber: 289,
+                            lineNumber: 333,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                    lineNumber: 268,
+                    lineNumber: 312,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-                lineNumber: 267,
+                lineNumber: 311,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/llab_man/pages/LabManagement.tsx",
-        lineNumber: 91,
+        lineNumber: 133,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(LabManagement, "ha2LyIzVzX5w/fdo6xXDUAnRPQw=", false, function() {
+_s(LabManagement, "3GQBqtkakYBaEPXBDpRSfv5pO2I=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$app$2f$LanguageContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useLanguage"]
     ];

@@ -9,7 +9,6 @@ self.__BUILD_MANIFEST = {
     "/ForgotPassword",
     "/GroupManagement",
     "/LabManagement",
-    "/LanguageSelection",
     "/OffDays",
     "/Scheduling",
     "/UserManagement",

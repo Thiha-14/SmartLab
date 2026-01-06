@@ -75,15 +75,15 @@ const GroupManagement = ()=>{
         return roles;
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-10 pb-20 animate-in fade-in duration-700",
+        className: "space-y-6 md:space-y-10 pb-10 md:pb-20 animate-in fade-in duration-700",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col md:flex-row justify-between items-start md:items-center gap-6",
+                className: "flex flex-col md:flex-row justify-between items-start md:items-center gap-4 md:gap-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-4xl font-black text-slate-900 tracking-tight mb-2",
+                                className: "text-2xl md:text-4xl font-black text-slate-900 tracking-tight mb-1 md:mb-2",
                                 children: "Research Teams"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -91,7 +91,7 @@ const GroupManagement = ()=>{
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-lg text-slate-500 font-bold",
+                                className: "text-sm md:text-lg text-slate-500 font-bold",
                                 children: [
                                     "Organize researchers into collaborative groups • ",
                                     groups.length,
@@ -110,10 +110,10 @@ const GroupManagement = ()=>{
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setModalOpen(true),
-                        className: "bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-3xl font-black shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all flex items-center gap-3 group",
+                        className: "w-full md:w-auto bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl md:rounded-3xl font-black shadow-lg md:shadow-2xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all flex items-center justify-center gap-2 md:gap-3 group text-sm md:text-base",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                                size: 22,
+                                size: 20,
                                 className: "group-hover:rotate-90 transition-transform"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -134,25 +134,25 @@ const GroupManagement = ()=>{
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8",
+                className: "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 md:gap-8",
                 children: [
                     groups.map((group)=>{
                         const stats = getGroupStats(group);
                         const isExpanded = expandedGroup === group.id;
                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-white rounded-[40px] border-2 border-slate-100 shadow-lg hover:shadow-2xl hover:border-blue-200 transition-all overflow-hidden group/card",
+                            className: "bg-white rounded-[28px] md:rounded-[40px] border border-slate-100 md:border-2 shadow-md md:shadow-lg hover:shadow-xl md:hover:shadow-2xl hover:border-blue-200 transition-all overflow-hidden group/card",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "p-8",
+                                    className: "p-5 md:p-8",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex justify-between items-start mb-6",
+                                            className: "flex justify-between items-start mb-4 md:mb-6",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl flex items-center justify-center shadow-xl shadow-blue-500/20 group-hover/card:scale-110 transition-transform",
+                                                    className: "w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl md:rounded-3xl flex items-center justify-center shadow-lg md:shadow-xl shadow-blue-500/20 group-hover/card:scale-110 transition-transform",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2d$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UsersRound$3e$__["UsersRound"], {
-                                                        size: 32,
-                                                        className: "text-white",
+                                                        size: 24,
+                                                        className: "md:w-8 md:h-8 text-white",
                                                         strokeWidth: 2.5
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -166,9 +166,10 @@ const GroupManagement = ()=>{
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>deleteGroup(group.id),
-                                                    className: "p-3 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-2xl transition-all opacity-0 group-hover/card:opacity-100",
+                                                    className: "p-2 md:p-3 text-slate-300 hover:text-rose-600 hover:bg-rose-50 rounded-xl md:rounded-2xl transition-all opacity-0 group-hover/card:opacity-100",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                        size: 18
+                                                        size: 16,
+                                                        className: "md:w-[18px] md:h-[18px]"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                         lineNumber: 93,
@@ -186,7 +187,7 @@ const GroupManagement = ()=>{
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                            className: "text-2xl font-black text-slate-900 mb-3 leading-tight group-hover/card:text-blue-600 transition-colors",
+                                            className: "text-lg md:text-2xl font-black text-slate-900 mb-2 md:mb-3 leading-tight group-hover/card:text-blue-600 transition-colors line-clamp-2",
                                             children: group.name
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -194,20 +195,20 @@ const GroupManagement = ()=>{
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex items-center gap-6 mb-6",
+                                            className: "flex flex-wrap items-center gap-3 md:gap-6 mb-4 md:mb-6",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex items-center gap-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-2 h-2 rounded-full bg-green-500"
+                                                            className: "w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-green-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                             lineNumber: 103,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-sm font-bold text-slate-600",
+                                                            className: "text-xs md:text-sm font-bold text-slate-600",
                                                             children: [
                                                                 group.userIds.length,
                                                                 " Members"
@@ -227,15 +228,15 @@ const GroupManagement = ()=>{
                                                     className: "flex items-center gap-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__["Shield"], {
-                                                            size: 14,
-                                                            className: "text-blue-500"
+                                                            size: 12,
+                                                            className: "md:w-[14px] md:h-[14px] text-blue-500"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                             lineNumber: 108,
                                                             columnNumber: 23
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-sm font-bold text-slate-600",
+                                                            className: "text-xs md:text-sm font-bold text-slate-600",
                                                             children: [
                                                                 Object.keys(stats).length,
                                                                 " Roles"
@@ -258,14 +259,14 @@ const GroupManagement = ()=>{
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex items-center gap-3 mb-6",
+                                            className: "flex items-center gap-3 mb-4 md:mb-6",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex -space-x-3",
+                                                className: "flex -space-x-2 md:-space-x-3",
                                                 children: [
                                                     group.userIds.slice(0, 5).map((uid, i)=>{
                                                         const u = users.find((u)=>u.id === uid);
                                                         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-11 h-11 rounded-2xl bg-gradient-to-br from-slate-700 to-slate-900 text-white border-3 border-white flex items-center justify-center text-sm font-black shadow-lg hover:scale-110 hover:z-10 transition-transform cursor-pointer",
+                                                            className: "w-9 h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl bg-gradient-to-br from-slate-700 to-slate-900 text-white border-2 md:border-3 border-white flex items-center justify-center text-xs md:text-sm font-black shadow-md md:shadow-lg hover:scale-110 hover:z-10 transition-transform cursor-pointer",
                                                             title: u ? "".concat(u.firstName, " ").concat(u.lastName) : 'Unknown',
                                                             children: u ? u.firstName[0] : '?'
                                                         }, i, false, {
@@ -275,7 +276,7 @@ const GroupManagement = ()=>{
                                                         }, ("TURBOPACK compile-time value", void 0));
                                                     }),
                                                     group.userIds.length > 5 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-11 h-11 rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white border-3 border-white flex items-center justify-center text-xs font-black shadow-lg",
+                                                        className: "w-9 h-9 md:w-11 md:h-11 rounded-xl md:rounded-2xl bg-gradient-to-br from-blue-500 to-indigo-600 text-white border-2 md:border-3 border-white flex items-center justify-center text-[10px] md:text-xs font-black shadow-md md:shadow-lg",
                                                         children: [
                                                             "+",
                                                             group.userIds.length - 5
@@ -297,14 +298,14 @@ const GroupManagement = ()=>{
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         Object.keys(stats).length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "space-y-2 mb-6 p-4 bg-slate-50 rounded-2xl",
+                                            className: "space-y-2 mb-4 md:mb-6 p-3 md:p-4 bg-slate-50 rounded-xl md:rounded-2xl",
                                             children: Object.entries(stats).map((param)=>{
                                                 let [role, count] = param;
                                                 return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "flex justify-between items-center",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-xs font-bold text-slate-600 uppercase tracking-wider",
+                                                            className: "text-[10px] md:text-xs font-bold text-slate-600 uppercase tracking-wider",
                                                             children: role
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -312,7 +313,7 @@ const GroupManagement = ()=>{
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg",
+                                                            className: "text-[10px] md:text-xs font-black text-blue-600 bg-blue-50 px-2 py-1 rounded-lg",
                                                             children: count
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -333,10 +334,11 @@ const GroupManagement = ()=>{
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>setExpandedGroup(isExpanded ? null : group.id),
-                                            className: "w-full py-3 bg-slate-900 hover:bg-blue-600 text-white rounded-2xl font-bold text-sm transition-all flex items-center justify-center gap-2 group/btn",
+                                            className: "w-full py-2.5 md:py-3 bg-slate-900 hover:bg-blue-600 text-white rounded-xl md:rounded-2xl font-bold text-xs md:text-sm transition-all flex items-center justify-center gap-2 group/btn",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"], {
-                                                    size: 16
+                                                    size: 14,
+                                                    className: "md:w-4 md:h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                     lineNumber: 154,
@@ -344,8 +346,8 @@ const GroupManagement = ()=>{
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 isExpanded ? 'Hide Members' : 'View All Members',
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
-                                                    size: 16,
-                                                    className: "group-hover/btn:translate-x-1 transition-transform ".concat(isExpanded ? 'rotate-90' : '')
+                                                    size: 14,
+                                                    className: "md:w-4 md:h-4 group-hover/btn:translate-x-1 transition-transform ".concat(isExpanded ? 'rotate-90' : '')
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                     lineNumber: 156,
@@ -364,17 +366,17 @@ const GroupManagement = ()=>{
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 isExpanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "border-t-2 border-slate-100 bg-slate-50 p-6 animate-in slide-in-from-top duration-300",
+                                    className: "border-t border-slate-100 md:border-t-2 bg-slate-50 p-4 md:p-6 animate-in slide-in-from-top duration-300",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-3 max-h-64 overflow-y-auto",
+                                        className: "space-y-2 md:space-y-3 max-h-48 md:max-h-64 overflow-y-auto",
                                         children: group.userIds.map((uid)=>{
                                             const u = users.find((user)=>user.id === uid);
                                             if (!u) return null;
                                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-3 p-3 bg-white rounded-2xl border border-slate-100 hover:border-blue-200 transition-all",
+                                                className: "flex items-center gap-3 p-3 bg-white rounded-xl md:rounded-2xl border border-slate-100 hover:border-blue-200 transition-all",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-10 h-10 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-black text-sm shadow-md",
+                                                        className: "w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-black text-xs md:text-sm shadow-md shrink-0",
                                                         children: u.firstName[0]
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -385,7 +387,7 @@ const GroupManagement = ()=>{
                                                         className: "flex-1 min-w-0",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "font-black text-slate-900 text-sm truncate",
+                                                                className: "font-black text-slate-900 text-xs md:text-sm truncate",
                                                                 children: [
                                                                     u.firstName,
                                                                     " ",
@@ -397,7 +399,7 @@ const GroupManagement = ()=>{
                                                                 columnNumber: 29
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-xs text-slate-500 font-bold",
+                                                                className: "text-[10px] md:text-xs text-slate-500 font-bold truncate",
                                                                 children: [
                                                                     u.role,
                                                                     " • ",
@@ -439,13 +441,13 @@ const GroupManagement = ()=>{
                         }, ("TURBOPACK compile-time value", void 0));
                     }),
                     groups.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "col-span-full py-32 text-center",
+                        className: "col-span-full py-16 md:py-32 text-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-full flex items-center justify-center",
+                                className: "w-16 h-16 md:w-24 md:h-24 mx-auto mb-4 md:mb-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl md:rounded-full flex items-center justify-center",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2d$round$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__UsersRound$3e$__["UsersRound"], {
-                                    size: 48,
-                                    className: "text-blue-300"
+                                    size: 36,
+                                    className: "md:w-12 md:h-12 text-blue-300"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                     lineNumber: 189,
@@ -457,7 +459,7 @@ const GroupManagement = ()=>{
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-2xl font-black text-slate-300 mb-2",
+                                className: "text-xl md:text-2xl font-black text-slate-300 mb-2",
                                 children: "No Teams Yet"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -465,7 +467,7 @@ const GroupManagement = ()=>{
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-slate-400 font-medium mb-6",
+                                className: "text-sm md:text-base text-slate-400 font-medium mb-4 md:mb-6 px-4",
                                 children: "Create your first research team to get started"
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -474,10 +476,11 @@ const GroupManagement = ()=>{
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setModalOpen(true),
-                                className: "bg-blue-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-blue-700 transition-all inline-flex items-center gap-2",
+                                className: "bg-blue-600 text-white px-5 md:px-6 py-3 rounded-2xl font-bold hover:bg-blue-700 transition-all inline-flex items-center gap-2 text-sm md:text-base",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$plus$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Plus$3e$__["Plus"], {
-                                        size: 18
+                                        size: 16,
+                                        className: "md:w-[18px] md:h-[18px]"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                         lineNumber: 197,
@@ -503,19 +506,19 @@ const GroupManagement = ()=>{
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 z-100 flex items-center justify-center p-6 bg-black/70 backdrop-blur-xl animate-in fade-in duration-300",
+                className: "fixed inset-0 z-100 flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-xl animate-in fade-in duration-300",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white w-full max-w-2xl rounded-[48px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300",
+                    className: "bg-white w-full max-w-2xl rounded-[32px] md:rounded-[48px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 max-h-[90vh] flex flex-col",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white",
+                            className: "bg-gradient-to-r from-blue-600 to-indigo-600 p-5 md:p-8 text-white shrink-0",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex justify-between items-center",
+                                className: "flex justify-between items-start md:items-center gap-3",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                                className: "text-3xl font-black mb-2",
+                                                className: "text-2xl md:text-3xl font-black mb-1 md:mb-2",
                                                 children: "Create New Team"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -523,7 +526,7 @@ const GroupManagement = ()=>{
                                                 columnNumber: 19
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-blue-100 font-medium",
+                                                className: "text-xs md:text-base text-blue-100 font-medium",
                                                 children: "Build a collaborative research group"
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -538,9 +541,10 @@ const GroupManagement = ()=>{
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>setModalOpen(false),
-                                        className: "w-12 h-12 flex items-center justify-center rounded-2xl bg-white/20 hover:bg-white/30 transition-colors",
+                                        className: "w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl md:rounded-2xl bg-white/20 hover:bg-white/30 transition-colors shrink-0",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
-                                            size: 24
+                                            size: 20,
+                                            className: "md:w-6 md:h-6"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                             lineNumber: 216,
@@ -563,16 +567,16 @@ const GroupManagement = ()=>{
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "p-10 space-y-8",
+                            className: "p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-3",
+                                    className: "space-y-2 md:space-y-3",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                             className: "text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-black",
+                                                    className: "w-5 h-5 md:w-6 md:h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] md:text-xs font-black",
                                                     children: "1"
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -589,7 +593,7 @@ const GroupManagement = ()=>{
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             value: newGroupName,
                                             onChange: (e)=>setNewGroupName(e.target.value),
-                                            className: "w-full px-6 py-5 bg-slate-50 border-2 border-slate-200 rounded-3xl outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all font-bold text-lg placeholder:text-slate-300",
+                                            className: "w-full px-4 md:px-6 py-3 md:py-5 bg-slate-50 border border-slate-200 md:border-2 rounded-2xl md:rounded-3xl outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all font-bold text-base md:text-lg placeholder:text-slate-300",
                                             placeholder: "e.g. Quantum Physics Research Team"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -603,16 +607,16 @@ const GroupManagement = ()=>{
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-4",
+                                    className: "space-y-3 md:space-y-4",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex justify-between items-center",
+                                            className: "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                                     className: "text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-6 h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-black",
+                                                            className: "w-5 h-5 md:w-6 md:h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] md:text-xs font-black",
                                                             children: "2"
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -627,7 +631,7 @@ const GroupManagement = ()=>{
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-sm font-black text-blue-600 bg-blue-50 px-4 py-2 rounded-2xl",
+                                                    className: "text-xs md:text-sm font-black text-blue-600 bg-blue-50 px-3 md:px-4 py-1.5 md:py-2 rounded-xl md:rounded-2xl",
                                                     children: [
                                                         selectedUsers.length,
                                                         " Selected"
@@ -644,20 +648,20 @@ const GroupManagement = ()=>{
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "max-h-80 overflow-y-auto border-2 border-slate-100 rounded-3xl bg-slate-50 p-3 space-y-2",
+                                            className: "max-h-60 md:max-h-80 overflow-y-auto border border-slate-100 md:border-2 rounded-2xl md:rounded-3xl bg-slate-50 p-2 md:p-3 space-y-2",
                                             children: users.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "text-center py-12",
+                                                className: "text-center py-8 md:py-12",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                        size: 48,
-                                                        className: "mx-auto text-slate-200 mb-3"
+                                                        size: 40,
+                                                        className: "md:w-12 md:h-12 mx-auto text-slate-200 mb-2 md:mb-3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                                         lineNumber: 249,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-slate-400 font-bold",
+                                                        className: "text-sm md:text-base text-slate-400 font-bold",
                                                         children: "No users available"
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -670,13 +674,13 @@ const GroupManagement = ()=>{
                                                 lineNumber: 248,
                                                 columnNumber: 21
                                             }, ("TURBOPACK compile-time value", void 0)) : users.map((user)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                    className: "flex items-center gap-4 p-4 rounded-2xl cursor-pointer transition-all group/item ".concat(selectedUsers.includes(user.id) ? 'bg-blue-50 border-2 border-blue-200 shadow-sm' : 'bg-white border-2 border-transparent hover:border-slate-200 hover:shadow-sm'),
+                                                    className: "flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl cursor-pointer transition-all group/item ".concat(selectedUsers.includes(user.id) ? 'bg-blue-50 border border-blue-200 md:border-2 shadow-sm' : 'bg-white border border-transparent md:border-2 hover:border-slate-200 hover:shadow-sm'),
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-7 h-7 rounded-xl border-3 flex items-center justify-center transition-all ".concat(selectedUsers.includes(user.id) ? 'bg-blue-600 border-blue-600 scale-110' : 'bg-white border-slate-300 group-hover/item:border-blue-300'),
+                                                            className: "w-6 h-6 md:w-7 md:h-7 rounded-lg md:rounded-xl border-2 md:border-3 flex items-center justify-center transition-all shrink-0 ".concat(selectedUsers.includes(user.id) ? 'bg-blue-600 border-blue-600 scale-110' : 'bg-white border-slate-300 group-hover/item:border-blue-300'),
                                                             children: selectedUsers.includes(user.id) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
-                                                                size: 16,
-                                                                className: "text-white",
+                                                                size: 14,
+                                                                className: "md:w-4 md:h-4 text-white",
                                                                 strokeWidth: 3
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -699,7 +703,7 @@ const GroupManagement = ()=>{
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "w-10 h-10 rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-black text-sm shadow-md",
+                                                            className: "w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-black text-xs md:text-sm shadow-md shrink-0",
                                                             children: user.firstName[0]
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -707,10 +711,10 @@ const GroupManagement = ()=>{
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex-1",
+                                                            className: "flex-1 min-w-0",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "text-sm font-black text-slate-900 leading-tight",
+                                                                    className: "text-xs md:text-sm font-black text-slate-900 leading-tight truncate",
                                                                     children: [
                                                                         user.firstName,
                                                                         " ",
@@ -722,7 +726,7 @@ const GroupManagement = ()=>{
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "text-xs text-slate-500 font-bold",
+                                                                    className: "text-[10px] md:text-xs text-slate-500 font-bold truncate",
                                                                     children: [
                                                                         user.role,
                                                                         " • ",
@@ -763,11 +767,11 @@ const GroupManagement = ()=>{
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex gap-4 p-6 bg-slate-50 border-t-2 border-slate-100",
+                            className: "flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 border-t border-slate-100 md:border-t-2 shrink-0",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setModalOpen(false),
-                                    className: "flex-1 py-4 font-black text-slate-600 hover:bg-white rounded-3xl transition-all border-2 border-slate-200 hover:border-slate-300",
+                                    className: "order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-slate-600 hover:bg-white rounded-2xl md:rounded-3xl transition-all border border-slate-200 md:border-2 hover:border-slate-300 text-sm md:text-base",
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
@@ -777,10 +781,11 @@ const GroupManagement = ()=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleCreateGroup,
                                     disabled: !newGroupName || selectedUsers.length === 0,
-                                    className: "flex-1 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-3xl font-black shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100",
+                                    className: "order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl md:rounded-3xl font-black shadow-lg md:shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm md:text-base",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__["Check"], {
-                                            size: 20
+                                            size: 18,
+                                            className: "md:w-5 md:h-5"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/GroupManagement.tsx",
                                             lineNumber: 301,

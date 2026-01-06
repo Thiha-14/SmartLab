@@ -12,14 +12,10 @@ import {
   UsersRound,
   LogOut,
   Menu,
-  Globe,
   Bell,
   X,
-  Check
 } from 'lucide-react';
 import { User, UserRole } from '../types';
-import { useLanguage } from '@/app/LanguageContext';
-import { getTranslation, LanguageCode } from '@/translations';
 
 interface LayoutProps {
   user: User;
@@ -29,19 +25,16 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [isLanguageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [showSignOutConfirm, setShowSignOutConfirm] = useState(false);
   const pathname = usePathname();
-  const { currentLanguage, setLanguage, languages } = useLanguage();
-  const t = getTranslation(currentLanguage.code as LanguageCode);
 
   const navItems = [
-    { label: t.common.dashboard, icon: LayoutDashboard, path: '/dashboard' },
-    { label: t.common.labRooms, icon: FlaskConical, path: '/labs' },
-    { label: t.common.booking, icon: CalendarClock, path: '/scheduling' },
-    { label: t.common.users, icon: Users, path: '/users', role: [UserRole.MASTER, UserRole.CONFIGURATOR] },
-    { label: t.common.groups, icon: UsersRound, path: '/groups', role: [UserRole.MASTER, UserRole.CONFIGURATOR] },
-    { label: t.common.holidays, icon: CalendarDays, path: '/off-days' },
+    { label: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
+    { label: 'Lab Rooms', icon: FlaskConical, path: '/labs' },
+    { label: 'Booking', icon: CalendarClock, path: '/scheduling' },
+    { label: 'Users', icon: Users, path: '/users', role: [UserRole.MASTER, UserRole.CONFIGURATOR] },
+    { label: 'Groups', icon: UsersRound, path: '/groups', role: [UserRole.MASTER, UserRole.CONFIGURATOR] },
+    { label: 'Holidays', icon: CalendarDays, path: '/off-days' },
   ];
 
   const closeSidebar = () => setSidebarOpen(false);
@@ -105,7 +98,7 @@ const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
               className="flex items-center gap-4 w-full px-4 py-3 text-zinc-500 hover:bg-rose-500/10 hover:text-rose-500 rounded-xl transition-all duration-200"
             >
               <LogOut size={20} />
-              <span className="font-semibold text-sm">{t.common.signOut}</span>
+              <span className="font-semibold text-sm">Sign Out</span>
             </button>
           </div>
         </div>
@@ -128,48 +121,6 @@ const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
 
           <div className="flex items-center gap-2 md:gap-4">
             <div className="hidden sm:flex items-center gap-1">
-              <div className="relative">
-                <button
-                  onClick={() => setLanguageMenuOpen(!isLanguageMenuOpen)}
-                  className="p-2 text-slate-400 hover:text-blue-600 transition-all flex items-center gap-1 rounded-lg hover:bg-slate-100"
-                  title="Change Language"
-                >
-                  <Globe size={18} />
-                  <span className="text-[10px] font-bold uppercase">{currentLanguage.code}</span>
-                </button>
-
-                {isLanguageMenuOpen && (
-                  <div className="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-200 rounded-2xl shadow-xl z-50 overflow-hidden">
-                    <div className="p-3 border-b border-slate-100">
-                      <p className="text-xs font-bold text-slate-400 uppercase tracking-widest px-2">Select Language</p>
-                    </div>
-                    <div className="p-2 space-y-1">
-                      {languages.map((lang) => (
-                        <button
-                          key={lang.code}
-                          onClick={() => {
-                            setLanguage(lang.code);
-                            setLanguageMenuOpen(false);
-                          }}
-                          className={`w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg transition-all text-sm font-semibold ${currentLanguage.code === lang.code
-                            ? 'bg-blue-50 text-blue-600 border border-blue-200'
-                            : 'text-slate-700 hover:bg-slate-50'
-                            }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg">{lang.flag}</span>
-                            <div className="text-left">
-                              <p className="text-sm font-bold">{lang.name}</p>
-                              <p className="text-xs text-slate-400">{lang.native}</p>
-                            </div>
-                          </div>
-                          {currentLanguage.code === lang.code && <Check size={16} className="text-blue-600" />}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
               <button className="p-2 text-slate-400 hover:text-blue-600 transition-all relative">
                 <Bell size={18} />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full border-2 border-white"></span>

@@ -2,8 +2,9 @@
   "[project]/Desktop/llab_man/pages/LabManagement.tsx [app-client] (ecmascript, next/dynamic entry)": {
     "id": "[project]/Desktop/llab_man/pages/LabManagement.tsx [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/Desktop_llab_man_46a7f567._.js",
-      "static/chunks/Desktop_llab_man_pages_LabManagement_tsx_f2af7918._.js"
+      "static/chunks/Desktop_llab_man_pages_LabManagement_tsx_15c296a0._.js",
+      "static/chunks/4a39a_lucide-react_dist_esm_icons_bfbd7568._.js",
+      "static/chunks/Desktop_llab_man_pages_LabManagement_tsx_9caded95._.js"
     ]
   }
 }

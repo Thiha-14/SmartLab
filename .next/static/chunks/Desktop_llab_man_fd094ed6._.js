@@ -31,8 +31,11 @@ const Scheduling = ()=>{
     const [bookings, setBookings] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [showAdd, setShowAdd] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [selectedLab, setSelectedLab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
-    const [selectedTime, setSelectedTime] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [selectedStartTime, setSelectedStartTime] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [selectedEndTime, setSelectedEndTime] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [labs, setLabs] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [bookingErrors, setBookingErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [successMessage, setSuccessMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "Scheduling.useEffect": ()=>{
             const labsData = JSON.parse(localStorage.getItem('sl_labs') || '[]');
@@ -46,13 +49,26 @@ const Scheduling = ()=>{
         localStorage.setItem('sl_bookings', JSON.stringify(updated));
     };
     const handleAddBooking = ()=>{
-        if (!selectedLab || !selectedTime) return;
+        const errors = [];
+        if (!selectedLab) errors.push('Lab selection is required');
+        if (!selectedStartTime) errors.push('Start time is required');
+        if (!selectedEndTime) errors.push('End time is required');
+        setBookingErrors(errors);
+        if (errors.length > 0) return;
+        const startDate = new Date("2024-01-01 ".concat(selectedStartTime));
+        const endDate = new Date("2024-01-01 ".concat(selectedEndTime));
+        if (endDate <= startDate) {
+            setBookingErrors([
+                'End time must be after start time'
+            ]);
+            return;
+        }
         const newBooking = {
             id: 'b' + Date.now(),
             labName: selectedLab,
             type: activeType,
-            startTime: selectedTime,
-            endTime: (parseInt(selectedTime.split(':')[0]) + 2).toString().padStart(2, '0') + ':00',
+            startTime: selectedStartTime,
+            endTime: selectedEndTime,
             userName: JSON.parse(localStorage.getItem('sl_session') || '{}').firstName || 'Member'
         };
         saveBookings([
@@ -61,7 +77,11 @@ const Scheduling = ()=>{
         ]);
         setShowAdd(false);
         setSelectedLab('');
-        setSelectedTime('');
+        setSelectedStartTime('');
+        setSelectedEndTime('');
+        setBookingErrors([]);
+        setSuccessMessage("✅ Booking confirmed! ".concat(selectedLab, " from ").concat(selectedStartTime, " to ").concat(selectedEndTime));
+        setTimeout(()=>setSuccessMessage(''), 3000);
     };
     const handleDelete = (id)=>{
         if (confirm('Cancel this booking?')) {
@@ -86,14 +106,14 @@ const Scheduling = ()=>{
                                         className: "md:w-[18px] md:h-[18px]"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                        lineNumber: 68,
+                                        lineNumber: 90,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Daily"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 64,
+                                lineNumber: 86,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -105,20 +125,20 @@ const Scheduling = ()=>{
                                         className: "md:w-[18px] md:h-[18px]"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                        lineNumber: 74,
+                                        lineNumber: 96,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     " Repairs"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 70,
+                                lineNumber: 92,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                        lineNumber: 63,
+                        lineNumber: 85,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -130,12 +150,12 @@ const Scheduling = ()=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 79,
+                                    lineNumber: 101,
                                     columnNumber: 122
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 79,
+                                lineNumber: 101,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -145,12 +165,12 @@ const Scheduling = ()=>{
                                     children: "Oct 24, Thu"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 81,
+                                    lineNumber: 103,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 80,
+                                lineNumber: 102,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -159,24 +179,24 @@ const Scheduling = ()=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 83,
+                                    lineNumber: 105,
                                     columnNumber: 122
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 83,
+                                lineNumber: 105,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                        lineNumber: 78,
+                        lineNumber: 100,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                lineNumber: 62,
+                lineNumber: 84,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -193,7 +213,7 @@ const Scheduling = ()=>{
                                         children: "Daily Schedule"
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                        lineNumber: 90,
+                                        lineNumber: 112,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -204,32 +224,32 @@ const Scheduling = ()=>{
                                                 size: 18
                                             }, void 0, false, {
                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                lineNumber: 92,
+                                                lineNumber: 114,
                                                 columnNumber: 15
                                             }, ("TURBOPACK compile-time value", void 0)),
                                             " Book a Slot"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                        lineNumber: 91,
+                                        lineNumber: 113,
                                         columnNumber: 13
                                     }, ("TURBOPACK compile-time value", void 0))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 89,
+                                lineNumber: 111,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-6 md:p-10",
+                                className: "p-4 md:p-10",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "relative space-y-10 md:space-y-14",
+                                    className: "relative space-y-6 md:space-y-14",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "absolute left-[50px] md:left-[85px] top-0 bottom-0 w-1 bg-slate-50 rounded-full"
+                                            className: "absolute left-[35px] md:left-[85px] top-0 bottom-0 w-0.5 md:w-1 bg-slate-50 rounded-full"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 98,
+                                            lineNumber: 120,
                                             columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         [
@@ -241,46 +261,47 @@ const Scheduling = ()=>{
                                             '18:00',
                                             '20:00'
                                         ].map((time)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex gap-6 md:gap-10 group relative",
+                                                className: "flex gap-3 md:gap-10 group relative",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-[35px] md:w-[45px] text-[10px] md:text-xs font-black text-slate-700 mt-2 tracking-widest",
+                                                        className: "w-[28px] md:w-[45px] text-[9px] md:text-xs font-black text-slate-700 mt-1 md:mt-2 tracking-widest shrink-0",
                                                         children: time
                                                     }, void 0, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                        lineNumber: 101,
+                                                        lineNumber: 123,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex-1 min-h-[60px] md:min-h-[80px]",
+                                                        className: "flex-1 min-h-[50px] md:min-h-[80px]",
                                                         children: [
                                                             bookings.filter((b)=>b.startTime.startsWith(time.split(':')[0].padStart(2, '0'))).map((slot)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "p-4 md:p-6 rounded-2xl md:rounded-3xl border-l-[8px] md:border-l-[12px] shadow-sm transition-all hover:shadow-lg mb-4 ".concat(slot.type === __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScheduleType"].OPERATION ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-amber-50 border-amber-500 text-amber-900'),
+                                                                    className: "p-3 md:p-6 rounded-xl md:rounded-3xl border-l-[6px] md:border-l-[12px] shadow-sm transition-all hover:shadow-lg mb-3 md:mb-4 ".concat(slot.type === __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$types$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScheduleType"].OPERATION ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-amber-50 border-amber-500 text-amber-900'),
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex flex-col lg:flex-row justify-between lg:items-center gap-3",
+                                                                        className: "flex flex-col sm:flex-row justify-between sm:items-center gap-2 md:gap-3",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "min-w-0",
+                                                                                className: "min-w-0 flex-1",
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                                        className: "font-black text-lg md:text-xl mb-1 line-clamp-1",
+                                                                                        className: "font-black text-sm md:text-xl mb-1 truncate",
                                                                                         children: slot.labName
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                        lineNumber: 110,
+                                                                                        lineNumber: 132,
                                                                                         columnNumber: 29
                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        className: "flex flex-wrap items-center gap-3 md:gap-4 text-[10px] font-bold opacity-80 uppercase tracking-widest",
+                                                                                        className: "flex flex-wrap items-center gap-2 md:gap-4 text-[9px] md:text-[10px] font-bold opacity-80 uppercase tracking-widest",
                                                                                         children: [
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                                 className: "flex items-center gap-1",
                                                                                                 children: [
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$user$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__User$3e$__["User"], {
-                                                                                                        size: 12
+                                                                                                        size: 11,
+                                                                                                        className: "md:w-3 md:h-3"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                                        lineNumber: 112,
+                                                                                                        lineNumber: 134,
                                                                                                         columnNumber: 73
                                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                                     " ",
@@ -288,17 +309,18 @@ const Scheduling = ()=>{
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                                lineNumber: 112,
+                                                                                                lineNumber: 134,
                                                                                                 columnNumber: 31
                                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                                 className: "flex items-center gap-1",
                                                                                                 children: [
                                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
-                                                                                                        size: 12
+                                                                                                        size: 11,
+                                                                                                        className: "md:w-3 md:h-3"
                                                                                                     }, void 0, false, {
                                                                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                                        lineNumber: 113,
+                                                                                                        lineNumber: 135,
                                                                                                         columnNumber: 73
                                                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                                                     " ",
@@ -308,108 +330,109 @@ const Scheduling = ()=>{
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                                lineNumber: 113,
+                                                                                                lineNumber: 135,
                                                                                                 columnNumber: 31
                                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                        lineNumber: 111,
+                                                                                        lineNumber: 133,
                                                                                         columnNumber: 29
                                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                lineNumber: 109,
+                                                                                lineNumber: 131,
                                                                                 columnNumber: 27
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                                 onClick: ()=>handleDelete(slot.id),
-                                                                                className: "p-2.5 md:p-3 bg-white/60 hover:bg-rose-500 hover:text-white rounded-xl transition-all self-end sm:self-auto",
+                                                                                className: "p-2 md:p-3 bg-white/60 hover:bg-rose-500 hover:text-white rounded-lg md:rounded-xl transition-all shrink-0 self-end sm:self-auto",
                                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trash$2d$2$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Trash2$3e$__["Trash2"], {
-                                                                                    size: 16
+                                                                                    size: 14,
+                                                                                    className: "md:w-4 md:h-4"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                    lineNumber: 116,
-                                                                                    columnNumber: 193
+                                                                                    lineNumber: 138,
+                                                                                    columnNumber: 214
                                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                                lineNumber: 116,
+                                                                                lineNumber: 138,
                                                                                 columnNumber: 27
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                        lineNumber: 108,
+                                                                        lineNumber: 130,
                                                                         columnNumber: 25
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, slot.id, false, {
                                                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                    lineNumber: 104,
+                                                                    lineNumber: 126,
                                                                     columnNumber: 23
                                                                 }, ("TURBOPACK compile-time value", void 0))),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "w-full h-px bg-slate-50 mt-6 md:mt-8 group-last:hidden"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                                lineNumber: 120,
+                                                                lineNumber: 142,
                                                                 columnNumber: 21
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                        lineNumber: 102,
+                                                        lineNumber: 124,
                                                         columnNumber: 19
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 ]
                                             }, time, true, {
                                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                lineNumber: 100,
+                                                lineNumber: 122,
                                                 columnNumber: 17
                                             }, ("TURBOPACK compile-time value", void 0)))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 119,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                lineNumber: 96,
+                                lineNumber: 118,
                                 columnNumber: 11
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                        lineNumber: 88,
+                        lineNumber: 110,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "hidden xl:block space-y-8 animate-in slide-in-from-right duration-700",
+                        className: "hidden lg:block space-y-6 md:space-y-8 animate-in slide-in-from-right duration-700",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "bg-black p-10 rounded-[48px] shadow-2xl text-white relative overflow-hidden group",
+                            className: "bg-black p-6 md:p-10 rounded-[32px] md:rounded-[48px] shadow-2xl text-white relative overflow-hidden group",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                    className: "text-xl font-black mb-6 flex items-center gap-2",
+                                    className: "text-lg md:text-xl font-black mb-4 md:mb-6 flex items-center gap-2",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__["AlertCircle"], {
-                                            size: 22,
-                                            className: "text-blue-500"
+                                            size: 18,
+                                            className: "md:w-[22px] md:h-[22px] text-blue-500"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 131,
+                                            lineNumber: 153,
                                             columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         "Lab Monitor"
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 152,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-4 relative z-10",
+                                    className: "space-y-3 md:space-y-4 relative z-10",
                                     children: [
                                         {
                                             name: 'X-Ray Lab',
@@ -427,67 +450,82 @@ const Scheduling = ()=>{
                                             color: 'bg-emerald-500'
                                         }
                                     ].map((res, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "p-4 bg-white/5 border border-white/10 rounded-2xl flex justify-between items-center",
+                                            className: "p-3 md:p-4 bg-white/5 border border-white/10 rounded-xl md:rounded-2xl flex justify-between items-center",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-sm font-black",
+                                                    className: "text-xs md:text-sm font-black truncate",
                                                     children: res.name
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                    lineNumber: 141,
+                                                    lineNumber: 163,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex items-center gap-2",
+                                                    className: "flex items-center gap-2 shrink-0",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "w-2 h-2 rounded-full ".concat(res.color)
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                            lineNumber: 143,
+                                                            lineNumber: 165,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-[10px] font-black uppercase text-slate-300",
+                                                            className: "text-[9px] md:text-[10px] font-black uppercase text-slate-300",
                                                             children: res.status
                                                         }, void 0, false, {
                                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                            lineNumber: 144,
+                                                            lineNumber: 166,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                    lineNumber: 142,
+                                                    lineNumber: 164,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, i, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 140,
+                                            lineNumber: 162,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 134,
+                                    lineNumber: 156,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                            lineNumber: 129,
+                            lineNumber: 151,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                        lineNumber: 128,
+                        lineNumber: 150,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                lineNumber: 87,
+                lineNumber: 109,
                 columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            successMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "bg-emerald-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3",
+                    children: successMessage
+                }, void 0, false, {
+                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                    lineNumber: 177,
+                    columnNumber: 11
+                }, ("TURBOPACK compile-time value", void 0))
+            }, void 0, false, {
+                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                lineNumber: 176,
+                columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0)),
             showAdd && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300",
@@ -502,29 +540,67 @@ const Scheduling = ()=>{
                                     children: "Book a Slot"
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 157,
+                                    lineNumber: 187,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setShowAdd(false),
+                                    onClick: ()=>{
+                                        setShowAdd(false);
+                                        setBookingErrors([]);
+                                    },
                                     className: "w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:text-slate-900 transition-all",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$x$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__X$3e$__["X"], {
                                         size: 24
                                     }, void 0, false, {
                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                        lineNumber: 158,
-                                        columnNumber: 187
+                                        lineNumber: 188,
+                                        columnNumber: 212
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 158,
+                                    lineNumber: 188,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                            lineNumber: 156,
+                            lineNumber: 186,
                             columnNumber: 13
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        bookingErrors.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-rose-900 font-black text-sm mb-2",
+                                    children: "⚠️ Please check:"
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                    lineNumber: 193,
+                                    columnNumber: 17
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                                    className: "space-y-1",
+                                    children: bookingErrors.map((error, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                            className: "text-rose-700 text-sm font-bold",
+                                            children: [
+                                                "• ",
+                                                error
+                                            ]
+                                        }, idx, true, {
+                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                            lineNumber: 196,
+                                            columnNumber: 21
+                                        }, ("TURBOPACK compile-time value", void 0)))
+                                }, void 0, false, {
+                                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                    lineNumber: 194,
+                                    columnNumber: 17
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                            lineNumber: 192,
+                            columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "space-y-4 md:space-y-6",
@@ -537,20 +613,23 @@ const Scheduling = ()=>{
                                             children: "Select Lab"
                                         }, void 0, false, {
                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 162,
+                                            lineNumber: 204,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                            className: "w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold text-base md:text-lg",
+                                            className: "w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold text-base md:text-lg cursor-pointer",
                                             value: selectedLab,
-                                            onChange: (e)=>setSelectedLab(e.target.value),
+                                            onChange: (e)=>{
+                                                setSelectedLab(e.target.value);
+                                                setBookingErrors([]);
+                                            },
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: "",
                                                     children: "Choose a lab..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                    lineNumber: 168,
+                                                    lineNumber: 210,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 labs.map((l)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -558,52 +637,260 @@ const Scheduling = ()=>{
                                                         children: l.name
                                                     }, l.id, false, {
                                                         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                                        lineNumber: 169,
+                                                        lineNumber: 211,
                                                         columnNumber: 41
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 163,
+                                            lineNumber: 205,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 203,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "space-y-2",
-                                    children: [
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                            className: "text-[10px] font-black text-slate-700 uppercase tracking-widest ml-1",
-                                            children: "Set Time"
-                                        }, void 0, false, {
-                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 173,
-                                            columnNumber: 17
-                                        }, ("TURBOPACK compile-time value", void 0)),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                            type: "time",
-                                            className: "w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold text-base md:text-lg",
-                                            value: selectedTime,
-                                            onChange: (e)=>setSelectedTime(e.target.value)
-                                        }, void 0, false, {
-                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                            lineNumber: 174,
-                                            columnNumber: 17
-                                        }, ("TURBOPACK compile-time value", void 0))
-                                    ]
-                                }, void 0, true, {
+                                    className: "space-y-4 md:space-y-6",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "bg-gradient-to-br from-blue-50 to-indigo-50 rounded-[24px] md:rounded-[32px] p-6 md:p-8 border border-blue-200/50",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "text-[10px] font-black text-blue-900 uppercase tracking-widest mb-4 md:mb-5 block",
+                                                children: "Time Window"
+                                            }, void 0, false, {
+                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                lineNumber: 216,
+                                                columnNumber: 19
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "grid grid-cols-2 gap-4 md:gap-6",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "space-y-3",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-2",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "w-2 h-2 rounded-full bg-blue-600"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 220,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-[9px] font-black text-blue-700 uppercase tracking-wider",
+                                                                        children: "Start"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 221,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 219,
+                                                                columnNumber: 23
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                className: "w-full px-4 md:px-5 py-3 md:py-4 bg-white border border-blue-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-slate-900 hover:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all cursor-pointer",
+                                                                value: selectedStartTime,
+                                                                onChange: (e)=>setSelectedStartTime(e.target.value),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                        value: "",
+                                                                        children: "Choose hour..."
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 228,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    Array.from({
+                                                                        length: 24
+                                                                    }, (_, i)=>{
+                                                                        const hour = i.toString().padStart(2, '0');
+                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "".concat(hour, ":00"),
+                                                                            children: [
+                                                                                hour,
+                                                                                ":00"
+                                                                            ]
+                                                                        }, hour, true, {
+                                                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                            lineNumber: 231,
+                                                                            columnNumber: 34
+                                                                        }, ("TURBOPACK compile-time value", void 0));
+                                                                    })
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 223,
+                                                                columnNumber: 23
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            selectedStartTime && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-center pt-2",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "text-2xl md:text-3xl font-black text-blue-600",
+                                                                    children: selectedStartTime
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                    lineNumber: 236,
+                                                                    columnNumber: 27
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 235,
+                                                                columnNumber: 25
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                        lineNumber: 218,
+                                                        columnNumber: 21
+                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "space-y-3",
+                                                        children: [
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex items-center gap-2",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                        className: "w-2 h-2 rounded-full bg-indigo-600"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 242,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-[9px] font-black text-indigo-700 uppercase tracking-wider",
+                                                                        children: "End"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 243,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 241,
+                                                                columnNumber: 23
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                                className: "w-full px-4 md:px-5 py-3 md:py-4 bg-white border border-indigo-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-slate-900 hover:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-all cursor-pointer",
+                                                                value: selectedEndTime,
+                                                                onChange: (e)=>setSelectedEndTime(e.target.value),
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                        value: "",
+                                                                        children: "Choose hour..."
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                        lineNumber: 250,
+                                                                        columnNumber: 25
+                                                                    }, ("TURBOPACK compile-time value", void 0)),
+                                                                    Array.from({
+                                                                        length: 24
+                                                                    }, (_, i)=>{
+                                                                        const hour = i.toString().padStart(2, '0');
+                                                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                            value: "".concat(hour, ":00"),
+                                                                            children: [
+                                                                                hour,
+                                                                                ":00"
+                                                                            ]
+                                                                        }, hour, true, {
+                                                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                            lineNumber: 253,
+                                                                            columnNumber: 34
+                                                                        }, ("TURBOPACK compile-time value", void 0));
+                                                                    })
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 245,
+                                                                columnNumber: 23
+                                                            }, ("TURBOPACK compile-time value", void 0)),
+                                                            selectedEndTime && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "text-center pt-2",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                    className: "text-2xl md:text-3xl font-black text-indigo-600",
+                                                                    children: selectedEndTime
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                    lineNumber: 258,
+                                                                    columnNumber: 27
+                                                                }, ("TURBOPACK compile-time value", void 0))
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                                lineNumber: 257,
+                                                                columnNumber: 25
+                                                            }, ("TURBOPACK compile-time value", void 0))
+                                                        ]
+                                                    }, void 0, true, {
+                                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                        lineNumber: 240,
+                                                        columnNumber: 21
+                                                    }, ("TURBOPACK compile-time value", void 0))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                lineNumber: 217,
+                                                columnNumber: 19
+                                            }, ("TURBOPACK compile-time value", void 0)),
+                                            selectedStartTime && selectedEndTime && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "mt-5 md:mt-6 pt-5 md:pt-6 border-t border-blue-200/50",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex items-center justify-between",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-[10px] font-black text-slate-600 uppercase tracking-wider",
+                                                            children: "Duration"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                            lineNumber: 266,
+                                                            columnNumber: 25
+                                                        }, ("TURBOPACK compile-time value", void 0)),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                            className: "text-lg md:text-xl font-black text-slate-900",
+                                                            children: [
+                                                                Math.abs(parseInt(selectedEndTime.split(':')[0]) - parseInt(selectedStartTime.split(':')[0])),
+                                                                " hour",
+                                                                Math.abs(parseInt(selectedEndTime.split(':')[0]) - parseInt(selectedStartTime.split(':')[0])) !== 1 ? 's' : ''
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                            lineNumber: 267,
+                                                            columnNumber: 25
+                                                        }, ("TURBOPACK compile-time value", void 0))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                    lineNumber: 265,
+                                                    columnNumber: 23
+                                                }, ("TURBOPACK compile-time value", void 0))
+                                            }, void 0, false, {
+                                                fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                                lineNumber: 264,
+                                                columnNumber: 21
+                                            }, ("TURBOPACK compile-time value", void 0))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
+                                        lineNumber: 215,
+                                        columnNumber: 17
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 172,
+                                    lineNumber: 214,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                            lineNumber: 160,
+                            lineNumber: 202,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$Desktop$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -615,34 +902,34 @@ const Scheduling = ()=>{
                                     size: 20
                                 }, void 0, false, {
                                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                                    lineNumber: 183,
+                                    lineNumber: 277,
                                     columnNumber: 31
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                            lineNumber: 182,
+                            lineNumber: 276,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                    lineNumber: 155,
+                    lineNumber: 185,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-                lineNumber: 154,
+                lineNumber: 184,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/Desktop/llab_man/pages/Scheduling.tsx",
-        lineNumber: 61,
+        lineNumber: 83,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(Scheduling, "cl7bzBwKGjsG68ybddprKOEQJPQ=");
+_s(Scheduling, "xoQKMzw9HD3t7hGc20x1NH1dWIA=");
 _c = Scheduling;
 const __TURBOPACK__default__export__ = Scheduling;
 var _c;

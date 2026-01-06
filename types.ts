@@ -83,3 +83,11 @@ export interface Allowance {
   minUsers: number;
   maxUsers: number;
 }
+
+export interface LabRule {
+  id: string;
+  title: string;
+  description: string;
+  category: 'Safety' | 'Conduct' | 'Equipment' | 'General';
+  severity: 'Mandatory' | 'Warning' | 'Info';
+}
