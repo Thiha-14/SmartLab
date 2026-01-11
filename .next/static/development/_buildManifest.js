@@ -5,15 +5,7 @@ self.__BUILD_MANIFEST = {
     "fallback": []
   },
   "sortedPages": [
-    "/Dashboard",
-    "/ForgotPassword",
-    "/GroupManagement",
-    "/LabManagement",
-    "/OffDays",
-    "/Scheduling",
-    "/UserManagement",
     "/_app",
-    "/_error",
-    "/auth"
+    "/_error"
   ]
 };self.__BUILD_MANIFEST_CB && self.__BUILD_MANIFEST_CB()

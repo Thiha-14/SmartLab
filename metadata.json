@@ -1,5 +1,5 @@
 {
-  "name": "SmartLab - Enterprise Lab Management System",
+  "name": "Smart Lab - Enterprise Lab Management System",
   "description": "A comprehensive lab management platform featuring role-based access control, equipment tracking, lab scheduling, and multi-media asset management.",
   "requestFramePermissions": [
     "camera",

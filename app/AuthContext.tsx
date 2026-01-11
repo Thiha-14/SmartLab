@@ -16,10 +16,34 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
+    // useEffect(() => {
+    //     if (typeof window !== 'undefined') {
+    //         initStorage();
+    //         localStorage.removeItem('sl_session');
+    //         setLoading(false);
+    //     }
+    // }, []);
+
     useEffect(() => {
         if (typeof window !== 'undefined') {
-            initStorage();
-            localStorage.removeItem('sl_session');
+            // 1. Initialize storage only if needed (optional optimization)
+            initStorage(); 
+
+            // 2. CHECK for existing session instead of removing it
+            const storedSession = localStorage.getItem('sl_session');
+            
+            if (storedSession) {
+                try {
+                    // Restore the user to state
+                    const parsedUser = JSON.parse(storedSession);
+                    setUser(parsedUser);
+                } catch (error) {
+                    console.error("Failed to parse session:", error);
+                    localStorage.removeItem('sl_session'); // Only remove if data is corrupted
+                }
+            }
+
+            // 3. Stop loading immediately
             setLoading(false);
         }
     }, []);

@@ -9,7 +9,7 @@ export default function PageLoader() {
         <div className="inline-block">
           <img 
             src="/sm.png" 
-            alt="SmartLab" 
+            alt="Smart Lab" 
             className="w-16 h-16 rounded-xl shadow-lg mb-4 animate-pulse" 
           />
         </div>

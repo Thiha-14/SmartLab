@@ -66,8 +66,8 @@ const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
         <div className="flex flex-col h-full">
           <div className="p-8 flex items-center justify-between">
             <Link href="/dashboard" className="flex items-center gap-4 group">
-              <img src="/sm.png" alt="SmartLab" className="w-10 h-10 rounded-xl shadow-lg group-hover:scale-105 transition-all" />
-              <span className="text-xl font-bold tracking-tight group-hover:text-blue-400 transition-colors">SmartLab</span>
+              <img src="/sm.png" alt="Smart Lab" className="w-10 h-10 rounded-xl shadow-lg group-hover:scale-105 transition-all" />
+              <span className="text-xl font-bold tracking-tight group-hover:text-blue-400 transition-colors">Smart Lab</span>
             </Link>
             <button onClick={closeSidebar} className="md:hidden p-2 text-zinc-500 hover:text-white transition-all">
               <X size={24} />

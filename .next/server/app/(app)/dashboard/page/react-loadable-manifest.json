@@ -1,11 +1,16 @@
 {
-  "[project]/Desktop/llab_man/pages/Dashboard.tsx [app-client] (ecmascript, next/dynamic entry)": {
-    "id": "[project]/Desktop/llab_man/pages/Dashboard.tsx [app-client] (ecmascript, next/dynamic entry)",
+  "[project]/llab_man/llab_man/node_modules/recharts/es6/index.js [app-client] (ecmascript, next/dynamic entry)": {
+    "id": "[project]/llab_man/llab_man/node_modules/recharts/es6/index.js [app-client] (ecmascript, next/dynamic entry)",
     "files": [
-      "static/chunks/4a39a_recharts_es6_98377bdd._.js",
-      "static/chunks/4a39a_1ded0fcd._.js",
-      "static/chunks/Desktop_llab_man_pages_Dashboard_tsx_65eef578._.js",
-      "static/chunks/Desktop_llab_man_pages_Dashboard_tsx_3380ee97._.js"
+      "static/chunks/8056b_recharts_es6_util_ea5360a8._.js",
+      "static/chunks/8056b_recharts_es6_component_00fb8acf._.js",
+      "static/chunks/8056b_recharts_es6_state_e4f87f32._.js",
+      "static/chunks/8056b_recharts_es6_polar_dcc77a37._.js",
+      "static/chunks/8056b_recharts_es6_cartesian_73b599ff._.js",
+      "static/chunks/8056b_recharts_es6_chart_e64a5b49._.js",
+      "static/chunks/8056b_recharts_es6_a1cf6821._.js",
+      "static/chunks/8056b_eab95e05._.js",
+      "static/chunks/8056b_recharts_es6_index_7a7c6cc0.js"
     ]
   }
 }
