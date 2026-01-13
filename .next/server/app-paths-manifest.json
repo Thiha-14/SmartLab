@@ -1,10 +1,5 @@
 {
   "/(app)/dashboard/page": "app/(app)/dashboard/page.js",
-  "/(app)/groups/page": "app/(app)/groups/page.js",
-  "/(app)/labs/page": "app/(app)/labs/page.js",
-  "/(app)/off-days/page": "app/(app)/off-days/page.js",
-  "/(app)/scheduling/page": "app/(app)/scheduling/page.js",
-  "/(app)/users/page": "app/(app)/users/page.js",
   "/(auth)/login/page": "app/(auth)/login/page.js",
   "/page": "app/page.js"
 }

@@ -7,6 +7,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { useAuth } from '@/app/AuthContext'; 
 import { User, UserRole, UserStatus } from '@/types';
 import { Mail, Lock, Eye, EyeOff, User as UserIcon } from 'lucide-react';
+import Swal from 'sweetalert2';
 
 export default function AuthScreen() {
   const pathname = usePathname();
@@ -30,7 +31,12 @@ export default function AuthScreen() {
     // LOGIC: Check if we are on the login page
     if (pathname === '/login') {
       if (!email || !password) {
-        alert('Please fill in all fields');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Validation Error',
+          text: 'Please fill in all fields',
+          confirmButtonColor: '#1e293b',
+        });
         return;
       }
       
@@ -49,18 +55,40 @@ export default function AuthScreen() {
       };
       
       handleLogin(mockUser);
+      Swal.fire({
+        icon: 'success',
+        title: 'Login Successful',
+        text: 'Welcome back! Redirecting to dashboard...',
+        confirmButtonColor: '#1e293b',
+        allowOutsideClick: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: async () => {
+          await Swal.showLoading();
+        }
+      });
       setTimeout(() => {
         router.push('/dashboard');
-      }, 100);
+      }, 1500);
 
     } else {
       // LOGIC: Otherwise, we are on the signup page
       if (password !== confirmPassword) {
-        alert('Passwords do not match');
+        Swal.fire({
+          icon: 'error',
+          title: 'Password Mismatch',
+          text: 'Passwords do not match. Please try again.',
+          confirmButtonColor: '#1e293b',
+        });
         return;
       }
       if (!name || !email || !password) {
-        alert('Please fill in all fields');
+        Swal.fire({
+          icon: 'warning',
+          title: 'Validation Error',
+          text: 'Please fill in all fields',
+          confirmButtonColor: '#1e293b',
+        });
         return;
       }
       
@@ -79,9 +107,21 @@ export default function AuthScreen() {
       };
       
       handleLogin(newUser);
+      Swal.fire({
+        icon: 'success',
+        title: 'Account Created',
+        text: 'Welcome to Smart Lab! Redirecting to dashboard...',
+        confirmButtonColor: '#1e293b',
+        allowOutsideClick: false,
+        timer: 1500,
+        timerProgressBar: true,
+        didOpen: async () => {
+          await Swal.showLoading();
+        }
+      });
       setTimeout(() => {
         router.push('/dashboard');
-      }, 100);
+      }, 1500);
     }
   };
 
