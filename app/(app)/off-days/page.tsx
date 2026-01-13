@@ -208,67 +208,112 @@ export default function OffDaysPage() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-lg rounded-[48px] shadow-2xl overflow-hidden p-10 animate-in zoom-in-95 duration-300">
-            <div className="flex justify-between items-center mb-10">
-              <h2 className="text-2xl font-black text-slate-900">Define Event</h2>
-              <button onClick={() => setModalOpen(false)} className="w-12 h-12 flex items-center justify-center rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24} /></button>
-            </div>
-            <div className="space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Event Label</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Winter Research Break"
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold transition-all"
-                  value={newHoliday.name}
-                  onChange={e => setNewHoliday({ ...newHoliday, name: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Event Date</label>
-                <input
-                  type="date"
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold transition-all"
-                  value={newHoliday.date}
-                  onChange={e => setNewHoliday({ ...newHoliday, date: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Description (Optional)</label>
-                <input
-                  type="text"
-                  placeholder="e.g. Federal public holiday"
-                  className="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-3xl outline-none focus:bg-white font-bold transition-all"
-                  value={newHoliday.description}
-                  onChange={e => setNewHoliday({ ...newHoliday, description: e.target.value })}
-                />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Classification</label>
-                <div className="grid grid-cols-2 gap-2">
-                  {(['National', 'Cultural', 'School', 'Weekend'] as const).map(t => (
-                    <button
-                      key={t}
-                      onClick={() => setNewHoliday({ ...newHoliday, type: t })}
-                      className={`py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                        newHoliday.type === t 
-                          ? t === 'National' ? 'bg-red-600 text-white shadow-lg' :
-                            t === 'Cultural' ? 'bg-green-600 text-white shadow-lg' :
-                            t === 'School' ? 'bg-amber-600 text-white shadow-lg' :
-                            'bg-blue-600 text-white shadow-lg'
-                          : 'bg-slate-50 text-slate-400'
-                      }`}
-                    >
-                      {t}
-                    </button>
-                  ))}
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background with white accent */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
+            
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+              {/* Enhanced Header with blue gradient */}
+              <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-blue-500/80 via-blue-400/60 to-blue-600/70 border-b border-white/30 backdrop-blur-md">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse" />
+                
+                <div className="relative flex justify-between items-start md:items-center gap-3">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                      Define Event
+                    </h2>
+                    <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      Register institutional holidays
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setModalOpen(false)} 
+                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                  >
+                    <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                  </button>
                 </div>
               </div>
+
+              {/* Content Area */}
+              <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                <div className="space-y-4 md:space-y-6">
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Event Label</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Winter Research Break"
+                      className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white"
+                      value={newHoliday.name}
+                      onChange={e => setNewHoliday({ ...newHoliday, name: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Event Date</label>
+                    <input
+                      type="date"
+                      className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white"
+                      value={newHoliday.date}
+                      onChange={e => setNewHoliday({ ...newHoliday, date: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Description (Optional)</label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Federal public holiday"
+                      className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white"
+                      value={newHoliday.description}
+                      onChange={e => setNewHoliday({ ...newHoliday, description: e.target.value })}
+                    />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Classification</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(['National', 'Cultural', 'School', 'Weekend'] as const).map(t => (
+                        <button
+                          key={t}
+                          onClick={() => setNewHoliday({ ...newHoliday, type: t })}
+                          className={`py-3 rounded-2xl md:rounded-3xl font-black text-xs uppercase tracking-widest transition-all ${
+                            newHoliday.type === t 
+                              ? t === 'National' ? 'bg-red-600 text-white shadow-lg' :
+                                t === 'Cultural' ? 'bg-green-600 text-white shadow-lg' :
+                                t === 'School' ? 'bg-amber-600 text-white shadow-lg' :
+                                'bg-blue-600 text-white shadow-lg'
+                              : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'
+                          }`}
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer with Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
+                <button 
+                  onClick={() => setModalOpen(false)} 
+                  className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleAdd} 
+                  className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                >
+                  <Check size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" /> Finalize Registration
+                </button>
+              </div>
             </div>
-            <button onClick={handleAdd} className="w-full mt-10 py-5 bg-blue-600 text-white rounded-4xl font-black shadow-2xl shadow-blue-200 hover:bg-blue-700 transition-all flex items-center justify-center gap-3">
-              Finalize Registration <Check size={20} />
-            </button>
           </div>
         </div>
       )}

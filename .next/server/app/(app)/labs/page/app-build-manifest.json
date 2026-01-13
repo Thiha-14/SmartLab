@@ -1,0 +1,27 @@
+{
+  "pages": {
+    "/(app)/labs/page": [
+      "static/chunks/82623_next_dist_5509e18d._.js",
+      "static/chunks/SmartLab_llab_man_d3aa8d18._.js",
+      "static/chunks/SmartLab_llab_man_app_globals_94a17cc7.css",
+      "static/chunks/SmartLab_llab_man_app_layout_tsx_a27692e7._.js",
+      "static/chunks/82623_next_dist_client_components_builtin_global-error_9c160663.js",
+      "static/chunks/SmartLab_llab_man_18c01224._.js",
+      "static/chunks/SmartLab_llab_man_app_(app)_layout_tsx_9c160663._.js",
+      "static/chunks/SmartLab_llab_man_253df913._.js",
+      "static/chunks/SmartLab_llab_man_app_(app)_loading_tsx_5090efe7._.js",
+      "static/chunks/SmartLab_llab_man_app_(app)_labs_page_tsx_3c692a44._.js",
+      "static/chunks/82623_lucide-react_dist_esm_icons_c1f4e534._.js",
+      "static/chunks/SmartLab_llab_man_app_(app)_labs_page_tsx_5090efe7._.js",
+      "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_428634d2._.js",
+      "static/chunks/82623_next_dist_compiled_react-dom_a30935c5._.js",
+      "static/chunks/82623_next_dist_compiled_next-devtools_index_d8c0a8aa.js",
+      "static/chunks/82623_next_dist_compiled_3d8b0751._.js",
+      "static/chunks/82623_next_dist_client_b6ad2057._.js",
+      "static/chunks/82623_next_dist_f4bee58a._.js",
+      "static/chunks/82623_@swc_helpers_cjs_e8763b20._.js",
+      "static/chunks/SmartLab_llab_man_a0ff3932._.js",
+      "static/chunks/turbopack-SmartLab_llab_man_68e859c6._.js"
+    ]
+  }
+}

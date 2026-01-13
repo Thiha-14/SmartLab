@@ -124,11 +124,15 @@ export default function SchedulingPage() {
           <div className="p-4 md:p-10">
             <div className="relative space-y-6 md:space-y-14">
               <div className="absolute left-[35px] md:left-[85px] top-0 bottom-0 w-0.5 md:w-1 bg-slate-50 rounded-full"></div>
-              {['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00'].map((time) => (
+              {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map((time) => (
                 <div key={time} className="flex gap-3 md:gap-10 group relative">
                   <div className="w-[28px] md:w-[45px] text-[9px] md:text-xs font-black text-slate-700 mt-1 md:mt-2 tracking-widest shrink-0">{time}</div>
                   <div className="flex-1 min-h-[50px] md:min-h-[80px]">
-                    {bookings.filter(b => b.startTime.startsWith(time.split(':')[0].padStart(2, '0'))).map(slot => (
+                    {bookings.filter(b => {
+                      const bookingHour = b.startTime.split(':')[0];
+                      const timeHour = time.split(':')[0];
+                      return bookingHour === timeHour;
+                    }).map(slot => (
                       <div key={slot.id} className={`p-3 md:p-6 rounded-xl md:rounded-3xl border-l-[6px] md:border-l-[12px] shadow-sm transition-all hover:shadow-lg mb-3 md:mb-4 ${slot.type === ScheduleType.OPERATION
                         ? 'bg-blue-50 border-blue-600 text-blue-900'
                         : 'bg-amber-50 border-amber-500 text-amber-900'
@@ -180,97 +184,110 @@ export default function SchedulingPage() {
 
       {successMessage && (
         <div className="fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300">
-          <div className="bg-emerald-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3">
+          <div className="bg-gradient-to-r from-white/30 to-white/20 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl shadow-white/20 flex items-center gap-3 border border-white/40 backdrop-blur-md">
             {successMessage}
           </div>
         </div>
       )}
 
       {showAdd && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-lg rounded-[28px] md:rounded-[40px] shadow-2xl overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background */}
+            <div className="absolute inset-0 rounded-[28px] md:rounded-[40px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
+            <div className="relative z-10 rounded-[28px] md:rounded-[40px] overflow-hidden flex flex-col p-6 md:p-10">
             <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-black text-slate-900">Book a Slot</h2>
-              <button onClick={() => {setShowAdd(false); setBookingErrors([]);}} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-slate-50 text-slate-400 hover:text-slate-900 transition-all"><X size={24} /></button>
+              <div>
+                <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-2 text-white drop-shadow-lg">Book a Slot</h2>
+                <div className="text-xs md:text-sm text-white/80 font-semibold tracking-wide flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  Reserve your lab time
+                </div>
+              </div>
+              <button onClick={() => {setShowAdd(false); setBookingErrors([]);}} className="w-10 h-10 flex items-center justify-center rounded-2xl bg-white/20 hover:bg-white/30 border border-white/40 text-white transition-all group"><X size={24} className="group-hover:rotate-90 transition-all" /></button>
             </div>
             
             {bookingErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
-                <p className="text-rose-900 font-black text-sm mb-2">⚠️ Please check:</p>
+              <div className="mb-6 p-4 bg-rose-500/20 border border-rose-400/40 rounded-2xl backdrop-blur-sm">
+                <p className="text-rose-200 font-black text-sm mb-2">⚠️ Please check:</p>
                 <ul className="space-y-1">
                   {bookingErrors.map((error, idx) => (
-                    <li key={idx} className="text-rose-700 text-sm font-bold">• {error}</li>
+                    <li key={idx} className="text-rose-100 text-sm font-bold">• {error}</li>
                   ))}
                 </ul>
               </div>
             )}
             
-            <div className="space-y-4 md:space-y-6">
+            <div className="space-y-4 md:space-y-6 overflow-y-auto">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-700 uppercase tracking-widest ml-1">Select Lab</label>
+                <label className="text-[10px] font-black text-white/90 uppercase tracking-widest ml-1">Select Lab</label>
                 <select
-                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold text-base md:text-lg cursor-pointer"
+                  className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/10 border border-white/30 rounded-2xl outline-none font-bold text-base md:text-lg text-white cursor-pointer backdrop-blur-sm focus:bg-white/20 focus:border-white/50 transition-all"
                   value={selectedLab}
                   onChange={(e) => {setSelectedLab(e.target.value); setBookingErrors([]);}}
                 >
-                  <option value="">Choose a lab...</option>
-                  {labs.map((l: any) => <option key={l.id} value={l.name}>{l.name}</option>)}
+                  <option value="" className="bg-slate-900 text-white">Choose a lab...</option>
+                  {labs.map((l: any) => <option key={l.id} value={l.name} className="bg-slate-900 text-white">{l.name}</option>)}
                 </select>
               </div>
               <div className="space-y-4 md:space-y-6">
-                <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-[24px] md:rounded-[32px] p-6 md:p-8 border border-blue-200/50">
-                  <label className="text-[10px] font-black text-blue-900 uppercase tracking-widest mb-4 md:mb-5 block">Time Window</label>
+                <div className="bg-white/10 rounded-[24px] md:rounded-[32px] p-6 md:p-8 border border-white/30 backdrop-blur-sm">
+                  <label className="text-[10px] font-black text-white/90 uppercase tracking-widest mb-4 md:mb-5 block">Time Window</label>
                   <div className="grid grid-cols-2 gap-4 md:gap-6">
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-blue-600"></div>
-                        <span className="text-[9px] font-black text-blue-700 uppercase tracking-wider">Start</span>
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                        <span className="text-[9px] font-black text-white/80 uppercase tracking-wider">Start</span>
                       </div>
                       <select
-                        className="w-full px-4 md:px-5 py-3 md:py-4 bg-white border border-blue-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-slate-900 hover:border-blue-400 focus:ring-2 focus:ring-blue-500/30 transition-all cursor-pointer"
+                        className="w-full px-4 md:px-5 py-3 md:py-4 bg-white/15 border border-white/30 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-white hover:border-white/50 focus:ring-2 focus:ring-white/30 focus:bg-white/25 transition-all cursor-pointer backdrop-blur-sm"
                         value={selectedStartTime}
                         onChange={(e) => setSelectedStartTime(e.target.value)}
                       >
-                        <option value="">Choose hour...</option>
+                        <option value="" className="bg-slate-900 text-white">Choose hour...</option>
                         {Array.from({ length: 24 }, (_, i) => {
                           const hour = i.toString().padStart(2, '0');
-                          return <option key={hour} value={`${hour}:00`}>{hour}:00</option>;
+                          return <option key={hour} value={`${hour}:00`} className="bg-slate-900 text-white">{hour}:00</option>;
                         })}
                       </select>
                       {selectedStartTime && (
                         <div className="text-center pt-2">
-                          <span className="text-2xl md:text-3xl font-black text-blue-600">{selectedStartTime}</span>
+                          <span className="text-2xl md:text-3xl font-black text-white">{selectedStartTime}</span>
                         </div>
                       )}
                     </div>
                     <div className="space-y-3">
                       <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 rounded-full bg-indigo-600"></div>
-                        <span className="text-[9px] font-black text-indigo-700 uppercase tracking-wider">End</span>
+                        <div className="w-2 h-2 rounded-full bg-white"></div>
+                        <span className="text-[9px] font-black text-white/80 uppercase tracking-wider">End</span>
                       </div>
                       <select
-                        className="w-full px-4 md:px-5 py-3 md:py-4 bg-white border border-indigo-200 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-slate-900 hover:border-indigo-400 focus:ring-2 focus:ring-indigo-500/30 transition-all cursor-pointer"
+                        className="w-full px-4 md:px-5 py-3 md:py-4 bg-white/15 border border-white/30 rounded-xl md:rounded-2xl outline-none font-bold text-sm md:text-base text-white hover:border-white/50 focus:ring-2 focus:ring-white/30 focus:bg-white/25 transition-all cursor-pointer backdrop-blur-sm"
                         value={selectedEndTime}
                         onChange={(e) => setSelectedEndTime(e.target.value)}
                       >
-                        <option value="">Choose hour...</option>
+                        <option value="" className="bg-slate-900 text-white">Choose hour...</option>
                         {Array.from({ length: 24 }, (_, i) => {
                           const hour = i.toString().padStart(2, '0');
-                          return <option key={hour} value={`${hour}:00`}>{hour}:00</option>;
+                          return <option key={hour} value={`${hour}:00`} className="bg-slate-900 text-white">{hour}:00</option>;
                         })}
                       </select>
                       {selectedEndTime && (
                         <div className="text-center pt-2">
-                          <span className="text-2xl md:text-3xl font-black text-indigo-600">{selectedEndTime}</span>
+                          <span className="text-2xl md:text-3xl font-black text-white">{selectedEndTime}</span>
                         </div>
                       )}
                     </div>
                   </div>
                   {selectedStartTime && selectedEndTime && (
-                    <div className="mt-5 md:mt-6 pt-5 md:pt-6 border-t border-blue-200/50">
+                    <div className="mt-5 md:mt-6 pt-5 md:pt-6 border-t border-white/20">
                       <div className="flex items-center justify-between">
-                        <span className="text-[10px] font-black text-slate-600 uppercase tracking-wider">Duration</span>
-                        <span className="text-lg md:text-xl font-black text-slate-900">
+                        <span className="text-[10px] font-black text-white/70 uppercase tracking-wider">Duration</span>
+                        <span className="text-lg md:text-xl font-black text-white">
                           {Math.abs(parseInt(selectedEndTime.split(':')[0]) - parseInt(selectedStartTime.split(':')[0]))} hour{Math.abs(parseInt(selectedEndTime.split(':')[0]) - parseInt(selectedStartTime.split(':')[0])) !== 1 ? 's' : ''}
                         </span>
                       </div>
@@ -279,9 +296,10 @@ export default function SchedulingPage() {
                 </div>
               </div>
             </div>
-            <button onClick={handleAddBooking} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-blue-600 text-white rounded-3xl font-black shadow-lg hover:bg-blue-700 transition-all flex items-center justify-center gap-3 uppercase text-[10px] md:text-xs tracking-widest">
-              Confirm Booking <Check size={20} />
+            <button onClick={handleAddBooking} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-3xl font-black shadow-xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-3 uppercase text-[10px] md:text-xs tracking-widest border border-white/50 backdrop-blur-sm group">
+              <Check size={20} className="group-hover:rotate-12 transition-transform" /> Confirm Booking
             </button>
+            </div>
           </div>
         </div>
       )}

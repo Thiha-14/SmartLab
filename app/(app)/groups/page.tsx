@@ -205,105 +205,138 @@ export default function GroupsPage() {
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-2xl rounded-[32px] md:rounded-[48px] shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 max-h-[90vh] flex flex-col">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-5 md:p-8 text-white shrink-0">
-              <div className="flex justify-between items-start md:items-center gap-3">
-                <div>
-                  <h2 className="text-2xl md:text-3xl font-black mb-1 md:mb-2">Create New Team</h2>
-                  <p className="text-xs md:text-base text-blue-100 font-medium">Build a collaborative research group</p>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background with white accent */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
+            
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+              {/* Enhanced Header with white glass */}
+              <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-white/20 via-blue-400/10 to-white/5 border-b border-white/30 backdrop-blur-md">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse" />
+                
+                <div className="relative flex justify-between items-start md:items-center gap-3">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                      Create Team
+                    </h2>
+                    <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      Build collaborative research groups
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => setModalOpen(false)} 
+                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                  >
+                    <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                  </button>
                 </div>
+              </div>
+
+              {/* Content Area */}
+              <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                {/* Step 1: Team Name */}
+                <div className="space-y-2 md:space-y-3">
+                  <label className="text-xs md:text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                    <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl md:rounded-2xl bg-white/30 text-white flex items-center justify-center text-[11px] md:text-xs font-black shadow-lg border border-white/40">1</div>
+                    Team Name
+                  </label>
+                  <div className="relative group">
+                    <input
+                      value={newGroupName}
+                      onChange={e => setNewGroupName(e.target.value)}
+                      className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base md:text-lg placeholder:text-white/50 backdrop-blur-sm text-white"
+                      placeholder="e.g. Quantum Physics Research Team"
+                    />
+                    <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-white/0 via-white/0 to-white/0 group-focus-within:from-white/10 group-focus-within:to-white/10 pointer-events-none transition-all" />
+                  </div>
+                </div>
+
+                {/* Step 2: Select Members */}
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+                    <label className="text-xs md:text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+                      <div className="w-6 h-6 md:w-8 md:h-8 rounded-xl md:rounded-2xl bg-white/30 text-white flex items-center justify-center text-[11px] md:text-xs font-black shadow-lg border border-white/40">2</div>
+                      Select Members
+                    </label>
+                    <span className="text-xs md:text-sm font-black text-white bg-white/20 border border-white/40 px-3 md:px-4 py-1.5 md:py-2 rounded-xl md:rounded-2xl backdrop-blur-sm">
+                      {selectedUsers.length} Selected
+                    </span>
+                  </div>
+                  
+                  {/* Members List Container */}
+                  <div className="relative group/list">
+                    <div className="max-h-64 md:max-h-80 overflow-y-auto rounded-2xl md:rounded-3xl bg-white/10 border border-white/30 backdrop-blur-sm p-2 md:p-3 space-y-2 transition-all">
+                      {users.length === 0 ? (
+                        <div className="text-center py-8 md:py-12">
+                          <UserIcon size={40} className="md:w-12 md:h-12 mx-auto text-white/40 mb-2 md:mb-3" />
+                          <p className="text-sm md:text-base text-white/50 font-semibold">No users available</p>
+                        </div>
+                      ) : (
+                        users.map((user) => (
+                          <label 
+                            key={user.id} 
+                            className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl cursor-pointer transition-all group/item backdrop-blur-sm ${
+                              selectedUsers.includes(user.id) 
+                                ? 'bg-white/25 border border-white/50 shadow-lg shadow-white/20' 
+                                : 'bg-white/10 border border-white/20 hover:bg-white/15 hover:border-white/40'
+                            }`}
+                          >
+                            {/* Checkbox */}
+                            <div className={`w-6 h-6 md:w-7 md:h-7 rounded-lg md:rounded-xl border-2 md:border-3 flex items-center justify-center transition-all shrink-0 ${
+                              selectedUsers.includes(user.id) 
+                                ? 'bg-white/40 border-white/60 scale-110 shadow-lg shadow-white/30' 
+                                : 'bg-white/10 border-white/40 group-hover/item:border-white/60 group-hover/item:bg-white/20'
+                            }`}>
+                              {selectedUsers.includes(user.id) && <Check size={14} className="md:w-4 md:h-4 text-white" strokeWidth={3} />}
+                            </div>
+                            <input
+                              type="checkbox"
+                              className="hidden"
+                              checked={selectedUsers.includes(user.id)}
+                              onChange={() => toggleUser(user.id)}
+                            />
+                            {/* Avatar */}
+                            <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-white/40 to-white/20 text-white flex items-center justify-center font-black text-xs md:text-sm shadow-lg shrink-0 border border-white/30">
+                              {user.firstName[0]}
+                            </div>
+                            {/* User Info */}
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs md:text-sm font-black text-white leading-tight truncate">{user.firstName} {user.lastName}</p>
+                              <p className="text-[10px] md:text-xs text-white/70 font-semibold truncate">{user.role} • {user.studentId}</p>
+                            </div>
+                          </label>
+                        ))
+                      )}
+                    </div>
+                    {/* Glow effect */}
+                    <div className="absolute inset-0 rounded-2xl md:rounded-3xl bg-gradient-to-r from-white/0 to-white/0 group-focus-within:from-white/20 group-focus-within:to-white/20 pointer-events-none transition-all blur-lg" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Footer with Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
                 <button 
                   onClick={() => setModalOpen(false)} 
-                  className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl md:rounded-2xl bg-white/20 hover:bg-white/30 transition-colors shrink-0"
+                  className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
                 >
-                  <X size={20} className="md:w-6 md:h-6" />
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleCreateGroup} 
+                  disabled={!newGroupName || selectedUsers.length === 0}
+                  className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                >
+                  <Check size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" /> Create Team
                 </button>
               </div>
-            </div>
-
-            <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto">
-              <div className="space-y-2 md:space-y-3">
-                <label className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                  <div className="w-5 h-5 md:w-6 md:h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] md:text-xs font-black">1</div>
-                  Team Name
-                </label>
-                <input
-                  value={newGroupName}
-                  onChange={e => setNewGroupName(e.target.value)}
-                  className="w-full px-4 md:px-6 py-3 md:py-5 bg-slate-50 border border-slate-200 md:border-2 rounded-2xl md:rounded-3xl outline-none focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 focus:bg-white transition-all font-bold text-base md:text-lg placeholder:text-slate-300"
-                  placeholder="e.g. Quantum Physics Research Team"
-                />
-              </div>
-
-              <div className="space-y-3 md:space-y-4">
-                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
-                  <label className="text-xs font-black text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                    <div className="w-5 h-5 md:w-6 md:h-6 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center text-[10px] md:text-xs font-black">2</div>
-                    Select Members
-                  </label>
-                  <span className="text-xs md:text-sm font-black text-blue-600 bg-blue-50 px-3 md:px-4 py-1.5 md:py-2 rounded-xl md:rounded-2xl">
-                    {selectedUsers.length} Selected
-                  </span>
-                </div>
-                
-                <div className="max-h-60 md:max-h-80 overflow-y-auto border border-slate-100 md:border-2 rounded-2xl md:rounded-3xl bg-slate-50 p-2 md:p-3 space-y-2">
-                  {users.length === 0 ? (
-                    <div className="text-center py-8 md:py-12">
-                      <UserIcon size={40} className="md:w-12 md:h-12 mx-auto text-slate-200 mb-2 md:mb-3" />
-                      <p className="text-sm md:text-base text-slate-400 font-bold">No users available</p>
-                    </div>
-                  ) : (
-                    users.map((user) => (
-                      <label 
-                        key={user.id} 
-                        className={`flex items-center gap-3 md:gap-4 p-3 md:p-4 rounded-xl md:rounded-2xl cursor-pointer transition-all group/item ${
-                          selectedUsers.includes(user.id) 
-                            ? 'bg-blue-50 border border-blue-200 md:border-2 shadow-sm' 
-                            : 'bg-white border border-transparent md:border-2 hover:border-slate-200 hover:shadow-sm'
-                        }`}
-                      >
-                        <div className={`w-6 h-6 md:w-7 md:h-7 rounded-lg md:rounded-xl border-2 md:border-3 flex items-center justify-center transition-all shrink-0 ${
-                          selectedUsers.includes(user.id) 
-                            ? 'bg-blue-600 border-blue-600 scale-110' 
-                            : 'bg-white border-slate-300 group-hover/item:border-blue-300'
-                        }`}>
-                          {selectedUsers.includes(user.id) && <Check size={14} className="md:w-4 md:h-4 text-white" strokeWidth={3} />}
-                        </div>
-                        <input
-                          type="checkbox"
-                          className="hidden"
-                          checked={selectedUsers.includes(user.id)}
-                          onChange={() => toggleUser(user.id)}
-                        />
-                        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center font-black text-xs md:text-sm shadow-md shrink-0">
-                          {user.firstName[0]}
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs md:text-sm font-black text-slate-900 leading-tight truncate">{user.firstName} {user.lastName}</p>
-                          <p className="text-[10px] md:text-xs text-slate-500 font-bold truncate">{user.role} • {user.studentId}</p>
-                        </div>
-                      </label>
-                    ))
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-slate-50 border-t border-slate-100 md:border-t-2 shrink-0">
-              <button 
-                onClick={() => setModalOpen(false)} 
-                className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-slate-600 hover:bg-white rounded-2xl md:rounded-3xl transition-all border border-slate-200 md:border-2 hover:border-slate-300 text-sm md:text-base"
-              >
-                Cancel
-              </button>
-              <button 
-                onClick={handleCreateGroup} 
-                disabled={!newGroupName || selectedUsers.length === 0}
-                className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-2xl md:rounded-3xl font-black shadow-lg md:shadow-xl shadow-blue-500/30 hover:shadow-blue-500/50 hover:scale-105 transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 text-sm md:text-base"
-              >
-                <Check size={18} className="md:w-5 md:h-5" /> Create Team
-              </button>
             </div>
           </div>
         </div>

@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/USER/Desktop/SmartLab/llab_man/app/page.tsx"],"sourcesContent":["'use client';\r\n\r\nimport { useRouter } from 'next/navigation';\r\nimport { useAuth } from './AuthContext';\r\nimport { useEffect } from 'react';\r\n\r\nexport default function RootPage() {\r\n\r\n\r\n    return (\r\n        <div className=\"flex h-screen items-center justify-center bg-zinc-950\">\r\n            <div className=\"flex flex-col items-center gap-4 text-center\">\r\n                <div className=\"w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin\"></div>\r\n                <div className=\"space-y-1\">\r\n                    <span className=\"text-white font-bold tracking-[0.2em] text-lg block uppercase\">Smart Lab</span>\r\n                    <span className=\"text-blue-500 font-medium tracking-widest text-xs animate-pulse\">Loading...</span>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    );\r\n}\r\n"],"names":[],"mappings":";;;;;AAAA;;AAMe,SAAS;IAGpB,qBACI,qNAAC;QAAI,WAAU;kBACX,cAAA,qNAAC;YAAI,WAAU;;8BACX,qNAAC;oBAAI,WAAU;;;;;;8BACf,qNAAC;oBAAI,WAAU;;sCACX,qNAAC;4BAAK,WAAU;sCAAgE;;;;;;sCAChF,qNAAC;4BAAK,WAAU;sCAAkE;;;;;;;;;;;;;;;;;;;;;;;AAKtG;KAdwB","debugId":null}}]
+}

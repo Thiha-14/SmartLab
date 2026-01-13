@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import {
-  Plus, Search, Trash2, X, MapPin, FlaskConical, Cpu, ShieldCheck, AlertTriangle, Info, AlertCircle
+  Plus, Search, Trash2, X, MapPin, FlaskConical, Cpu, ShieldCheck, AlertTriangle, Info, AlertCircle, Check
 } from 'lucide-react';
 import { useAuth } from '@/app/AuthContext';
 import { Lab, UserRole, Equipment, LabRule } from '@/types';
@@ -468,87 +468,130 @@ export default function LabsPage() {
 
       {/* Add Lab Modal */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-[32px] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
-            <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add New Lab Room</h2>
-              <button onClick={() => {setModalOpen(false); setLabErrors([]);}} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20} /></button>
-            </div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background with white accent */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
             
-            {labErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
-                <p className="text-rose-900 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
-                <ul className="space-y-1">
-                  {labErrors.map((error, idx) => (
-                    <li key={idx} className="text-rose-700 text-sm font-bold">• {error}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            
-            <div className="space-y-4 md:space-y-6">
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Lab Name</label>
-                <select value={newLab.name} onChange={(e) => {
-                  const selected = labTemplates.find(t => t.label === e.target.value);
-                  setNewLab({ ...newLab, name: e.target.value, location: selected?.location || newLab.location });
-                  setLabErrors([]);
-                }} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm cursor-pointer">
-                  <option value="">e.g. Physics Lab 1</option>
-                  {labTemplates.map((template) => (
-                    <option key={template.label} value={template.label}>{template.label}</option>
-                  ))}
-                  <option value="custom">+ Custom Lab Name</option>
-                </select>
-                {newLab.name && !labTemplates.some(t => t.label === newLab.name) && (
-                  <input type="text" value={newLab.name} onChange={(e) => setNewLab({ ...newLab, name: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm mt-2" placeholder="Enter custom lab name..." />
-                )}
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">About the Lab</label>
-                <textarea value={newLab.description} onChange={(e) => setNewLab({ ...newLab, description: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold min-h-20 md:min-h-25 focus:border-blue-400 text-sm" placeholder="Enter details..." />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Lab Photo</label>
-                <div className="flex flex-col gap-3">
-                  {newLab.photoUrl && (
-                    <div className="relative w-full h-40 rounded-2xl overflow-hidden border border-slate-100">
-                      <img src={newLab.photoUrl} alt="Lab preview" className="w-full h-full object-cover" />
-                      <button
-                        onClick={() => setNewLab({ ...newLab, photoUrl: '', photoFile: null })}
-                        className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
-                      >
-                        <X size={16} />
-                      </button>
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+              {/* Enhanced Header with blue gradient */}
+              <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-blue-500/80 via-blue-400/60 to-blue-600/70 border-b border-white/30 backdrop-blur-md">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse" />
+                
+                <div className="relative flex justify-between items-start md:items-center gap-3">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                      Add New Lab Room
+                    </h2>
+                    <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      Create laboratory facilities
                     </div>
-                  )}
-                  <label className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 border-dashed rounded-2xl outline-none font-bold text-sm text-slate-600 cursor-pointer hover:border-blue-400 hover:bg-blue-50 transition-all text-center">
-                    {newLab.photoFile ? `📷 ${newLab.photoFile.name}` : '📷 Click to upload or select image'}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      onChange={handlePhotoUpload}
-                      className="hidden"
-                    />
-                  </label>
+                  </div>
+                  <button 
+                    onClick={() => {setModalOpen(false); setLabErrors([]);}} 
+                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                  >
+                    <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                  </button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest flex items-center gap-1">
-                  <MapPin size={12} /> Lab Location
-                </label>
-                <input
-                  type="text"
-                  value={newLab.location}
-                  onChange={(e) => setNewLab({ ...newLab, location: e.target.value })}
-                  className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm"
-                  placeholder="e.g. Building A, Room 101"
-                />
+
+              {/* Content Area */}
+              <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                {labErrors.length > 0 && (
+                  <div className="mb-6 p-4 bg-rose-500/20 border border-rose-400/40 rounded-2xl backdrop-blur-sm">
+                    <p className="text-rose-200 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
+                    <ul className="space-y-1">
+                      {labErrors.map((error, idx) => (
+                        <li key={idx} className="text-rose-100 text-sm font-bold">• {error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+            
+                <div className="space-y-4 md:space-y-6">
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Lab Name</label>
+                    <select value={newLab.name} onChange={(e) => {
+                      const selected = labTemplates.find(t => t.label === e.target.value);
+                      setNewLab({ ...newLab, name: e.target.value, location: selected?.location || newLab.location });
+                      setLabErrors([]);
+                    }} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base md:text-lg placeholder:text-white/50 backdrop-blur-sm text-white cursor-pointer">
+                      <option value="">e.g. Physics Lab 1</option>
+                      {labTemplates.map((template) => (
+                        <option key={template.label} value={template.label}>{template.label}</option>
+                      ))}
+                      <option value="custom">+ Custom Lab Name</option>
+                    </select>
+                    {newLab.name && !labTemplates.some(t => t.label === newLab.name) && (
+                      <input type="text" value={newLab.name} onChange={(e) => setNewLab({ ...newLab, name: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white mt-2" placeholder="Enter custom lab name..." />
+                    )}
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">About the Lab</label>
+                    <textarea value={newLab.description} onChange={(e) => setNewLab({ ...newLab, description: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold placeholder:text-white/50 backdrop-blur-sm text-white min-h-20 md:min-h-25" placeholder="Enter details..." />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Lab Photo</label>
+                    <div className="flex flex-col gap-3">
+                      {newLab.photoUrl && (
+                        <div className="relative w-full h-40 rounded-2xl md:rounded-3xl overflow-hidden border border-white/40">
+                          <img src={newLab.photoUrl} alt="Lab preview" className="w-full h-full object-cover" />
+                          <button
+                            onClick={() => setNewLab({ ...newLab, photoUrl: '', photoFile: null })}
+                            className="absolute top-2 right-2 p-1.5 bg-white/90 rounded-lg hover:bg-rose-500 hover:text-white transition-all"
+                          >
+                            <X size={16} />
+                          </button>
+                        </div>
+                      )}
+                      <label className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 border-dashed rounded-2xl md:rounded-3xl outline-none font-bold text-sm text-white cursor-pointer hover:border-white/60 hover:bg-white/25 transition-all text-center backdrop-blur-sm">
+                        {newLab.photoFile ? `📷 ${newLab.photoFile.name}` : '📷 Click to upload or select image'}
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={handlePhotoUpload}
+                          className="hidden"
+                        />
+                      </label>
+                    </div>
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest flex items-center gap-1">
+                      <MapPin size={12} /> Lab Location
+                    </label>
+                    <input
+                      type="text"
+                      value={newLab.location}
+                      onChange={(e) => setNewLab({ ...newLab, location: e.target.value })}
+                      className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white"
+                      placeholder="e.g. Building A, Room 101"
+                    />
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3 md:gap-4 mt-8 md:mt-10">
-              <button onClick={() => { setNewLab({ name: '', description: '', location: '', photoUrl: '', photoFile: null }); setModalOpen(false); }} className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-bold text-slate-500 rounded-2xl hover:bg-slate-50 transition-all uppercase text-[10px] md:text-xs tracking-widest">Cancel</button>
-              <button onClick={handleAddLab} className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-blue-600 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all uppercase text-[10px] md:text-xs tracking-widest">Save Lab</button>
+
+              {/* Footer with Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
+                <button 
+                  onClick={() => { setNewLab({ name: '', description: '', location: '', photoUrl: '', photoFile: null }); setModalOpen(false); }} 
+                  className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleAddLab} 
+                  className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                >
+                  <Check size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" /> Save Lab
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -556,135 +599,223 @@ export default function LabsPage() {
 
       {/* Add Equipment Modal */}
       {isEqModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-[32px] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
-            <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add Equipment</h2>
-              <button onClick={() => {setEqModalOpen(false); setEqErrors([]);}} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20} /></button>
-            </div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background with white accent */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
             
-            {eqErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
-                <p className="text-rose-900 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
-                <ul className="space-y-1">
-                  {eqErrors.map((error, idx) => (
-                    <li key={idx} className="text-rose-700 text-sm font-bold">• {error}</li>
-                  ))}
-                </ul>
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+              {/* Enhanced Header with blue gradient */}
+              <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-blue-500/80 via-blue-400/60 to-blue-600/70 border-b border-white/30 backdrop-blur-md">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse" />
+                
+                <div className="relative flex justify-between items-start md:items-center gap-3">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                      Add Equipment
+                    </h2>
+                    <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      Manage lab inventory
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => {setEqModalOpen(false); setEqErrors([]);}} 
+                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                  >
+                    <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                  </button>
+                </div>
               </div>
-            )}
+
+              {/* Content Area */}
+              <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                {eqErrors.length > 0 && (
+                  <div className="mb-6 p-4 bg-rose-500/20 border border-rose-400/40 rounded-2xl backdrop-blur-sm">
+                    <p className="text-rose-200 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
+                    <ul className="space-y-1">
+                      {eqErrors.map((error, idx) => (
+                        <li key={idx} className="text-rose-100 text-sm font-bold">• {error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
             
-            <div className="space-y-4 md:space-y-5">
-              <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-amber-200/50">
-                <label className="text-[10px] font-black text-amber-900 uppercase tracking-widest mb-3 md:mb-4 block">Quick Equipment Template</label>
-                <div className="space-y-2">
-                  {equipmentTemplates.map((template) => (
-                    <button
-                      key={template.label}
-                      onClick={() => setNewEq({ ...newEq, name: template.label, manufacturer: template.manufacturer, model: template.model })}
-                      className="w-full py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] bg-white text-slate-700 border border-amber-200 hover:border-amber-400 hover:bg-amber-50 transition-all text-left"
-                    >
-                      {template.label}
-                    </button>
-                  ))}
+                <div className="space-y-4 md:space-y-5">
+                  <div className="bg-white/15 rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-white/40">
+                    <label className="text-[10px] font-black text-white/90 uppercase tracking-widest mb-3 md:mb-4 block">Quick Equipment Template</label>
+                    <div className="space-y-2">
+                      {equipmentTemplates.map((template) => (
+                        <button
+                          key={template.label}
+                          onClick={() => setNewEq({ ...newEq, name: template.label, manufacturer: template.manufacturer, model: template.model })}
+                          className="w-full py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] bg-white/20 text-white border border-white/40 hover:border-white/60 hover:bg-white/30 transition-all text-left"
+                        >
+                          {template.label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Name</label>
+                    <input value={newEq.name} onChange={e => setNewEq({ ...newEq, name: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white" placeholder="e.g. Microscope A1" />
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Serial</label>
+                      <input value={newEq.serialNumber} onChange={e => setNewEq({ ...newEq, serialNumber: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white" placeholder="SN-XXXX" />
+                    </div>
+                    <div className="space-y-2 md:space-y-3">
+                      <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Calibration Date</label>
+                      <input type="date" value={newEq.nextCalibrationDate} onChange={e => setNewEq({ ...newEq, nextCalibrationDate: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white" />
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-1">
-                <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Name</label>
-                <input value={newEq.name} onChange={e => setNewEq({ ...newEq, name: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="e.g. Microscope A1" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Serial</label>
-                  <input value={newEq.serialNumber} onChange={e => setNewEq({ ...newEq, serialNumber: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="SN-XXXX" />
-                </div>
-                <div className="space-y-1">
-                  <label className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest">Calibration Date</label>
-                  <input type="date" value={newEq.nextCalibrationDate} onChange={e => setNewEq({ ...newEq, nextCalibrationDate: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" />
-                </div>
+
+              {/* Footer with Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
+                <button 
+                  onClick={() => {setEqModalOpen(false); setEqErrors([]);}} 
+                  className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleAddEquipment} 
+                  className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                >
+                  <Check size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" /> Add to Inventory
+                </button>
               </div>
             </div>
-            <button onClick={handleAddEquipment} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-zinc-950 text-white rounded-2xl font-bold shadow-lg hover:bg-zinc-800 transition-all uppercase text-[10px] md:text-xs tracking-widest">
-              Add to Inventory
-            </button>
           </div>
         </div>
       )}
 
       {/* Add Rule Modal */}
       {isRuleModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-black/70 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="bg-white/90 backdrop-blur-xl w-full max-w-lg rounded-[32px] shadow-[0_8px_32px_0_rgba(31,38,135,0.37)] border border-white/20 overflow-y-auto max-h-[90vh] p-6 md:p-10 animate-in zoom-in-95 duration-300">
-            <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-bold text-slate-900">Add Lab Rule</h2>
-              <button onClick={() => {setRuleModalOpen(false); setRuleErrors([]);}} className="p-2 bg-slate-50 text-slate-400 hover:text-slate-900 rounded-xl transition-all"><X size={20} /></button>
-            </div>
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-lg max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background with white accent */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
             
-            {ruleErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
-                <p className="text-rose-900 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
-                <ul className="space-y-1">
-                  {ruleErrors.map((error, idx) => (
-                    <li key={idx} className="text-rose-700 text-sm font-bold">• {error}</li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            
-            <div className="space-y-4 md:space-y-5">
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Rule Title</label>
-                <input value={newRule.title} onChange={e => {setNewRule({ ...newRule, title: e.target.value }); setRuleErrors([]);}} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold focus:border-blue-400 text-sm" placeholder="e.g. Wear Safety Goggles" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Description</label>
-                <textarea value={newRule.description} onChange={e => setNewRule({ ...newRule, description: e.target.value })} className="w-full px-4 md:px-5 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl outline-none font-bold min-h-24 focus:border-blue-400 text-sm" placeholder="Describe the rule details..." />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Category</label>
-                <div className="grid grid-cols-2 gap-2">
-                  {(['Safety', 'Conduct', 'Equipment', 'General'] as const).map(cat => (
-                    <button
-                      key={cat}
-                      onClick={() => setNewRule({ ...newRule, category: cat })}
-                      className={`py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                        newRule.category === cat
-                          ? cat === 'Safety' ? 'bg-red-600 text-white shadow-lg' :
-                            cat === 'Conduct' ? 'bg-blue-600 text-white shadow-lg' :
-                            cat === 'Equipment' ? 'bg-amber-600 text-white shadow-lg' :
-                            'bg-slate-600 text-white shadow-lg'
-                          : 'bg-slate-50 text-slate-400'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+              {/* Enhanced Header with blue gradient */}
+              <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-blue-500/80 via-blue-400/60 to-blue-600/70 border-b border-white/30 backdrop-blur-md">
+                {/* Subtle gradient background */}
+                <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse" />
+                
+                <div className="relative flex justify-between items-start md:items-center gap-3">
+                  <div>
+                    <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                      Add Lab Rule
+                    </h2>
+                    <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                      <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                      Define safety and conduct guidelines
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => {setRuleModalOpen(false); setRuleErrors([]);}} 
+                    className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                  >
+                    <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                  </button>
                 </div>
               </div>
-              <div className="space-y-2">
-                <label className="text-[10px] md:text-xs font-bold text-slate-700 uppercase tracking-widest">Severity</label>
-                <div className="grid grid-cols-3 gap-2">
-                  {(['Mandatory', 'Warning', 'Info'] as const).map(sev => (
-                    <button
-                      key={sev}
-                      onClick={() => setNewRule({ ...newRule, severity: sev })}
-                      className={`py-3 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${
-                        newRule.severity === sev
-                          ? sev === 'Mandatory' ? 'bg-red-600 text-white shadow-lg' :
-                            sev === 'Warning' ? 'bg-amber-600 text-white shadow-lg' :
-                            'bg-blue-600 text-white shadow-lg'
-                          : 'bg-slate-50 text-slate-400'
-                      }`}
-                    >
-                      {sev}
-                    </button>
-                  ))}
+
+              {/* Content Area */}
+              <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                {ruleErrors.length > 0 && (
+                  <div className="mb-6 p-4 bg-rose-500/20 border border-rose-400/40 rounded-2xl backdrop-blur-sm">
+                    <p className="text-rose-200 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
+                    <ul className="space-y-1">
+                      {ruleErrors.map((error, idx) => (
+                        <li key={idx} className="text-rose-100 text-sm font-bold">• {error}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+            
+                <div className="space-y-4 md:space-y-6">
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Rule Title</label>
+                    <input value={newRule.title} onChange={e => {setNewRule({ ...newRule, title: e.target.value }); setRuleErrors([]);}} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white" placeholder="e.g. Wear Safety Goggles" />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Description</label>
+                    <textarea value={newRule.description} onChange={e => setNewRule({ ...newRule, description: e.target.value })} className="w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold placeholder:text-white/50 backdrop-blur-sm text-white min-h-24" placeholder="Describe the rule details..." />
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Category</label>
+                    <div className="grid grid-cols-2 gap-2">
+                      {(['Safety', 'Conduct', 'Equipment', 'General'] as const).map(cat => (
+                        <button
+                          key={cat}
+                          onClick={() => setNewRule({ ...newRule, category: cat })}
+                          className={`py-3 rounded-2xl md:rounded-3xl font-black text-xs uppercase tracking-widest transition-all ${
+                            newRule.category === cat
+                              ? cat === 'Safety' ? 'bg-red-600 text-white shadow-lg' :
+                                cat === 'Conduct' ? 'bg-blue-600 text-white shadow-lg' :
+                                cat === 'Equipment' ? 'bg-amber-600 text-white shadow-lg' :
+                                'bg-slate-600 text-white shadow-lg'
+                              : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'
+                          }`}
+                        >
+                          {cat}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="space-y-2 md:space-y-3">
+                    <label className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest">Severity</label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {(['Mandatory', 'Warning', 'Info'] as const).map(sev => (
+                        <button
+                          key={sev}
+                          onClick={() => setNewRule({ ...newRule, severity: sev })}
+                          className={`py-3 rounded-2xl md:rounded-3xl font-black text-xs uppercase tracking-widest transition-all ${
+                            newRule.severity === sev
+                              ? sev === 'Mandatory' ? 'bg-red-600 text-white shadow-lg' :
+                                sev === 'Warning' ? 'bg-amber-600 text-white shadow-lg' :
+                                'bg-blue-600 text-white shadow-lg'
+                              : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'
+                          }`}
+                        >
+                          {sev}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* Footer with Action Buttons */}
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
+                <button 
+                  onClick={() => {setRuleModalOpen(false); setRuleErrors([]);}} 
+                  className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={handleAddRule} 
+                  className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                >
+                  <Check size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" /> Add Rule
+                </button>
+              </div>
             </div>
-            <button onClick={handleAddRule} className="w-full mt-8 md:mt-10 py-4 md:py-5 bg-blue-600 text-white rounded-2xl font-bold shadow-lg hover:bg-blue-700 transition-all uppercase text-[10px] md:text-xs tracking-widest">
-              Add Rule
-            </button>
           </div>
         </div>
       )}

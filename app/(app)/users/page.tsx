@@ -186,35 +186,48 @@ export default function UsersPage() {
       </div>
 
       {showAdd && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-slate-900/60 backdrop-blur-xl animate-in fade-in duration-300">
-          <div className="bg-white w-full max-w-xl rounded-[32px] md:rounded-[48px] shadow-2xl overflow-hidden p-6 md:p-10 animate-in zoom-in-95 duration-300 max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+          <div className="w-full max-w-xl max-h-[90vh] flex flex-col overflow-hidden">
+            {/* Glass Background */}
+            <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+              background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+              backdropFilter: 'blur(20px)',
+              boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+            }} />
+            <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col p-6 md:p-10 overflow-y-auto">
             <div className="flex justify-between items-center mb-6 md:mb-10">
-              <h2 className="text-xl md:text-2xl font-black text-slate-900">Provision Account</h2>
-              <button onClick={() => {setShowAdd(false); setUserErrors([]);}} className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-xl md:rounded-2xl bg-slate-100 text-slate-400 hover:text-slate-900 transition-colors"><X size={24} /></button>
+              <div>
+                <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-2 text-white drop-shadow-lg">Deploy Account</h2>
+                <div className="text-xs md:text-sm text-white/80 font-semibold tracking-wide flex items-center gap-2">
+                  <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                  Provision new research credentials
+                </div>
+              </div>
+              <button onClick={() => {setShowAdd(false); setUserErrors([]);}} className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 text-white transition-all group"><X size={24} className="group-hover:rotate-90 transition-all" /></button>
             </div>
             
             {userErrors.length > 0 && (
-              <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-2xl">
-                <p className="text-rose-900 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
+              <div className="mb-6 p-4 bg-rose-500/20 border border-rose-400/40 rounded-2xl backdrop-blur-sm">
+                <p className="text-rose-200 font-black text-sm mb-2">⚠️ Please fill in the following:</p>
                 <ul className="space-y-1">
                   {userErrors.map((error, idx) => (
-                    <li key={idx} className="text-rose-700 text-sm font-bold">• {error}</li>
+                    <li key={idx} className="text-rose-100 text-sm font-bold">• {error}</li>
                   ))}
                 </ul>
               </div>
             )}
             
             <div className="space-y-4 md:space-y-6">
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-blue-200/50">
-                <label className="text-[10px] font-black text-blue-900 uppercase tracking-widest mb-3 md:mb-4 block">Quick Role Selection</label>
+              <div className="bg-white/10 rounded-[24px] md:rounded-[32px] p-4 md:p-6 border border-white/30 backdrop-blur-sm">
+                <label className="text-[10px] font-black text-white/90 uppercase tracking-widest mb-3 md:mb-4 block">Quick Role Selection</label>
                 <div className="grid grid-cols-3 gap-2 md:gap-3">
-                  <button onClick={() => applyTemplate('student')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'student' ? 'bg-blue-600 text-white shadow-lg' : 'bg-white text-slate-600 border border-blue-200 hover:border-blue-400'}`}>
+                  <button onClick={() => applyTemplate('student')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'student' ? 'bg-white/40 text-white shadow-lg border border-white/50' : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'}`}>
                     👤 Student
                   </button>
-                  <button onClick={() => applyTemplate('technician')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'technician' ? 'bg-amber-500 text-white shadow-lg' : 'bg-white text-slate-600 border border-blue-200 hover:border-blue-400'}`}>
+                  <button onClick={() => applyTemplate('technician')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'technician' ? 'bg-white/40 text-white shadow-lg border border-white/50' : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'}`}>
                     🔧 Tech
                   </button>
-                  <button onClick={() => applyTemplate('admin')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'admin' ? 'bg-red-600 text-white shadow-lg' : 'bg-white text-slate-600 border border-blue-200 hover:border-blue-400'}`}>
+                  <button onClick={() => applyTemplate('admin')} className={`py-2 md:py-3 px-3 md:px-4 rounded-xl font-black text-[9px] md:text-[10px] uppercase tracking-wider transition-all ${selectedTemplate === 'admin' ? 'bg-white/40 text-white shadow-lg border border-white/50' : 'bg-white/10 text-white/70 border border-white/20 hover:border-white/40 hover:bg-white/20'}`}>
                     👑 Admin
                   </button>
                 </div>
@@ -222,22 +235,23 @@ export default function UsersPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">First Name</label>
-                  <input value={newUser.firstName} onChange={e => {setNewUser({ ...newUser, firstName: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl md:rounded-3xl outline-none focus:bg-white font-bold text-sm" placeholder="John" />
+                  <label className="text-[10px] font-black text-white/70 uppercase tracking-widest ml-1">First Name</label>
+                  <input value={newUser.firstName} onChange={e => {setNewUser({ ...newUser, firstName: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/10 border border-white/30 rounded-2xl md:rounded-3xl outline-none focus:bg-white/20 focus:border-white/50 font-bold text-sm text-white placeholder:text-white/40 backdrop-blur-sm transition-all" placeholder="John" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Last Name</label>
-                  <input value={newUser.lastName} onChange={e => {setNewUser({ ...newUser, lastName: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl md:rounded-3xl outline-none focus:bg-white font-bold text-sm" placeholder="Smith" />
+                  <label className="text-[10px] font-black text-white/70 uppercase tracking-widest ml-1">Last Name</label>
+                  <input value={newUser.lastName} onChange={e => {setNewUser({ ...newUser, lastName: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/10 border border-white/30 rounded-2xl md:rounded-3xl outline-none focus:bg-white/20 focus:border-white/50 font-bold text-sm text-white placeholder:text-white/40 backdrop-blur-sm transition-all" placeholder="Smith" />
                 </div>
               </div>
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Address</label>
-                <input value={newUser.email} onChange={e => {setNewUser({ ...newUser, email: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-slate-50 border border-slate-100 rounded-2xl md:rounded-3xl outline-none focus:bg-white font-bold text-sm" placeholder="john.smith@smartlab.com" />
+                <label className="text-[10px] font-black text-white/70 uppercase tracking-widest ml-1">Email Address</label>
+                <input value={newUser.email} onChange={e => {setNewUser({ ...newUser, email: e.target.value }); setUserErrors([]);}} className="w-full px-4 md:px-6 py-3 md:py-4 bg-white/10 border border-white/30 rounded-2xl md:rounded-3xl outline-none focus:bg-white/20 focus:border-white/50 font-bold text-sm text-white placeholder:text-white/40 backdrop-blur-sm transition-all" placeholder="john.smith@smartlab.com" />
               </div>
             </div>
-            <button onClick={handleCreateUser} className="w-full mt-6 md:mt-10 py-4 md:py-5 bg-slate-900 text-white rounded-3xl md:rounded-4xl font-black shadow-2xl hover:bg-black transition-all flex items-center justify-center gap-3 text-sm md:text-base">
-              Deploy Credentials <Check size={20} />
+            <button onClick={handleCreateUser} className="w-full mt-6 md:mt-10 py-4 md:py-5 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-3xl md:rounded-4xl font-black shadow-xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-3 text-sm md:text-base border border-white/50 backdrop-blur-sm group">
+              <Check size={20} className="group-hover:rotate-12 transition-transform" /> Deploy Credentials
             </button>
+            </div>
           </div>
         </div>
       )}

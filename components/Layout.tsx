@@ -145,39 +145,63 @@ const Layout: React.FC<LayoutProps> = ({ user, onLogout, children }) => {
 
         {/* Sign Out Confirmation Modal */}
         {showSignOutConfirm && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-in fade-in duration-300">
-            <div className="bg-white w-full max-w-sm rounded-[32px] shadow-2xl overflow-hidden p-8 animate-in zoom-in-95 duration-300">
-              {/* Header with icon */}
-              <div className="flex flex-col items-center mb-6">
-                <div className="w-16 h-16 bg-rose-50 rounded-2xl flex items-center justify-center mb-4">
-                  <LogOut size={32} className="text-rose-500" />
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
+            <div className="w-full max-w-sm max-h-[90vh] flex flex-col overflow-hidden">
+              {/* Glass Background with white accent */}
+              <div className="absolute inset-0 rounded-[32px] md:rounded-[48px] bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
+                background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0.1) 100%)',
+                backdropFilter: 'blur(20px)',
+                boxShadow: '0 8px 32px 0 rgba(255, 255, 255, 0.1), inset 0 0 20px rgba(255,255,255,0.2)'
+              }} />
+              
+              <div className="relative z-10 rounded-[32px] md:rounded-[48px] overflow-hidden flex flex-col">
+                {/* Enhanced Header with red/warning gradient */}
+                <div className="relative overflow-hidden p-5 md:p-8 bg-gradient-to-br from-rose-500/80 via-rose-400/60 to-rose-600/70 border-b border-white/30 backdrop-blur-md">
+                  {/* Subtle gradient background */}
+                  <div className="absolute inset-0 opacity-20 bg-gradient-to-r from-rose-300 via-white to-rose-300 animate-pulse" />
+                  
+                  <div className="relative flex justify-between items-start md:items-center gap-3">
+                    <div>
+                      <h2 className="text-3xl md:text-4xl font-black mb-1 md:mb-3 text-white drop-shadow-lg">
+                        Sign Out?
+                      </h2>
+                      <div className="text-xs md:text-sm text-white/90 font-semibold tracking-wide flex items-center gap-2">
+                        <div className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+                        Confirm your session termination
+                      </div>
+                    </div>
+                    <button 
+                      onClick={() => setShowSignOutConfirm(false)} 
+                      className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-2xl md:rounded-3xl bg-white/20 hover:bg-white/30 border border-white/40 hover:border-white/60 transition-all backdrop-blur-sm group/close"
+                    >
+                      <X size={22} className="md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all" />
+                    </button>
+                  </div>
                 </div>
-                <h2 className="text-2xl font-bold text-slate-900 text-center">Sign Out?</h2>
-              </div>
 
-              {/* Message */}
-              <p className="text-center text-slate-600 text-base mb-8 leading-relaxed">
-                Are you sure you want to sign out? You'll need to log in again to access your account.
-              </p>
+                {/* Content Area */}
+                <div className="p-5 md:p-10 space-y-6 md:space-y-8 overflow-y-auto bg-gradient-to-b from-white/10 via-white/5 to-white/5 backdrop-blur-md">
+                  <p className="text-center text-white/90 text-base md:text-lg leading-relaxed font-semibold">
+                    Are you sure you want to sign out? You'll need to log in again to access your account.
+                  </p>
+                </div>
 
-              {/* Divider */}
-              <div className="h-px bg-slate-100 mb-6"></div>
-
-              {/* Buttons */}
-              <div className="flex gap-3 flex-col-reverse sm:flex-row">
-                <button
-                  onClick={() => setShowSignOutConfirm(false)}
-                  className="flex-1 py-3 font-bold text-slate-700 bg-slate-100 rounded-2xl hover:bg-slate-200 transition-all text-sm uppercase tracking-wide"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleConfirmSignOut}
-                  className="flex-1 py-3 font-bold text-white bg-rose-500 rounded-2xl hover:bg-rose-600 shadow-lg hover:shadow-rose-500/30 transition-all text-sm uppercase tracking-wide flex items-center justify-center gap-2"
-                >
-                  <LogOut size={16} />
-                  Yes, Sign Out
-                </button>
+                {/* Footer with Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 md:gap-4 p-4 md:p-6 bg-gradient-to-t from-white/10 to-transparent border-t border-white/30 backdrop-blur-md shrink-0">
+                  <button
+                    onClick={() => setShowSignOutConfirm(false)}
+                    className="order-2 sm:order-1 flex-1 py-3 md:py-4 font-black text-white hover:text-white rounded-2xl md:rounded-3xl transition-all border border-white/40 hover:border-white/60 bg-white/10 hover:bg-white/20 text-sm md:text-base backdrop-blur-sm group/cancel"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={handleConfirmSignOut}
+                    className="order-1 sm:order-2 flex-1 py-3 md:py-4 bg-gradient-to-r from-white/40 to-white/30 text-white rounded-2xl md:rounded-3xl font-black shadow-xl md:shadow-2xl shadow-white/20 hover:shadow-white/30 hover:scale-105 transition-all flex items-center justify-center gap-2 text-sm md:text-base group/create backdrop-blur-sm border border-white/50"
+                  >
+                    <LogOut size={18} className="md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform" />
+                    Yes, Sign Out
+                  </button>
+                </div>
               </div>
             </div>
           </div>
