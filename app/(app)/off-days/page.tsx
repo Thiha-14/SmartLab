@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Calendar, Plus, Trash2, ChevronLeft, ChevronRight, X, Check } from 'lucide-react';
+import Swal from 'sweetalert2';
 // Ensure this points to your types file
 import { Holiday } from '@/types'; 
 
@@ -28,6 +29,7 @@ export default function OffDaysPage() {
 
   const handleAdd = () => {
     if (!newHoliday.name || !newHoliday.date) return;
+    const holidayName = newHoliday.name;
     const item: Holiday = {
       id: Date.now().toString(),
       name: newHoliday.name,
@@ -38,12 +40,32 @@ export default function OffDaysPage() {
     saveHolidays([...holidays, item]);
     setModalOpen(false);
     setNewHoliday({ name: '', date: '', type: 'National', description: '' });
+    Swal.fire({
+      title: 'Holiday Added!',
+      text: `${holidayName} has been registered successfully.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Permanently remove this entry?')) {
-      saveHolidays(holidays.filter(h => h.id !== id));
-    }
+    const holidayToDelete = holidays.find(h => h.id === id);
+    Swal.fire({
+      title: 'Delete Entry?',
+      text: `Are you sure you want to remove ${holidayToDelete?.name}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveHolidays(holidays.filter(h => h.id !== id));
+        Swal.fire('Deleted!', 'Holiday entry has been removed.', 'success');
+      }
+    });
   };
 
   return (

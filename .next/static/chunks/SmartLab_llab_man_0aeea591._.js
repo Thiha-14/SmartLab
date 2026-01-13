@@ -278,8 +278,12 @@ function DashboardPage() {
             }, this),
             isBookingOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-lg animate-in fade-in duration-300 p-0 sm:p-4",
+                style: {
+                    height: '100vh',
+                    minHeight: '100vh'
+                },
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[95vh] flex flex-col overflow-hidden rounded-0 sm:rounded-[32px]",
+                    className: "w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[95vh] flex flex-col overflow-hidden rounded-2xl sm:rounded-[32px]",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute inset-0 bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none",
@@ -883,14 +887,14 @@ function DashboardPage() {
                         className: "space-y-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-slate-950 p-6 md:p-8 rounded-4xl shadow-lg text-white",
+                                className: "bg-white p-6 md:p-8 rounded-4xl shadow-lg border border-slate-100",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-lg md:text-xl font-bold mb-6 flex items-center gap-2",
+                                        className: "text-lg md:text-xl font-bold mb-6 flex items-center gap-2 text-slate-900",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$activity$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Activity$3e$__["Activity"], {
                                                 size: 20,
-                                                className: "text-blue-500"
+                                                className: "text-blue-600"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/dashboard/page.tsx",
                                                 lineNumber: 300,
@@ -909,24 +913,24 @@ function DashboardPage() {
                                             {
                                                 text: 'Lab 1 Temp: 22°C',
                                                 type: 'Status',
-                                                color: 'text-emerald-400'
+                                                color: 'text-emerald-600'
                                             },
                                             {
                                                 text: 'System Running Well',
                                                 type: 'Stats',
-                                                color: 'text-blue-400'
+                                                color: 'text-blue-600'
                                             },
                                             {
                                                 text: '3 New Member Requests',
                                                 type: 'Alert',
-                                                color: 'text-amber-400'
+                                                color: 'text-amber-600'
                                             }
                                         ].map((alert1, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "p-3 md:p-4 bg-white/5 rounded-2xl border border-white/10 flex justify-between items-center",
+                                                className: "p-3 md:p-4 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-[11px] md:text-xs font-bold text-white mb-1",
+                                                            className: "text-[11px] md:text-xs font-bold text-slate-900 mb-1",
                                                             children: alert1.text
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/dashboard/page.tsx",

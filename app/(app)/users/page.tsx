@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Search, Filter, UserPlus, ShieldCheck, X, Check, Trash2
 } from 'lucide-react';
+import Swal from 'sweetalert2';
 // Ensure this points to your types file
 import { User, UserStatus, UserRole } from '@/types'; 
 
@@ -13,7 +14,6 @@ export default function UsersPage() {
   const [newUser, setNewUser] = useState({ firstName: '', lastName: '', email: '', role: UserRole.USER });
   const [selectedTemplate, setSelectedTemplate] = useState<'empty' | 'student' | 'technician' | 'admin'>('empty');
   const [userErrors, setUserErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState('');
 
   const applyTemplate = (template: 'student' | 'technician' | 'admin') => {
     const templates = {
@@ -61,28 +61,40 @@ export default function UsersPage() {
     };
     saveUsers([...users, user]);
     setShowAdd(false);
+    const firstName = newUser.firstName;
+    const lastName = newUser.lastName;
     setNewUser({ firstName: '', lastName: '', email: '', role: UserRole.USER });
     setUserErrors([]);
-    setSuccessMessage(`✅ User "${newUser.firstName} ${newUser.lastName}" added successfully!`);
-    setTimeout(() => setSuccessMessage(''), 3000);
+    Swal.fire({
+      title: 'User Created!',
+      text: `${firstName} ${lastName} has been added successfully.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const deleteUser = (id: string) => {
-    if (confirm('Permanently remove this account?')) {
-      saveUsers(users.filter(u => u.id !== id));
-    }
+    const userToDelete = users.find(u => u.id === id);
+    Swal.fire({
+      title: 'Delete User?',
+      text: `Are you sure you want to permanently remove ${userToDelete?.firstName} ${userToDelete?.lastName}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveUsers(users.filter(u => u.id !== id));
+        Swal.fire('Deleted!', 'User account has been removed.', 'success');
+      }
+    });
   };
 
   return (
     <div className="space-y-6 md:space-y-8 animate-in fade-in duration-500 pb-10 md:pb-20">
-      {successMessage && (
-        <div className="fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300">
-          <div className="bg-emerald-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3">
-            {successMessage}
-          </div>
-        </div>
-      )}
-      
       <div className="space-y-6 md:space-y-8 animate-in fade-in duration-500">
       </div>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">

@@ -20,9 +20,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node
 var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$info$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Info$3e$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/node_modules/lucide-react/dist/esm/icons/info.js [app-ssr] (ecmascript) <export default as Info>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$alert$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__AlertCircle$3e$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/node_modules/lucide-react/dist/esm/icons/circle-alert.js [app-ssr] (ecmascript) <export default as AlertCircle>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Check$3e$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/node_modules/lucide-react/dist/esm/icons/check.js [app-ssr] (ecmascript) <export default as Check>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/node_modules/sweetalert2/dist/sweetalert2.esm.all.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$app$2f$AuthContext$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/app/AuthContext.tsx [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/SmartLab/llab_man/types.ts [app-ssr] (ecmascript)");
 'use client';
+;
 ;
 ;
 ;
@@ -62,7 +64,6 @@ function LabsPage() {
     const [labErrors, setLabErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [eqErrors, setEqErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [ruleErrors, setRuleErrors] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [successMessage, setSuccessMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const labTemplates = [
         {
             label: '🧬 Biology Lab',
@@ -126,6 +127,7 @@ function LabsPage() {
         if (!newLab.location) errors.push('Lab location is required');
         setLabErrors(errors);
         if (errors.length > 0) return;
+        const labName = newLab.name;
         let photoUrl = 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800';
         // If a photo file was selected, convert to base64
         if (newLab.photoFile) {
@@ -162,9 +164,14 @@ function LabsPage() {
                     photoFile: null
                 });
                 setLabErrors([]);
-                setSuccessMessage(`✅ Lab "${newLab.name}" added successfully!`);
-                setTimeout(()=>setSuccessMessage(''), 3000);
                 setModalOpen(false);
+                __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+                    title: 'Lab Created!',
+                    text: `${labName} has been added successfully.`,
+                    icon: 'success',
+                    confirmButtonColor: '#2563eb',
+                    confirmButtonText: 'Done'
+                });
             };
             reader.readAsDataURL(newLab.photoFile);
         } else {
@@ -198,6 +205,13 @@ function LabsPage() {
                 photoFile: null
             });
             setModalOpen(false);
+            __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+                title: 'Lab Created!',
+                text: `${labName} has been added successfully.`,
+                icon: 'success',
+                confirmButtonColor: '#2563eb',
+                confirmButtonText: 'Done'
+            });
         }
     };
     const handlePhotoUpload = (e)=>{
@@ -225,6 +239,7 @@ function LabsPage() {
         if (!newEq.nextCalibrationDate) errors.push('Calibration date is required');
         setEqErrors(errors);
         if (errors.length > 0) return;
+        const eqName = newEq.name;
         const item = {
             id: 'e' + Date.now(),
             name: newEq.name,
@@ -249,15 +264,50 @@ function LabsPage() {
             nextCalibrationDate: ''
         });
         setEqErrors([]);
-        setSuccessMessage(`✅ Equipment "${newEq.name}" added successfully!`);
-        setTimeout(()=>setSuccessMessage(''), 3000);
         setEqModalOpen(false);
+        __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'Equipment Added!',
+            text: `${eqName} has been added successfully.`,
+            icon: 'success',
+            confirmButtonColor: '#2563eb',
+            confirmButtonText: 'Done'
+        });
     };
     const deleteLab = (id)=>{
-        if (confirm('Delete this lab room?')) saveLabs(labs.filter((l)=>l.id !== id));
+        const labToDelete = labs.find((l)=>l.id === id);
+        __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'Delete Lab?',
+            text: `Are you sure you want to delete ${labToDelete?.name}? This action cannot be undone.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                saveLabs(labs.filter((l)=>l.id !== id));
+                __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('Deleted!', 'Lab has been removed.', 'success');
+            }
+        });
     };
     const deleteEq = (id)=>{
-        if (confirm('Delete this equipment?')) saveEquipment(equipment.filter((e)=>e.id !== id));
+        const eqToDelete = equipment.find((e)=>e.id === id);
+        __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'Delete Equipment?',
+            text: `Are you sure you want to delete ${eqToDelete?.name}? This action cannot be undone.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                saveEquipment(equipment.filter((e)=>e.id !== id));
+                __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('Deleted!', 'Equipment has been removed.', 'success');
+            }
+        });
     };
     const handleAddRule = ()=>{
         const errors = [];
@@ -265,6 +315,7 @@ function LabsPage() {
         if (!newRule.description) errors.push('Rule description is required');
         setRuleErrors(errors);
         if (errors.length > 0) return;
+        const ruleTitle = newRule.title;
         const item = {
             id: 'r' + Date.now(),
             title: newRule.title,
@@ -283,31 +334,36 @@ function LabsPage() {
             severity: 'Mandatory'
         });
         setRuleErrors([]);
-        setSuccessMessage(`✅ Rule "${newRule.title}" added successfully!`);
-        setTimeout(()=>setSuccessMessage(''), 3000);
         setRuleModalOpen(false);
+        __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'Rule Created!',
+            text: `${ruleTitle} has been added successfully.`,
+            icon: 'success',
+            confirmButtonColor: '#2563eb',
+            confirmButtonText: 'Done'
+        });
     };
     const deleteRule = (id)=>{
-        if (confirm('Delete this rule?')) saveRules(rules.filter((r)=>r.id !== id));
+        const ruleToDelete = rules.find((r)=>r.id === id);
+        __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire({
+            title: 'Delete Rule?',
+            text: `Are you sure you want to delete ${ruleToDelete?.title}? This action cannot be undone.`,
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#dc2626',
+            cancelButtonColor: '#6b7280',
+            confirmButtonText: 'Yes, Delete',
+            cancelButtonText: 'Cancel'
+        }).then((result)=>{
+            if (result.isConfirmed) {
+                saveRules(rules.filter((r)=>r.id !== id));
+                __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$sweetalert2$2f$dist$2f$sweetalert2$2e$esm$2e$all$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].fire('Deleted!', 'Rule has been removed.', 'success');
+            }
+        });
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-6 md:space-y-8 animate-in fade-in duration-500",
         children: [
-            successMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-emerald-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3",
-                    children: successMessage
-                }, void 0, false, {
-                    fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                    lineNumber: 287,
-                    columnNumber: 11
-                }, this)
-            }, void 0, false, {
-                fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 286,
-                columnNumber: 9
-            }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex border-b border-slate-200 gap-6 md:gap-8 mb-4 overflow-x-auto no-scrollbar scroll-smooth",
                 children: [
@@ -335,7 +391,7 @@ function LabsPage() {
                                 className: "md:w-4.5 md:h-4.5"
                             }, void 0, false, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 305,
+                                lineNumber: 367,
                                 columnNumber: 13
                             }, this),
                             tab.label,
@@ -343,18 +399,18 @@ function LabsPage() {
                                 className: "absolute bottom-0 left-0 right-0 h-0.5 md:h-1 bg-blue-600 rounded-full"
                             }, void 0, false, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 307,
+                                lineNumber: 369,
                                 columnNumber: 38
                             }, this)
                         ]
                     }, tab.id, true, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 299,
+                        lineNumber: 361,
                         columnNumber: 11
                     }, this))
             }, void 0, false, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 293,
+                lineNumber: 355,
                 columnNumber: 7
             }, this),
             activeTab === 'details' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -371,7 +427,7 @@ function LabsPage() {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 316,
+                                        lineNumber: 378,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -380,13 +436,13 @@ function LabsPage() {
                                         className: "w-full pl-12 pr-4 py-2.5 md:py-3 bg-white border border-slate-200 rounded-2xl outline-none focus:border-blue-400 font-bold text-sm"
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 317,
+                                        lineNumber: 379,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 315,
+                                lineNumber: 377,
                                 columnNumber: 13
                             }, this),
                             role !== __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["UserRole"].USER && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -397,20 +453,20 @@ function LabsPage() {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 321,
+                                        lineNumber: 383,
                                         columnNumber: 17
                                     }, this),
                                     " Add Lab"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 320,
+                                lineNumber: 382,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 314,
+                        lineNumber: 376,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -427,7 +483,7 @@ function LabsPage() {
                                                 alt: lab.name
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 393,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "w-full h-full flex items-center justify-center text-slate-200",
@@ -435,12 +491,12 @@ function LabsPage() {
                                                     size: 48
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 333,
+                                                    lineNumber: 395,
                                                     columnNumber: 100
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 333,
+                                                lineNumber: 395,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -452,23 +508,23 @@ function LabsPage() {
                                                         size: 16
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 336,
+                                                        lineNumber: 398,
                                                         columnNumber: 133
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 336,
+                                                    lineNumber: 398,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 335,
+                                                lineNumber: 397,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 329,
+                                        lineNumber: 391,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -479,7 +535,7 @@ function LabsPage() {
                                                 children: lab.name
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 340,
+                                                lineNumber: 402,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -487,7 +543,7 @@ function LabsPage() {
                                                 children: lab.description
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 341,
+                                                lineNumber: 403,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -498,7 +554,7 @@ function LabsPage() {
                                                         className: "text-blue-600 shrink-0"
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 343,
+                                                        lineNumber: 405,
                                                         columnNumber: 21
                                                     }, this),
                                                     " ",
@@ -506,7 +562,7 @@ function LabsPage() {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 342,
+                                                lineNumber: 404,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -514,30 +570,30 @@ function LabsPage() {
                                                 children: "View Details"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 345,
+                                                lineNumber: 407,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 339,
+                                        lineNumber: 401,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, lab.id, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 328,
+                                lineNumber: 390,
                                 columnNumber: 15
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 326,
+                        lineNumber: 388,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 313,
+                lineNumber: 375,
                 columnNumber: 9
             }, this),
             activeTab === 'equipment' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -553,7 +609,7 @@ function LabsPage() {
                                         children: "Equipment List"
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 359,
+                                        lineNumber: 421,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -564,13 +620,13 @@ function LabsPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 360,
+                                        lineNumber: 422,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 358,
+                                lineNumber: 420,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -581,20 +637,20 @@ function LabsPage() {
                                         size: 16
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 363,
+                                        lineNumber: 425,
                                         columnNumber: 15
                                     }, this),
                                     " Add Equipment"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 362,
+                                lineNumber: 424,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 357,
+                        lineNumber: 419,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -611,7 +667,7 @@ function LabsPage() {
                                                 children: "Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 370,
+                                                lineNumber: 432,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -619,7 +675,7 @@ function LabsPage() {
                                                 children: "Serial"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 433,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -627,7 +683,7 @@ function LabsPage() {
                                                 children: "Calibration"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 372,
+                                                lineNumber: 434,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -635,18 +691,18 @@ function LabsPage() {
                                                 children: "Actions"
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 373,
+                                                lineNumber: 435,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 369,
+                                        lineNumber: 431,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 368,
+                                    lineNumber: 430,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -664,7 +720,7 @@ function LabsPage() {
                                                                 children: item.name[0]
                                                             }, void 0, false, {
                                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                lineNumber: 381,
+                                                                lineNumber: 443,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -674,7 +730,7 @@ function LabsPage() {
                                                                         children: item.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                        lineNumber: 383,
+                                                                        lineNumber: 445,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -682,24 +738,24 @@ function LabsPage() {
                                                                         children: item.manufacturer
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                        lineNumber: 384,
+                                                                        lineNumber: 446,
                                                                         columnNumber: 27
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                lineNumber: 382,
+                                                                lineNumber: 444,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 380,
+                                                        lineNumber: 442,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 379,
+                                                    lineNumber: 441,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -709,12 +765,12 @@ function LabsPage() {
                                                         children: item.serialNumber
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 389,
+                                                        lineNumber: 451,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 388,
+                                                    lineNumber: 450,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -724,12 +780,12 @@ function LabsPage() {
                                                         children: item.nextCalibrationDate
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 454,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 391,
+                                                    lineNumber: 453,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -741,45 +797,45 @@ function LabsPage() {
                                                             size: 16
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 395,
+                                                            lineNumber: 457,
                                                             columnNumber: 131
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 395,
+                                                        lineNumber: 457,
                                                         columnNumber: 23
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 394,
+                                                    lineNumber: 456,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, item.id, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 378,
+                                            lineNumber: 440,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 376,
+                                    lineNumber: 438,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 367,
+                            lineNumber: 429,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 366,
+                        lineNumber: 428,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 356,
+                lineNumber: 418,
                 columnNumber: 9
             }, this),
             activeTab === 'allowances' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -795,7 +851,7 @@ function LabsPage() {
                                         children: "Lab Rules & Regulations"
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 409,
+                                        lineNumber: 471,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -806,13 +862,13 @@ function LabsPage() {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 410,
+                                        lineNumber: 472,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 408,
+                                lineNumber: 470,
                                 columnNumber: 13
                             }, this),
                             role !== __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["UserRole"].USER && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -823,20 +879,20 @@ function LabsPage() {
                                         size: 18
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 414,
+                                        lineNumber: 476,
                                         columnNumber: 17
                                     }, this),
                                     " Add Rule"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 413,
+                                lineNumber: 475,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 407,
+                        lineNumber: 469,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -862,7 +918,7 @@ function LabsPage() {
                                             className: "text-red-500"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 432,
+                                            lineNumber: 494,
                                             columnNumber: 44
                                         }, this);
                                     case 'Warning':
@@ -871,7 +927,7 @@ function LabsPage() {
                                             className: "text-amber-500"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 433,
+                                            lineNumber: 495,
                                             columnNumber: 42
                                         }, this);
                                     case 'Info':
@@ -880,7 +936,7 @@ function LabsPage() {
                                             className: "text-blue-500"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 434,
+                                            lineNumber: 496,
                                             columnNumber: 39
                                         }, this);
                                 }
@@ -900,13 +956,13 @@ function LabsPage() {
                                                         children: rule.category
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 443,
+                                                        lineNumber: 505,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 441,
+                                                lineNumber: 503,
                                                 columnNumber: 21
                                             }, this),
                                             role !== __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$types$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["UserRole"].USER && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -916,18 +972,18 @@ function LabsPage() {
                                                     size: 16
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 449,
+                                                    lineNumber: 511,
                                                     columnNumber: 25
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                lineNumber: 448,
+                                                lineNumber: 510,
                                                 columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 440,
+                                        lineNumber: 502,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -935,7 +991,7 @@ function LabsPage() {
                                         children: rule.title
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 453,
+                                        lineNumber: 515,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -943,19 +999,19 @@ function LabsPage() {
                                         children: rule.description
                                     }, void 0, false, {
                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                        lineNumber: 454,
+                                        lineNumber: 516,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, rule.id, true, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 439,
+                                lineNumber: 501,
                                 columnNumber: 17
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 419,
+                        lineNumber: 481,
                         columnNumber: 11
                     }, this),
                     rules.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -966,7 +1022,7 @@ function LabsPage() {
                                 className: "mx-auto text-slate-100 mb-4"
                             }, void 0, false, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 462,
+                                lineNumber: 524,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -974,19 +1030,19 @@ function LabsPage() {
                                 children: "No rules defined yet"
                             }, void 0, false, {
                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                lineNumber: 463,
+                                lineNumber: 525,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                        lineNumber: 461,
+                        lineNumber: 523,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 406,
+                lineNumber: 468,
                 columnNumber: 9
             }, this),
             isModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1003,7 +1059,7 @@ function LabsPage() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 474,
+                            lineNumber: 536,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,7 +1072,7 @@ function LabsPage() {
                                             className: "absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 484,
+                                            lineNumber: 546,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1029,7 +1085,7 @@ function LabsPage() {
                                                             children: "Add New Lab Room"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 488,
+                                                            lineNumber: 550,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1039,20 +1095,20 @@ function LabsPage() {
                                                                     className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 492,
+                                                                    lineNumber: 554,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 "Create laboratory facilities"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 491,
+                                                            lineNumber: 553,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 487,
+                                                    lineNumber: 549,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1066,24 +1122,24 @@ function LabsPage() {
                                                         className: "md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all"
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 500,
+                                                        lineNumber: 562,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 496,
+                                                    lineNumber: 558,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 486,
+                                            lineNumber: 548,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 482,
+                                    lineNumber: 544,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1097,7 +1153,7 @@ function LabsPage() {
                                                     children: "⚠️ Please fill in the following:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 509,
+                                                    lineNumber: 571,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1110,18 +1166,18 @@ function LabsPage() {
                                                             ]
                                                         }, idx, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 512,
+                                                            lineNumber: 574,
                                                             columnNumber: 25
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 510,
+                                                    lineNumber: 572,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 508,
+                                            lineNumber: 570,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1135,7 +1191,7 @@ function LabsPage() {
                                                             children: "Lab Name"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 520,
+                                                            lineNumber: 582,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1156,7 +1212,7 @@ function LabsPage() {
                                                                     children: "e.g. Physics Lab 1"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 526,
+                                                                    lineNumber: 588,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 labTemplates.map((template)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1164,7 +1220,7 @@ function LabsPage() {
                                                                         children: template.label
                                                                     }, template.label, false, {
                                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                        lineNumber: 528,
+                                                                        lineNumber: 590,
                                                                         columnNumber: 25
                                                                     }, this)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1172,13 +1228,13 @@ function LabsPage() {
                                                                     children: "+ Custom Lab Name"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 530,
+                                                                    lineNumber: 592,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 521,
+                                                            lineNumber: 583,
                                                             columnNumber: 21
                                                         }, this),
                                                         newLab.name && !labTemplates.some((t)=>t.label === newLab.name) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1192,13 +1248,13 @@ function LabsPage() {
                                                             placeholder: "Enter custom lab name..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 533,
+                                                            lineNumber: 595,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 519,
+                                                    lineNumber: 581,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1209,7 +1265,7 @@ function LabsPage() {
                                                             children: "About the Lab"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 537,
+                                                            lineNumber: 599,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1222,13 +1278,13 @@ function LabsPage() {
                                                             placeholder: "Enter details..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 538,
+                                                            lineNumber: 600,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 536,
+                                                    lineNumber: 598,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1239,7 +1295,7 @@ function LabsPage() {
                                                             children: "Lab Photo"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 541,
+                                                            lineNumber: 603,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1254,7 +1310,7 @@ function LabsPage() {
                                                                             className: "w-full h-full object-cover"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                            lineNumber: 545,
+                                                                            lineNumber: 607,
                                                                             columnNumber: 27
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1268,18 +1324,18 @@ function LabsPage() {
                                                                                 size: 16
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                                lineNumber: 550,
+                                                                                lineNumber: 612,
                                                                                 columnNumber: 29
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                            lineNumber: 546,
+                                                                            lineNumber: 608,
                                                                             columnNumber: 27
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 544,
+                                                                    lineNumber: 606,
                                                                     columnNumber: 25
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -1293,25 +1349,25 @@ function LabsPage() {
                                                                             className: "hidden"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                            lineNumber: 556,
+                                                                            lineNumber: 618,
                                                                             columnNumber: 25
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 554,
+                                                                    lineNumber: 616,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 542,
+                                                            lineNumber: 604,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 540,
+                                                    lineNumber: 602,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1324,14 +1380,14 @@ function LabsPage() {
                                                                     size: 12
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 567,
+                                                                    lineNumber: 629,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 " Lab Location"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 566,
+                                                            lineNumber: 628,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1345,25 +1401,25 @@ function LabsPage() {
                                                             placeholder: "e.g. Building A, Room 101"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 569,
+                                                            lineNumber: 631,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 565,
+                                                    lineNumber: 627,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 518,
+                                            lineNumber: 580,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 506,
+                                    lineNumber: 568,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1384,7 +1440,7 @@ function LabsPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 582,
+                                            lineNumber: 644,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1396,37 +1452,37 @@ function LabsPage() {
                                                     className: "md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 592,
+                                                    lineNumber: 654,
                                                     columnNumber: 19
                                                 }, this),
                                                 " Save Lab"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 588,
+                                            lineNumber: 650,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 581,
+                                    lineNumber: 643,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 480,
+                            lineNumber: 542,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                    lineNumber: 472,
+                    lineNumber: 534,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 471,
+                lineNumber: 533,
                 columnNumber: 9
             }, this),
             isEqModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1443,7 +1499,7 @@ function LabsPage() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 605,
+                            lineNumber: 667,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1456,7 +1512,7 @@ function LabsPage() {
                                             className: "absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 615,
+                                            lineNumber: 677,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1469,7 +1525,7 @@ function LabsPage() {
                                                             children: "Add Equipment"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 619,
+                                                            lineNumber: 681,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1479,20 +1535,20 @@ function LabsPage() {
                                                                     className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 623,
+                                                                    lineNumber: 685,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 "Manage lab inventory"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 622,
+                                                            lineNumber: 684,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 618,
+                                                    lineNumber: 680,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1506,24 +1562,24 @@ function LabsPage() {
                                                         className: "md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all"
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 631,
+                                                        lineNumber: 693,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 627,
+                                                    lineNumber: 689,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 617,
+                                            lineNumber: 679,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 613,
+                                    lineNumber: 675,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1537,7 +1593,7 @@ function LabsPage() {
                                                     children: "⚠️ Please fill in the following:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 640,
+                                                    lineNumber: 702,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1550,18 +1606,18 @@ function LabsPage() {
                                                             ]
                                                         }, idx, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 643,
+                                                            lineNumber: 705,
                                                             columnNumber: 25
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 641,
+                                                    lineNumber: 703,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 639,
+                                            lineNumber: 701,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1575,7 +1631,7 @@ function LabsPage() {
                                                             children: "Quick Equipment Template"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 651,
+                                                            lineNumber: 713,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1591,18 +1647,18 @@ function LabsPage() {
                                                                     children: template.label
                                                                 }, template.label, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 654,
+                                                                    lineNumber: 716,
                                                                     columnNumber: 25
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 652,
+                                                            lineNumber: 714,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 650,
+                                                    lineNumber: 712,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1613,7 +1669,7 @@ function LabsPage() {
                                                             children: "Name"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 665,
+                                                            lineNumber: 727,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1626,13 +1682,13 @@ function LabsPage() {
                                                             placeholder: "e.g. Microscope A1"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 666,
+                                                            lineNumber: 728,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 664,
+                                                    lineNumber: 726,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1646,7 +1702,7 @@ function LabsPage() {
                                                                     children: "Serial"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 670,
+                                                                    lineNumber: 732,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1659,13 +1715,13 @@ function LabsPage() {
                                                                     placeholder: "SN-XXXX"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 671,
+                                                                    lineNumber: 733,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 669,
+                                                            lineNumber: 731,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1676,7 +1732,7 @@ function LabsPage() {
                                                                     children: "Calibration Date"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 674,
+                                                                    lineNumber: 736,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1689,31 +1745,31 @@ function LabsPage() {
                                                                     className: "w-full px-4 md:px-6 py-3.5 md:py-5 bg-white/15 border border-white/40 rounded-2xl md:rounded-3xl outline-none focus:ring-2 focus:ring-white/60 focus:border-white/60 focus:bg-white/25 transition-all font-semibold text-base placeholder:text-white/50 backdrop-blur-sm text-white"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 675,
+                                                                    lineNumber: 737,
                                                                     columnNumber: 23
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 673,
+                                                            lineNumber: 735,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 668,
+                                                    lineNumber: 730,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 649,
+                                            lineNumber: 711,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 637,
+                                    lineNumber: 699,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1728,7 +1784,7 @@ function LabsPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 683,
+                                            lineNumber: 745,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1740,37 +1796,37 @@ function LabsPage() {
                                                     className: "md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 693,
+                                                    lineNumber: 755,
                                                     columnNumber: 19
                                                 }, this),
                                                 " Add to Inventory"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 689,
+                                            lineNumber: 751,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 682,
+                                    lineNumber: 744,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 611,
+                            lineNumber: 673,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                    lineNumber: 603,
+                    lineNumber: 665,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 602,
+                lineNumber: 664,
                 columnNumber: 9
             }, this),
             isRuleModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1787,7 +1843,7 @@ function LabsPage() {
                             }
                         }, void 0, false, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 706,
+                            lineNumber: 768,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1800,7 +1856,7 @@ function LabsPage() {
                                             className: "absolute inset-0 opacity-20 bg-gradient-to-r from-blue-300 via-white to-blue-300 animate-pulse"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 716,
+                                            lineNumber: 778,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1813,7 +1869,7 @@ function LabsPage() {
                                                             children: "Add Lab Rule"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 720,
+                                                            lineNumber: 782,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1823,20 +1879,20 @@ function LabsPage() {
                                                                     className: "w-1.5 h-1.5 rounded-full bg-white animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 724,
+                                                                    lineNumber: 786,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 "Define safety and conduct guidelines"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 723,
+                                                            lineNumber: 785,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 719,
+                                                    lineNumber: 781,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1850,24 +1906,24 @@ function LabsPage() {
                                                         className: "md:w-6 md:h-6 text-white group-hover/close:rotate-90 transition-all"
                                                     }, void 0, false, {
                                                         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                        lineNumber: 732,
+                                                        lineNumber: 794,
                                                         columnNumber: 21
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 728,
+                                                    lineNumber: 790,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 718,
+                                            lineNumber: 780,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 714,
+                                    lineNumber: 776,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1881,7 +1937,7 @@ function LabsPage() {
                                                     children: "⚠️ Please fill in the following:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 741,
+                                                    lineNumber: 803,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1894,18 +1950,18 @@ function LabsPage() {
                                                             ]
                                                         }, idx, true, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 744,
+                                                            lineNumber: 806,
                                                             columnNumber: 25
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 742,
+                                                    lineNumber: 804,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 740,
+                                            lineNumber: 802,
                                             columnNumber: 19
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1919,7 +1975,7 @@ function LabsPage() {
                                                             children: "Rule Title"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 752,
+                                                            lineNumber: 814,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1935,13 +1991,13 @@ function LabsPage() {
                                                             placeholder: "e.g. Wear Safety Goggles"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 753,
+                                                            lineNumber: 815,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 751,
+                                                    lineNumber: 813,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1952,7 +2008,7 @@ function LabsPage() {
                                                             children: "Description"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 756,
+                                                            lineNumber: 818,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1965,13 +2021,13 @@ function LabsPage() {
                                                             placeholder: "Describe the rule details..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 757,
+                                                            lineNumber: 819,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 755,
+                                                    lineNumber: 817,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1982,7 +2038,7 @@ function LabsPage() {
                                                             children: "Category"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 760,
+                                                            lineNumber: 822,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2001,18 +2057,18 @@ function LabsPage() {
                                                                     children: cat
                                                                 }, cat, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 763,
+                                                                    lineNumber: 825,
                                                                     columnNumber: 25
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 761,
+                                                            lineNumber: 823,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 759,
+                                                    lineNumber: 821,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2023,7 +2079,7 @@ function LabsPage() {
                                                             children: "Severity"
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 781,
+                                                            lineNumber: 843,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2041,30 +2097,30 @@ function LabsPage() {
                                                                     children: sev
                                                                 }, sev, false, {
                                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                                    lineNumber: 784,
+                                                                    lineNumber: 846,
                                                                     columnNumber: 25
                                                                 }, this))
                                                         }, void 0, false, {
                                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                            lineNumber: 782,
+                                                            lineNumber: 844,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 780,
+                                                    lineNumber: 842,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 750,
+                                            lineNumber: 812,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 738,
+                                    lineNumber: 800,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2079,7 +2135,7 @@ function LabsPage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 805,
+                                            lineNumber: 867,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$SmartLab$2f$llab_man$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2091,43 +2147,43 @@ function LabsPage() {
                                                     className: "md:w-5 md:h-5 group-hover/create:rotate-12 transition-transform"
                                                 }, void 0, false, {
                                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                                    lineNumber: 815,
+                                                    lineNumber: 877,
                                                     columnNumber: 19
                                                 }, this),
                                                 " Add Rule"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                            lineNumber: 811,
+                                            lineNumber: 873,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                                    lineNumber: 804,
+                                    lineNumber: 866,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                            lineNumber: 712,
+                            lineNumber: 774,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                    lineNumber: 704,
+                    lineNumber: 766,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-                lineNumber: 703,
+                lineNumber: 765,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/SmartLab/llab_man/app/(app)/labs/page.tsx",
-        lineNumber: 284,
+        lineNumber: 354,
         columnNumber: 5
     }, this);
 }

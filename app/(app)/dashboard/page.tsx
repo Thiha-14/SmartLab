@@ -107,8 +107,8 @@ export default function DashboardPage() {
       {/* NEW BOOKING MODAL (EXACT STYLE FROM LABS PAGE) */}
       {/* ===================================================================================== */}
       {isBookingOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-lg animate-in fade-in duration-300 p-0 sm:p-4">
-          <div className="w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[95vh] flex flex-col overflow-hidden rounded-0 sm:rounded-[32px]">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-lg animate-in fade-in duration-300 p-0 sm:p-4" style={{ height: '100vh', minHeight: '100vh' }}>
+          <div className="w-full h-full sm:h-auto sm:max-w-lg sm:max-h-[95vh] flex flex-col overflow-hidden rounded-2xl sm:rounded-[32px]">
             
             {/* Glass Background with white accent */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/50 via-white/30 to-white/20 backdrop-blur-3xl border border-white/40 shadow-2xl pointer-events-none" style={{
@@ -295,19 +295,19 @@ export default function DashboardPage() {
         </div>
 
         <div className="space-y-6">
-          <div className="bg-slate-950 p-6 md:p-8 rounded-4xl shadow-lg text-white">
-            <h3 className="text-lg md:text-xl font-bold mb-6 flex items-center gap-2">
-              <Activity size={20} className="text-blue-500" /> Recent Updates
+          <div className="bg-white p-6 md:p-8 rounded-4xl shadow-lg border border-slate-100">
+            <h3 className="text-lg md:text-xl font-bold mb-6 flex items-center gap-2 text-slate-900">
+              <Activity size={20} className="text-blue-600" /> Recent Updates
             </h3>
             <div className="space-y-4">
               {[
-                { text: 'Lab 1 Temp: 22°C', type: 'Status', color: 'text-emerald-400' },
-                { text: 'System Running Well', type: 'Stats', color: 'text-blue-400' },
-                { text: '3 New Member Requests', type: 'Alert', color: 'text-amber-400' },
+                { text: 'Lab 1 Temp: 22°C', type: 'Status', color: 'text-emerald-600' },
+                { text: 'System Running Well', type: 'Stats', color: 'text-blue-600' },
+                { text: '3 New Member Requests', type: 'Alert', color: 'text-amber-600' },
               ].map((alert, idx) => (
-                <div key={idx} className="p-3 md:p-4 bg-white/5 rounded-2xl border border-white/10 flex justify-between items-center">
+                <div key={idx} className="p-3 md:p-4 bg-slate-50 rounded-2xl border border-slate-200 flex justify-between items-center">
                   <div>
-                    <p className="text-[11px] md:text-xs font-bold text-white mb-1">{alert.text}</p>
+                    <p className="text-[11px] md:text-xs font-bold text-slate-900 mb-1">{alert.text}</p>
                     <span className={`text-[9px] md:text-[10px] font-bold uppercase ${alert.color}`}>{alert.type}</span>
                   </div>
                 </div>

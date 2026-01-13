@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { UsersRound, Plus, X, Check, ArrowRight, Trash2, Users, User as UserIcon, Shield } from 'lucide-react';
+import Swal from 'sweetalert2';
 // Make sure this path points to your actual types definition file
 import { Group, User } from '@/types'; 
 
@@ -40,15 +41,37 @@ export default function GroupsPage() {
       userIds: selectedUsers
     };
     saveGroups([...groups, newGroup]);
+    const groupName = newGroupName;
+    const memberCount = selectedUsers.length;
     setModalOpen(false);
     setNewGroupName('');
     setSelectedUsers([]);
+    Swal.fire({
+      title: 'Team Created!',
+      text: `${groupName} has been created with ${memberCount} member${memberCount !== 1 ? 's' : ''}.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const deleteGroup = (id: string) => {
-    if (confirm('Remove this group permanently?')) {
-      saveGroups(groups.filter(g => g.id !== id));
-    }
+    const groupToDelete = groups.find(g => g.id === id);
+    Swal.fire({
+      title: 'Delete Team?',
+      text: `Are you sure you want to remove ${groupToDelete?.name}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveGroups(groups.filter(g => g.id !== id));
+        Swal.fire('Deleted!', 'Team has been removed.', 'success');
+      }
+    });
   };
 
   const getGroupStats = (group: Group) => {

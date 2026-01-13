@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   Plus, Search, Trash2, X, MapPin, FlaskConical, Cpu, ShieldCheck, AlertTriangle, Info, AlertCircle, Check
 } from 'lucide-react';
+import Swal from 'sweetalert2';
 import { useAuth } from '@/app/AuthContext';
 import { Lab, UserRole, Equipment, LabRule } from '@/types';
 
@@ -27,7 +28,6 @@ export default function LabsPage() {
   const [labErrors, setLabErrors] = useState<string[]>([]);
   const [eqErrors, setEqErrors] = useState<string[]>([]);
   const [ruleErrors, setRuleErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState('');
   
   const labTemplates = [
     { label: '🧬 Biology Lab', location: 'Building A, Floor 2' },
@@ -153,6 +153,7 @@ export default function LabsPage() {
     setLabErrors(errors);
     if (errors.length > 0) return;
     
+    const labName = newLab.name;
     let photoUrl = 'https://images.unsplash.com/photo-1532094349884-543bc11b234d?auto=format&fit=crop&q=80&w=800';
     
     // If a photo file was selected, convert to base64
@@ -177,9 +178,14 @@ export default function LabsPage() {
         saveLabs([...labs, item]);
         setNewLab({ name: '', description: '', location: '', photoUrl: '', photoFile: null });
         setLabErrors([]);
-        setSuccessMessage(`✅ Lab "${newLab.name}" added successfully!`);
-        setTimeout(() => setSuccessMessage(''), 3000);
         setModalOpen(false);
+        Swal.fire({
+          title: 'Lab Created!',
+          text: `${labName} has been added successfully.`,
+          icon: 'success',
+          confirmButtonColor: '#2563eb',
+          confirmButtonText: 'Done'
+        });
       };
       reader.readAsDataURL(newLab.photoFile);
     } else {
@@ -200,6 +206,13 @@ export default function LabsPage() {
       saveLabs([...labs, item]);
       setNewLab({ name: '', description: '', location: '', photoUrl: '', photoFile: null });
       setModalOpen(false);
+      Swal.fire({
+        title: 'Lab Created!',
+        text: `${labName} has been added successfully.`,
+        icon: 'success',
+        confirmButtonColor: '#2563eb',
+        confirmButtonText: 'Done'
+      });
     }
   };
 
@@ -225,6 +238,7 @@ export default function LabsPage() {
     setEqErrors(errors);
     if (errors.length > 0) return;
     
+    const eqName = newEq.name;
     const item: Equipment = {
       id: 'e' + Date.now(),
       name: newEq.name,
@@ -240,17 +254,52 @@ export default function LabsPage() {
     saveEquipment([...equipment, item]);
     setNewEq({ name: '', manufacturer: '', model: '', serialNumber: '', nextCalibrationDate: '' });
     setEqErrors([]);
-    setSuccessMessage(`✅ Equipment "${newEq.name}" added successfully!`);
-    setTimeout(() => setSuccessMessage(''), 3000);
     setEqModalOpen(false);
+    Swal.fire({
+      title: 'Equipment Added!',
+      text: `${eqName} has been added successfully.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const deleteLab = (id: string) => {
-    if (confirm('Delete this lab room?')) saveLabs(labs.filter(l => l.id !== id));
+    const labToDelete = labs.find(l => l.id === id);
+    Swal.fire({
+      title: 'Delete Lab?',
+      text: `Are you sure you want to delete ${labToDelete?.name}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveLabs(labs.filter(l => l.id !== id));
+        Swal.fire('Deleted!', 'Lab has been removed.', 'success');
+      }
+    });
   };
 
   const deleteEq = (id: string) => {
-    if (confirm('Delete this equipment?')) saveEquipment(equipment.filter(e => e.id !== id));
+    const eqToDelete = equipment.find(e => e.id === id);
+    Swal.fire({
+      title: 'Delete Equipment?',
+      text: `Are you sure you want to delete ${eqToDelete?.name}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveEquipment(equipment.filter(e => e.id !== id));
+        Swal.fire('Deleted!', 'Equipment has been removed.', 'success');
+      }
+    });
   };
 
   const handleAddRule = () => {
@@ -261,6 +310,7 @@ export default function LabsPage() {
     setRuleErrors(errors);
     if (errors.length > 0) return;
     
+    const ruleTitle = newRule.title;
     const item: LabRule = {
       id: 'r' + Date.now(),
       title: newRule.title,
@@ -271,25 +321,37 @@ export default function LabsPage() {
     saveRules([...rules, item]);
     setNewRule({ title: '', description: '', category: 'General', severity: 'Mandatory' });
     setRuleErrors([]);
-    setSuccessMessage(`✅ Rule "${newRule.title}" added successfully!`);
-    setTimeout(() => setSuccessMessage(''), 3000);
     setRuleModalOpen(false);
+    Swal.fire({
+      title: 'Rule Created!',
+      text: `${ruleTitle} has been added successfully.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const deleteRule = (id: string) => {
-    if (confirm('Delete this rule?')) saveRules(rules.filter(r => r.id !== id));
+    const ruleToDelete = rules.find(r => r.id === id);
+    Swal.fire({
+      title: 'Delete Rule?',
+      text: `Are you sure you want to delete ${ruleToDelete?.title}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Delete',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveRules(rules.filter(r => r.id !== id));
+        Swal.fire('Deleted!', 'Rule has been removed.', 'success');
+      }
+    });
   };
 
   return (
     <div className="space-y-6 md:space-y-8 animate-in fade-in duration-500">
-      {successMessage && (
-        <div className="fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300">
-          <div className="bg-emerald-500 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl flex items-center gap-3">
-            {successMessage}
-          </div>
-        </div>
-      )}
-      
       <div className="flex border-b border-slate-200 gap-6 md:gap-8 mb-4 overflow-x-auto no-scrollbar scroll-smooth">
         {[
           { id: 'details', label: 'Labs', icon: FlaskConical },

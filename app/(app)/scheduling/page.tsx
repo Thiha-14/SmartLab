@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import {
   ChevronLeft, ChevronRight, Clock, Wrench, AlertCircle, Plus, User, Check, X, Trash2
 } from 'lucide-react';
+import Swal from 'sweetalert2';
 // Ensure this points to your types file
 import { ScheduleType } from '@/types'; 
 
@@ -25,7 +26,6 @@ export default function SchedulingPage() {
   const [selectedEndTime, setSelectedEndTime] = useState('');
   const [labs, setLabs] = useState<any[]>([]);
   const [bookingErrors, setBookingErrors] = useState<string[]>([]);
-  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     // Ensure this runs only on the client
@@ -60,6 +60,9 @@ export default function SchedulingPage() {
     }
     
     const sessionData = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('sl_session') || '{}') : {};
+    const labName = selectedLab;
+    const startTime = selectedStartTime;
+    const endTime = selectedEndTime;
 
     const newBooking: Booking = {
       id: 'b' + Date.now(),
@@ -75,14 +78,32 @@ export default function SchedulingPage() {
     setSelectedStartTime('');
     setSelectedEndTime('');
     setBookingErrors([]);
-    setSuccessMessage(`✅ Booking confirmed! ${selectedLab} from ${selectedStartTime} to ${selectedEndTime}`);
-    setTimeout(() => setSuccessMessage(''), 3000);
+    Swal.fire({
+      title: 'Booking Confirmed!',
+      text: `${labName} from ${startTime} to ${endTime} has been booked.`,
+      icon: 'success',
+      confirmButtonColor: '#2563eb',
+      confirmButtonText: 'Done'
+    });
   };
 
   const handleDelete = (id: string) => {
-    if (confirm('Cancel this booking?')) {
-      saveBookings(bookings.filter(b => b.id !== id));
-    }
+    const bookingToDelete = bookings.find(b => b.id === id);
+    Swal.fire({
+      title: 'Cancel Booking?',
+      text: `Are you sure you want to cancel the booking for ${bookingToDelete?.labName}? This action cannot be undone.`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#dc2626',
+      cancelButtonColor: '#6b7280',
+      confirmButtonText: 'Yes, Cancel',
+      cancelButtonText: 'Keep Booking'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        saveBookings(bookings.filter(b => b.id !== id));
+        Swal.fire('Cancelled!', 'Booking has been removed.', 'success');
+      }
+    });
   };
 
   return (
@@ -122,16 +143,17 @@ export default function SchedulingPage() {
           </div>
 
           <div className="p-4 md:p-10">
-            <div className="relative space-y-6 md:space-y-14">
+            <div className="relative space-y-2 md:space-y-4">
               <div className="absolute left-[35px] md:left-[85px] top-0 bottom-0 w-0.5 md:w-1 bg-slate-50 rounded-full"></div>
-              {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00'].map((time) => (
+              {['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'].map((time) => (
                 <div key={time} className="flex gap-3 md:gap-10 group relative">
                   <div className="w-[28px] md:w-[45px] text-[9px] md:text-xs font-black text-slate-700 mt-1 md:mt-2 tracking-widest shrink-0">{time}</div>
-                  <div className="flex-1 min-h-[50px] md:min-h-[80px]">
+                  <div className="flex-1 min-h-[80px] md:min-h-[100px]">
                     {bookings.filter(b => {
-                      const bookingHour = b.startTime.split(':')[0];
-                      const timeHour = time.split(':')[0];
-                      return bookingHour === timeHour;
+                      const bookingStartHour = parseInt(b.startTime.split(':')[0]);
+                      const bookingEndHour = parseInt(b.endTime.split(':')[0]);
+                      const timeHour = parseInt(time.split(':')[0]);
+                      return timeHour >= bookingStartHour && timeHour < bookingEndHour;
                     }).map(slot => (
                       <div key={slot.id} className={`p-3 md:p-6 rounded-xl md:rounded-3xl border-l-[6px] md:border-l-[12px] shadow-sm transition-all hover:shadow-lg mb-3 md:mb-4 ${slot.type === ScheduleType.OPERATION
                         ? 'bg-blue-50 border-blue-600 text-blue-900'
@@ -181,14 +203,6 @@ export default function SchedulingPage() {
           </div>
         </div>
       </div>
-
-      {successMessage && (
-        <div className="fixed top-4 right-4 z-[200] animate-in slide-in-from-right duration-300">
-          <div className="bg-gradient-to-r from-white/30 to-white/20 text-white px-6 md:px-8 py-3 md:py-4 rounded-2xl font-black shadow-2xl shadow-white/20 flex items-center gap-3 border border-white/40 backdrop-blur-md">
-            {successMessage}
-          </div>
-        </div>
-      )}
 
       {showAdd && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 bg-gradient-to-br from-black/60 via-black/40 to-transparent backdrop-blur-2xl animate-in fade-in duration-300">
@@ -249,8 +263,8 @@ export default function SchedulingPage() {
                         onChange={(e) => setSelectedStartTime(e.target.value)}
                       >
                         <option value="" className="bg-slate-900 text-white">Choose hour...</option>
-                        {Array.from({ length: 24 }, (_, i) => {
-                          const hour = i.toString().padStart(2, '0');
+                        {Array.from({ length: 13 }, (_, i) => {
+                          const hour = (i + 8).toString().padStart(2, '0');
                           return <option key={hour} value={`${hour}:00`} className="bg-slate-900 text-white">{hour}:00</option>;
                         })}
                       </select>
@@ -271,8 +285,8 @@ export default function SchedulingPage() {
                         onChange={(e) => setSelectedEndTime(e.target.value)}
                       >
                         <option value="" className="bg-slate-900 text-white">Choose hour...</option>
-                        {Array.from({ length: 24 }, (_, i) => {
-                          const hour = i.toString().padStart(2, '0');
+                        {Array.from({ length: 13 }, (_, i) => {
+                          const hour = (i + 8).toString().padStart(2, '0');
                           return <option key={hour} value={`${hour}:00`} className="bg-slate-900 text-white">{hour}:00</option>;
                         })}
                       </select>

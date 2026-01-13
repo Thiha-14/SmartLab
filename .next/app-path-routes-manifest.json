@@ -1,0 +1,15 @@
+{
+  "/_not-found/page": "/_not-found",
+  "/(auth)/forgot-password/page": "/forgot-password",
+  "/(auth)/login/page": "/login",
+  "/help/page": "/help",
+  "/(auth)/signup/page": "/signup",
+  "/(auth)/language/page": "/language",
+  "/page": "/",
+  "/(app)/dashboard/page": "/dashboard",
+  "/(app)/labs/page": "/labs",
+  "/(app)/groups/page": "/groups",
+  "/(app)/off-days/page": "/off-days",
+  "/(app)/scheduling/page": "/scheduling",
+  "/(app)/users/page": "/users"
+}
